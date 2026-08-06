@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Turasan — tasarım tokenları
+   Büyük yüzeyler: tuff (açık taş) ↔ cave (mahzen). Aksanlar küçük dozda.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-cave: #171210;
+  --color-ink: #241a16;
+  --color-tuff: #e5ddce;
+  --color-tuff2: #d7ccb9;
+  --color-garnet: #722a3a;
+  --color-garnet-lo: #8f3a4c;
+  --color-ochre: #b4894a;
+  --color-on-dark: #ece4d7;
+  --color-on-dark-mut: #a89b88;
+  --color-on-light: #2a201b;
+  --color-on-light-mut: #6c5f53;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --container: 1120px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --section-y: clamp(88px, 14vh, 150px);
+  --split-gap: clamp(32px, 6vw, 80px);
+  --reveal-y: 26px;
+  --reveal-dur: 0.9s;
+}
+
+/* ------------------------------------------------------------------ temel */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  background: var(--color-tuff);
+  color: var(--color-on-light);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-garnet);
+  color: var(--color-on-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-garnet);
+  outline-offset: 3px;
+}
+
+.theme-dark :focus-visible {
+  outline-color: var(--color-ochre);
+}
+
+/* ------------------------------------------------------------- yerleşim */
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.theme-dark {
+  background: var(--color-cave);
+  color: var(--color-on-dark);
+}
+
+.theme-dark .muted { color: var(--color-on-dark-mut); }
+.theme-light .muted { color: var(--color-on-light-mut); }
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--split-gap);
+  align-items: center;
+}
+
+.split--flip > .split__media { order: 2; }
+.split--flip > .split__text { order: 1; }
+
+@media (max-width: 760px) {
+  .split { grid-template-columns: 1fr; }
+  .split--flip > .split__media,
+  .split--flip > .split__text { order: initial; }
+}
+
+/* ------------------------------------------------------------ tipografi */
+.overline {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-garnet);
+}
+
+.theme-dark .overline { color: var(--color-ochre); }
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+h2.display {
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 1.05;
+  font-weight: 400;
+  margin-top: 0.75em;
+}
+
+.lead {
+  font-size: clamp(16px, 1.5vw, 18px);
+  max-width: 52ch;
+  line-height: 1.7;
+}
+
+.prose-block p + p { margin-top: 1em; }
+
+/* -------------------------------------------------------------- linkler */
+.cta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-weight: 500;
+  color: var(--color-garnet);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.cta .arrow {
+  display: inline-block;
+  transition: transform 0.35s ease;
+}
+
+.cta:hover { color: var(--color-garnet-lo); }
+.cta:hover .arrow { transform: translateX(6px); }
+
+.theme-dark .cta { color: var(--color-ochre); }
+.theme-dark .cta:hover { color: var(--color-on-dark); }
+
+/* --------------------------------------------------- görsel yer tutucu */
+.ph {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(120% 90% at 30% 20%, var(--color-tuff2), transparent 70%),
+    var(--color-tuff);
+  border: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  overflow: hidden;
+}
+
+.theme-dark .ph {
+  background:
+    radial-gradient(120% 90% at 30% 20%, var(--color-ink), transparent 70%),
+    var(--color-cave);
+  border-color: color-mix(in srgb, var(--color-on-dark) 14%, transparent);
+}
+
+.ph__label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-on-light-mut);
+}
+
+.theme-dark .ph__label { color: var(--color-on-dark-mut); }
+
+.ph--portrait { aspect-ratio: 4 / 5; }
+.ph--band { aspect-ratio: 16 / 7; width: 100%; }
+
+.ph::after {
+  /* hover'da çok hafif yakınlaşma hissi — gerçek fotoğraf geldiğinde
+     .ph içindeki <img>'e taşınacak */
+  content: "";
+  position: absolute;
+  inset: 0;
+  transition: transform 1.2s ease;
+}
+
+/* ------------------------------------------------------- scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y));
+  transition:
+    opacity var(--reveal-dur) ease,
+    transform var(--reveal-dur) ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------- hareket azaltma */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .cta .arrow { transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
