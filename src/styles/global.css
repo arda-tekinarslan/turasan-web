@@ -91,12 +91,16 @@ body {
 
 @media (max-width: 760px) {
   .split { grid-template-columns: 1fr; }
-  .split--flip > .split__media,
-  .split--flip > .split__text { order: initial; }
+  /* Mobilde tek sütun: başlık ve metin önde, görsel ardından gelir */
+  .split > .split__text { order: 1; }
+  .split > .split__media { order: 2; }
 }
 
 /* ------------------------------------------------------------ tipografi */
 .overline {
+  /* Not: Tailwind'in `overline` (text-decoration) utility'si ile ad çakışıyor;
+     üst çizgiyi burada açıkça kapatıyoruz. */
+  text-decoration: none;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 500;
@@ -165,9 +169,9 @@ h2.display {
 
 .theme-dark .ph {
   background:
-    radial-gradient(120% 90% at 30% 20%, var(--color-ink), transparent 70%),
-    var(--color-cave);
-  border-color: color-mix(in srgb, var(--color-on-dark) 14%, transparent);
+    radial-gradient(120% 90% at 30% 20%, color-mix(in srgb, var(--color-ink) 70%, var(--color-ochre) 6%), transparent 70%),
+    var(--color-ink);
+  border-color: color-mix(in srgb, var(--color-on-dark) 22%, transparent);
 }
 
 .ph__label {
