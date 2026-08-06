@@ -1,0 +1,85 @@
+---
+import { tr } from '../content/site';
+const t = tr.ageGate;
+---
+
+<div id="age-gate" class="age-gate theme-dark" role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
+  <div class="age-gate__panel">
+    <p class="overline">{t.overline}</p>
+    <h1 id="age-gate-title" class="display age-gate__title">{t.title}</h1>
+    <p class="lead muted">{t.body}</p>
+    <div class="age-gate__actions">
+      <button id="age-yes" class="cta age-gate__btn" type="button">
+        {t.yes} <span class="arrow" aria-hidden="true">→</span>
+      </button>
+      <a class="age-gate__no muted" href={t.noHref}>{t.no}</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .age-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: var(--gutter);
+    text-align: center;
+    background: var(--color-cave);
+  }
+
+  .age-gate.is-hidden { display: none; }
+
+  .age-gate__panel {
+    max-width: 560px;
+    display: grid;
+    justify-items: center;
+    gap: 20px;
+  }
+
+  .age-gate__title {
+    font-size: clamp(30px, 4.5vw, 48px);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .age-gate__actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .age-gate__btn {
+    background: none;
+    border: 0;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .age-gate__no {
+    font-size: 14px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* Kapı açıkken sayfa kaydırılamaz */
+  :global(body.gated) { overflow: hidden; }
+</style>
+
+<script>
+  // Not: Oturumlar arası kalıcılık istenirse burada bir çerez kullanılabilir
+  // (KVKK/çerez politikasına eklenmek koşuluyla). Varsayılan: her girişte sorulur.
+  const gate = document.getElementById('age-gate');
+  const yes = document.getElementById('age-yes');
+  document.body.classList.add('gated');
+  yes?.addEventListener('click', () => {
+    gate?.classList.add('is-hidden');
+    document.body.classList.remove('gated');
+    document.dispatchEvent(new CustomEvent('agegate:confirmed'));
+  });
+</script>

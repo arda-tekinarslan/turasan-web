@@ -1,0 +1,190 @@
+---
+import { tr } from '../content/site';
+---
+
+<header id="site-header" class="site-header" data-state="over-hero">
+  <div class="site-header__inner">
+    <a class="site-header__brand display" href="#top">Turasan</a>
+
+    <nav class="site-header__nav" aria-label="Ana menü">
+      {tr.nav.map((item) => (
+        <a class="site-header__link" href={item.href}>{item.label}</a>
+      ))}
+      <a class="site-header__lang" href={tr.langSwitch.otherHref} aria-label="Switch to English">
+        <span aria-current="true">{tr.langSwitch.current}</span> / {tr.langSwitch.other}
+      </a>
+    </nav>
+
+    <button id="menu-toggle" class="site-header__toggle" type="button"
+      aria-expanded="false" aria-controls="mobile-menu" aria-label="Menüyü aç">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="site-header__mobile" hidden aria-label="Mobil menü">
+    {tr.nav.map((item) => (
+      <a class="site-header__mlink" href={item.href}>{item.label}</a>
+    ))}
+    <a class="site-header__mlink muted" href={tr.langSwitch.otherHref}>
+      {tr.langSwitch.current} / {tr.langSwitch.other}
+    </a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    color: var(--color-on-dark);
+    transition: background 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  /* Hero üzerinde: görünmez, etkileşimsiz */
+  .site-header[data-state='over-hero'] {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+  }
+
+  /* Hero geçildikten sonra: yarı saydam koyu + blur */
+  .site-header[data-state='pinned'] {
+    opacity: 1;
+    transform: translateY(0);
+    background: color-mix(in srgb, var(--color-cave) 78%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .site-header__inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: 16px var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .site-header__brand {
+    font-size: 22px;
+    font-weight: 400;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .site-header__link {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--color-on-dark);
+    text-decoration: none;
+  }
+
+  .site-header__link:hover { color: var(--color-ochre); }
+
+  .site-header__lang {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--color-on-dark-mut);
+    text-decoration: none;
+  }
+
+  .site-header__lang span { color: var(--color-on-dark); }
+
+  .site-header__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: 0;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .site-header__toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--color-on-dark);
+    transition: transform 0.3s ease;
+  }
+
+  .site-header__toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+  .site-header__toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+
+  .site-header__mobile {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px var(--gutter) 24px;
+    background: color-mix(in srgb, var(--color-cave) 92%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .site-header__mlink {
+    padding: 12px 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-on-dark);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-dark) 10%, transparent);
+  }
+
+  @media (max-width: 760px) {
+    .site-header__nav { display: none; }
+    .site-header__toggle { display: flex; }
+    .site-header__mobile:not([hidden]) { display: flex; }
+    /* Mobilde menü açıkken zemin her durumda okunur olsun */
+    .site-header[data-state='over-hero']:has(.site-header__mobile:not([hidden])) {
+      opacity: 1;
+      pointer-events: auto;
+      background: color-mix(in srgb, var(--color-cave) 92%, transparent);
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  const heroEnd = document.getElementById('hero-sentinel');
+  const toggle = document.getElementById('menu-toggle');
+  const mobile = document.getElementById('mobile-menu');
+
+  if (header && heroEnd) {
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        header.dataset.state = entry.isIntersecting ? 'over-hero' : 'pinned';
+      },
+      { rootMargin: '-72px 0px 0px 0px' }
+    );
+    io.observe(heroEnd);
+  }
+
+  const closeMenu = () => {
+    if (!toggle || !mobile) return;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Menüyü aç');
+    mobile.hidden = true;
+  };
+
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    toggle.setAttribute('aria-label', open ? 'Menüyü aç' : 'Menüyü kapat');
+    if (mobile) mobile.hidden = open;
+  });
+
+  mobile?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+</script>
