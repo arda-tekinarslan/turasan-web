@@ -1,0 +1,58 @@
+---
+/**
+ * Editoryal iki sütunlu bölüm.
+ * theme: 'light' | 'dark' — zemin; flip: medyayı sağa alır.
+ * Ek içerik (saat tablosu vb.) için <slot name="extra" /> kullanılır.
+ */
+interface Props {
+  id: string;
+  descentLabel: string;
+  theme?: 'light' | 'dark';
+  flip?: boolean;
+  overline: string;
+  title: string;
+  body: string[];
+  cta?: { label: string; href: string };
+  phLabel: string;
+}
+
+const {
+  id,
+  descentLabel,
+  theme = 'light',
+  flip = false,
+  overline,
+  title,
+  body,
+  cta,
+  phLabel,
+} = Astro.props;
+---
+
+<section id={id} class:list={['section', `theme-${theme}`]} data-descent={descentLabel}>
+  <div class="container">
+    <div class:list={['split', { 'split--flip': flip }]}>
+      <div class="split__media reveal">
+        <div class="ph ph--portrait">
+          <span class="ph__label">{phLabel}</span>
+        </div>
+      </div>
+      <div class="split__text reveal">
+        <p class="overline">{overline}</p>
+        <h2 class="display">{title}</h2>
+        <div class="prose-block lead muted" style="margin-top: 1.2em;">
+          {body.map((p) => <p>{p}</p>)}
+        </div>
+        <slot name="extra" />
+        {cta && (
+          <p style="margin-top: 2em;">
+            <a class="cta" href={cta.href}>
+              {cta.label} <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </p>
+        )}
+      </div>
+    </div>
+    <slot name="after" />
+  </div>
+</section>

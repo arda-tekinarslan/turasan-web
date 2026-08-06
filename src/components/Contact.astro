@@ -1,0 +1,73 @@
+---
+import { tr } from '../content/site';
+const t = tr.contact;
+const hours = tr.visit.hours;
+---
+
+<section id={t.id} class="section theme-light" data-descent="İletişim">
+  <div class="container">
+    <div class="split">
+      <div class="split__media reveal">
+        <!-- Canlıda buraya gömülü harita (iframe) gelecek -->
+        <div class="ph ph--portrait contact__map">
+          <span class="ph__label">{t.mapLabel}</span>
+        </div>
+      </div>
+
+      <div class="split__text reveal">
+        <p class="overline">{t.overline}</p>
+        <h2 class="display">{t.title}</h2>
+
+        <dl class="contact__list">
+          <div class="contact__item">
+            <dt class="overline contact__label">Adres</dt>
+            <dd>{t.address}</dd>
+          </div>
+          <div class="contact__item">
+            <dt class="overline contact__label">Telefon</dt>
+            <dd><a class="contact__link" href={`tel:${t.phone.replace(/[^+\d]/g, '')}`}>{t.phone}</a></dd>
+          </div>
+          <div class="contact__item">
+            <dt class="overline contact__label">E-posta</dt>
+            <dd><a class="contact__link" href={`mailto:${t.email}`}>{t.email}</a></dd>
+          </div>
+          <div class="contact__item">
+            <dt class="overline contact__label">{t.hoursTitle}</dt>
+            <dd>
+              {hours.map((h) => (
+                <span class="contact__hours-row">{h.label}: {h.value}</span>
+              ))}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact__map { aspect-ratio: 4 / 3; }
+
+  .contact__list {
+    margin: 2em 0 0;
+    display: grid;
+    gap: 22px;
+  }
+
+  .contact__label { font-size: 11px; }
+
+  .contact__item dd {
+    margin: 6px 0 0;
+    color: var(--color-on-light-mut);
+  }
+
+  .contact__link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .contact__link:hover { color: var(--color-garnet); }
+
+  .contact__hours-row { display: block; }
+</style>

@@ -1,0 +1,96 @@
+---
+import { tr } from '../content/site';
+const t = tr.footer;
+---
+
+<footer class="site-footer theme-dark">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <p class="display site-footer__brand">Turasan</p>
+        <p class="muted site-footer__about">{t.about}</p>
+      </div>
+
+      {t.columns.map((col) => (
+        <nav aria-label={col.title}>
+          <p class="overline site-footer__col-title">{col.title}</p>
+          <ul class="site-footer__links">
+            {col.links.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+
+      <div>
+        <p class="overline site-footer__col-title">Dil</p>
+        <p class="site-footer__lang">
+          <span>TR</span> <span class="muted">/ EN</span>
+        </p>
+      </div>
+    </div>
+
+    <p class="muted site-footer__legal">{t.legal}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: clamp(56px, 9vh, 96px) 32px;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-dark) 10%, transparent);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--split-gap);
+  }
+
+  .site-footer__brand {
+    font-size: 30px;
+    margin: 0 0 10px;
+  }
+
+  .site-footer__about {
+    font-size: 14px;
+    max-width: 30ch;
+  }
+
+  .site-footer__col-title {
+    font-size: 11px;
+    margin-bottom: 16px;
+  }
+
+  .site-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .site-footer__links a {
+    font-size: 14px;
+    color: var(--color-on-dark);
+    text-decoration: none;
+  }
+
+  .site-footer__links a:hover {
+    color: var(--color-ochre);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .site-footer__lang { font-size: 14px; }
+
+  .site-footer__legal {
+    margin-top: clamp(40px, 7vh, 64px);
+    padding-top: 24px;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-dark) 10%, transparent);
+    font-size: 13px;
+  }
+
+  @media (max-width: 760px) {
+    .site-footer__grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  }
+</style>

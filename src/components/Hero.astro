@@ -1,0 +1,109 @@
+---
+import { tr } from '../content/site';
+const t = tr.hero;
+---
+
+<section id="top" class="hero theme-dark" data-descent="Giriş">
+  <!-- Gerçek fotoğraf geldiğinde .hero__bg içine <img> yerleştirilecek -->
+  <div class="hero__bg" aria-hidden="true">
+    <span class="ph__label hero__ph-label">{t.phLabel}</span>
+  </div>
+
+  <div class="hero__content container">
+    <p class="overline">{t.overline}</p>
+    <h1 class="display hero__title">{t.title}</h1>
+    <p class="lead muted hero__sub">{t.sub}</p>
+  </div>
+
+  <a class="hero__scroll" href="#manifesto" aria-label={t.scroll}>
+    <span class="hero__scroll-label muted">{t.scroll}</span>
+    <span class="hero__scroll-line" aria-hidden="true"></span>
+  </a>
+
+  <span id="hero-sentinel" class="hero__sentinel" aria-hidden="true"></span>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    overflow: hidden;
+  }
+
+  /* Fotoğraf yerine geçici atmosfer: mahzen karanlığından ufka vuran
+     mum ışığı tonu. <img> eklendiğinde bu gradient kaldırılabilir. */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(90% 60% at 50% 100%, color-mix(in srgb, var(--color-ochre) 14%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--color-cave) 0%, var(--color-ink) 78%, var(--color-cave) 100%);
+  }
+
+  .hero__ph-label {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 20px;
+  }
+
+  .hero__content {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+  }
+
+  .hero__title {
+    font-size: clamp(56px, 13vw, 150px);
+    line-height: 0.98;
+    margin: 0;
+  }
+
+  .hero__sub { margin-top: 10px; }
+
+  .hero__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .hero__scroll-label {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 44px;
+    background: var(--color-on-dark-mut);
+    transform-origin: top;
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scaleY(0.45); opacity: 0.5; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  .hero__sentinel {
+    position: absolute;
+    bottom: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll-line { animation: none; }
+  }
+</style>

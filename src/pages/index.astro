@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import AgeGate from '../components/AgeGate.astro';
+import Header from '../components/Header.astro';
+import Descent from '../components/Descent.astro';
+import Hero from '../components/Hero.astro';
+import Manifesto from '../components/Manifesto.astro';
+import SplitSection from '../components/SplitSection.astro';
+import Terroir from '../components/Terroir.astro';
+import ProductList from '../components/ProductList.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { tr } from '../content/site';
+---
+
+<Base title={tr.meta.title} description={tr.meta.description} lang="tr">
+  <AgeGate />
+  <Header />
+  <Descent />
+
+  <main>
+    <Hero />
+    <Manifesto />
+
+    <!-- Miras / 1943 — açık bölüm, görsel solda -->
+    <SplitSection
+      id={tr.heritage.id}
+      descentLabel="Miras"
+      theme="light"
+      overline={tr.heritage.overline}
+      title={tr.heritage.title}
+      body={tr.heritage.body}
+      cta={tr.heritage.cta}
+      phLabel={tr.heritage.phLabel}
+    />
+
+    <Terroir />
+
+    <!-- Üretim & Mahzen — açık bölüm, görsel sağda (ters) -->
+    <SplitSection
+      id={tr.craft.id}
+      descentLabel="Üretim"
+      theme="light"
+      flip
+      overline={tr.craft.overline}
+      title={tr.craft.title}
+      body={tr.craft.body}
+      cta={tr.craft.cta}
+      phLabel={tr.craft.phLabel}
+    />
+
+    <!-- Ziyaret & Tadım — taş zemin, saat bilgisi ile -->
+    <SplitSection
+      id={tr.visit.id}
+      descentLabel="Ziyaret"
+      theme="light"
+      overline={tr.visit.overline}
+      title={tr.visit.title}
+      body={tr.visit.body}
+      cta={tr.visit.cta}
+      phLabel={tr.visit.phLabel}
+    >
+      <dl slot="extra" class="visit-hours">
+        {tr.visit.hours.map((h) => (
+          <div class="visit-hours__row">
+            <dt>{h.label}</dt>
+            <dd>{h.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </SplitSection>
+
+    <ProductList />
+    <Contact />
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .visit-hours {
+    margin: 1.8em 0 0;
+    max-width: 340px;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .visit-hours__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+    font-size: 15px;
+  }
+
+  .visit-hours__row dt { font-weight: 500; }
+  .visit-hours__row dd { margin: 0; color: var(--color-on-light-mut); }
+</style>
+
+<script>
+  // Scroll reveal — bölüm içerikleri ekrana girdikçe yumuşakça belirir.
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const items = document.querySelectorAll('.reveal');
+
+  if (prefersReduced) {
+    items.forEach((el) => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+    items.forEach((el) => io.observe(el));
+  }
+</script>
