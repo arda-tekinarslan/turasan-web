@@ -1,0 +1,38 @@
+name: GitHub Pages'e yayınla
+
+on:
+  # main dalına her push'ta site yeniden yayınlanır
+  push:
+    branches: [main]
+  # Actions sekmesinden elle de tetiklenebilir
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Aynı anda tek yayın çalışsın; süren yayın yarıda kesilmesin
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+      - name: Kur, derle ve yükle
+        uses: withastro/action@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: GitHub Pages'e dağıt
+        id: deployment
+        uses: actions/deploy-pages@v4

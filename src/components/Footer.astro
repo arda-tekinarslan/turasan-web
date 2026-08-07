@@ -1,5 +1,6 @@
 ---
 import { tr } from '../content/site';
+import { withBase } from '../lib/url';
 const t = tr.footer;
 ---
 
@@ -16,7 +17,7 @@ const t = tr.footer;
           <p class="overline site-footer__col-title">{col.title}</p>
           <ul class="site-footer__links">
             {col.links.map((l) => (
-              <li><a href={l.href}>{l.label}</a></li>
+              <li><a href={withBase(l.href)}>{l.label}</a></li>
             ))}
           </ul>
         </nav>

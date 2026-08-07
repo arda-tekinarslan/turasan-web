@@ -5,6 +5,7 @@
  * portre solda. Altta tam genişlik çelik tank bandı.
  */
 import { tr } from '../content/site';
+import { withBase } from '../lib/url';
 const t = tr.production;
 ---
 
@@ -24,7 +25,7 @@ const t = tr.production;
           {t.body.map((p) => <p>{p}</p>)}
         </div>
         <p style="margin-top: 2em;">
-          <a class="cta" href={t.cta.href}>
+          <a class="cta" href={withBase(t.cta.href)}>
             {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
           </a>
         </p>

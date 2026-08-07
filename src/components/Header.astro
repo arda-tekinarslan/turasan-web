@@ -1,14 +1,15 @@
 ---
 import { tr } from '../content/site';
+import { withBase } from '../lib/url';
 ---
 
 <header id="site-header" class="site-header" data-state="over-hero">
   <div class="site-header__inner">
-    <a class="site-header__brand display" href="#top">Turasan</a>
+    <a class="site-header__brand display" href={withBase('/')}>Turasan</a>
 
     <nav class="site-header__nav" aria-label="Ana menü">
       {tr.nav.map((item) => (
-        <a class="site-header__link" href={item.href}>{item.label}</a>
+        <a class="site-header__link" href={withBase(item.href)}>{item.label}</a>
       ))}
       <a class="site-header__lang" href={tr.langSwitch.otherHref} aria-label="Switch to English">
         <span aria-current="true">{tr.langSwitch.current}</span> / {tr.langSwitch.other}
@@ -23,7 +24,7 @@ import { tr } from '../content/site';
 
   <nav id="mobile-menu" class="site-header__mobile" hidden aria-label="Mobil menü">
     {tr.nav.map((item) => (
-      <a class="site-header__mlink" href={item.href}>{item.label}</a>
+      <a class="site-header__mlink" href={withBase(item.href)}>{item.label}</a>
     ))}
     <a class="site-header__mlink muted" href={tr.langSwitch.otherHref}>
       {tr.langSwitch.current} / {tr.langSwitch.other}
