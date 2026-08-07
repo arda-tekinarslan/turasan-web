@@ -4,7 +4,7 @@ import AgeGate from '../components/AgeGate.astro';
 import Header from '../components/Header.astro';
 import Descent from '../components/Descent.astro';
 import Hero from '../components/Hero.astro';
-import Manifesto from '../components/Manifesto.astro';
+import HeritageSection from '../components/HeritageSection.astro';
 import SplitSection from '../components/SplitSection.astro';
 import Terroir from '../components/Terroir.astro';
 import ProductList from '../components/ProductList.astro';
@@ -20,19 +20,9 @@ import { tr } from '../content/site';
 
   <main>
     <Hero />
-    <Manifesto />
 
-    <!-- Miras / 1943 — açık bölüm, görsel solda -->
-    <SplitSection
-      id={tr.heritage.id}
-      descentLabel="Miras"
-      theme="light"
-      overline={tr.heritage.overline}
-      title={tr.heritage.title}
-      body={tr.heritage.body}
-      cta={tr.heritage.cta}
-      phLabel={tr.heritage.phLabel}
-    />
+    <!-- Miras / 1943 — koyu bölüm, arşiv bandı + portre köprüsü -->
+    <HeritageSection />
 
     <Terroir />
 

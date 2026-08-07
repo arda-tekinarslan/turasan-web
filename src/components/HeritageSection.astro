@@ -1,0 +1,91 @@
+---
+/**
+ * Miras — 1943'ten bugüne (koyu bölüm).
+ * Tam genişliğe yakın arşiv fotoğrafı, kademeli (stagger) açılan metin,
+ * bölüm sonunda bir sonraki bölüme taşan Hakan Turasan portresi.
+ */
+import { tr } from '../content/site';
+const t = tr.heritage;
+---
+
+<section id={t.id} class="section theme-dark heritage" data-descent="Miras">
+  <div class="container">
+    <div class="heritage__head">
+      <p class="overline reveal">{t.overline}</p>
+      <h2 class="display reveal" style="transition-delay: 80ms;">{t.title}</h2>
+    </div>
+  </div>
+
+  <!-- Arşiv fotoğrafı — eski, siyah-beyaz/sepya doku -->
+  <div class="heritage__archive reveal">
+    <div class="ph ph--band heritage__archive-ph">
+      <span class="ph__label">{t.archiveLabel}</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="heritage__body prose-block lead muted">
+      {t.body.map((p, i) => (
+        <p class="reveal" style={`transition-delay: ${i * 80}ms;`}>{p}</p>
+      ))}
+    </div>
+    <p class="reveal" style={`transition-delay: ${t.body.length * 80}ms; margin-top: 2em;`}>
+      <a class="cta" href={t.cta.href}>
+        {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </p>
+
+    <!-- Portre köprüsü: alt kenarı bir sonraki (açık) bölüme taşar -->
+    <figure class="heritage__portrait reveal">
+      <div class="ph ph--portrait">
+        <span class="ph__label">{t.portraitLabel}</span>
+      </div>
+      <figcaption class="muted heritage__portrait-caption">{t.portraitCaption}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  /* Portrenin taşması için alt boşluk sıfır; taşan miktar kadar bir sonraki
+     bölümün üstünde yer açılır (index.astro'da .after-heritage). */
+  .heritage {
+    padding-bottom: 0;
+  }
+
+  .heritage__head { max-width: 62ch; }
+
+  .heritage__archive {
+    margin-block: clamp(40px, 7vh, 72px);
+    padding-inline: clamp(0px, 3vw, 48px);
+  }
+
+  /* Sepya doku hissi — gerçek fotoğraf geldiğinde filter: sepia() ile
+     aynı etki <img> üzerinde verilebilir. */
+  .heritage__archive-ph {
+    background:
+      radial-gradient(120% 90% at 30% 20%, color-mix(in srgb, var(--color-ochre) 12%, var(--color-ink)), transparent 70%),
+      var(--color-ink);
+  }
+
+  .heritage__body { max-width: 58ch; }
+
+  .heritage__portrait {
+    margin: clamp(56px, 9vh, 96px) 0 clamp(-140px, -12vh, -80px) auto;
+    width: min(360px, 70%);
+    position: relative;
+    z-index: 2;
+  }
+
+  .heritage__portrait-caption {
+    margin-top: 10px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 760px) {
+    .heritage__portrait {
+      width: min(300px, 82%);
+      margin-right: 0;
+    }
+  }
+</style>

@@ -44,8 +44,10 @@ export const tr = {
       'Turasan, 1943 yılında Hasan Turasan tarafından Ürgüp’te kuruldu. Kuruluşundan bu yana üretim, aynı ailenin sorumluluğunda ve aynı yörede sürüyor.',
       'Seksen yılı aşkın bu süreklilik; bağ, mahzen ve üretim bilgisinin kuşaktan kuşağa aktarılmasıyla mümkün oldu. Bugün de aynı yaklaşımla, Kapadokya’nın koşullarına uygun üretim yapılıyor.',
     ],
-    cta: { label: 'Tarihçemiz', href: '#miras' },
-    phLabel: 'görsel · arşiv, 1943',
+    cta: { label: 'Aile mirası', href: '/aile-mirasi' },
+    archiveLabel: 'görsel · arşiv, 1943',
+    portraitLabel: 'portre · Hakan Turasan',
+    portraitCaption: 'Hakan Turasan — üçüncü kuşak',
   },
   terroir: {
     id: 'terroir',
