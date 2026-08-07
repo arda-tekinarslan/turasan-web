@@ -4,19 +4,31 @@ const t = tr.hero;
 ---
 
 <section id="top" class="hero theme-dark" data-descent="Giriş">
-  <!-- Gerçek fotoğraf geldiğinde .hero__bg içine <img> yerleştirilecek -->
-  <div class="hero__bg" aria-hidden="true">
-    <span class="ph__label hero__ph-label">{t.phLabel}</span>
+  <!--
+    Slayt katmanı — dekoratif (aria-hidden). Her yer tutucu panel, gerçek
+    fotoğraf geldiğinde <img fetchpriority="high" ...> (ilk slayt) ve
+    lazy-load <img> (diğerleri) ile değişecek.
+  -->
+  <div class="hero__slides" aria-hidden="true">
+    {t.slides.map((label, i) => (
+      <div class:list={['hero__slide', { 'is-active': i === 0 }]} data-slide={i}>
+        <span class="ph__label hero__slide-label">{label}</span>
+      </div>
+    ))}
   </div>
+
+  <!-- Metnin okunması için alttan yukarı ince koyu gradyan -->
+  <div class="hero__shade" aria-hidden="true"></div>
 
   <div class="hero__content container">
     <p class="overline">{t.overline}</p>
-    <h1 class="display hero__title">{t.title}</h1>
-    <p class="lead muted hero__sub">{t.sub}</p>
+    <!-- Logo yer tutucusu — gerçek logo SVG'si geldiğinde bu h1 içine yerleşir -->
+    <h1 class="display hero__logo">{t.title}</h1>
+    <p class="lead hero__sub">{t.sub}</p>
   </div>
 
-  <a class="hero__scroll" href="#manifesto" aria-label={t.scroll}>
-    <span class="hero__scroll-label muted">{t.scroll}</span>
+  <a id="hero-scroll" class="hero__scroll" href="#miras" aria-label={t.scroll}>
+    <span class="hero__scroll-label">{t.scroll}</span>
     <span class="hero__scroll-line" aria-hidden="true"></span>
   </a>
 
@@ -29,24 +41,78 @@ const t = tr.hero;
     min-height: 100vh;
     min-height: 100svh;
     display: grid;
-    align-content: center;
+    align-content: start;
+    padding-top: clamp(120px, 22vh, 240px);
     overflow: hidden;
   }
 
-  /* Fotoğraf yerine geçici atmosfer: mahzen karanlığından ufka vuran
-     mum ışığı tonu. <img> eklendiğinde bu gradient kaldırılabilir. */
-  .hero__bg {
+  .hero__slides {
     position: absolute;
     inset: 0;
+  }
+
+  .hero__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  .hero__slide.is-active {
+    opacity: 1;
+    animation: hero-zoom 7.2s linear forwards;
+  }
+
+  @keyframes hero-zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+
+  /* Fotoğraf yerine geçici atmosfer — her slayt hafifçe farklı bir ton alır
+     ki cross-fade prototipte de algılansın. */
+  .hero__slide {
     background:
       radial-gradient(90% 60% at 50% 100%, color-mix(in srgb, var(--color-ochre) 14%, transparent), transparent 70%),
       linear-gradient(180deg, var(--color-cave) 0%, var(--color-ink) 78%, var(--color-cave) 100%);
   }
+  .hero__slide[data-slide='1'] {
+    background:
+      radial-gradient(90% 60% at 30% 90%, color-mix(in srgb, var(--color-garnet) 16%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--color-cave) 0%, var(--color-ink) 78%, var(--color-cave) 100%);
+  }
+  .hero__slide[data-slide='2'] {
+    background:
+      radial-gradient(110% 70% at 70% 100%, color-mix(in srgb, var(--color-tuff2) 10%, transparent), transparent 72%),
+      linear-gradient(180deg, var(--color-ink) 0%, var(--color-cave) 85%);
+  }
+  .hero__slide[data-slide='3'] {
+    background:
+      radial-gradient(80% 55% at 50% 80%, color-mix(in srgb, var(--color-ochre) 20%, transparent), transparent 68%),
+      linear-gradient(180deg, var(--color-cave) 10%, var(--color-ink) 90%);
+  }
+  .hero__slide[data-slide='4'] {
+    background:
+      radial-gradient(100% 65% at 45% 95%, color-mix(in srgb, var(--color-garnet) 10%, var(--color-ochre) 6%), transparent 70%),
+      linear-gradient(180deg, var(--color-ink) 0%, var(--color-cave) 80%);
+  }
 
-  .hero__ph-label {
+  .hero__slide-label {
     position: absolute;
     right: var(--gutter);
     bottom: 20px;
+  }
+
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-cave) 45%, transparent) 0%,
+      transparent 30%,
+      transparent 55%,
+      color-mix(in srgb, var(--color-cave) 82%, transparent) 100%
+    );
+    pointer-events: none;
   }
 
   .hero__content {
@@ -55,16 +121,22 @@ const t = tr.hero;
     text-align: center;
     display: grid;
     justify-items: center;
-    gap: 10px;
+    gap: 14px;
   }
 
-  .hero__title {
-    font-size: clamp(56px, 13vw, 150px);
+  /* Logo genişliği hedefi: clamp(180px, 26vw, 380px) — metin yer tutucusunda
+     punto olarak yaklaşık karşılığı */
+  .hero__logo {
+    font-size: clamp(52px, 8.6vw, 118px);
     line-height: 0.98;
     margin: 0;
   }
 
-  .hero__sub { margin-top: 10px; }
+  .hero__sub {
+    margin-top: 8px;
+    max-width: 46ch;
+    color: var(--color-on-dark-mut);
+  }
 
   .hero__scroll {
     position: absolute;
@@ -75,12 +147,19 @@ const t = tr.hero;
     justify-items: center;
     gap: 10px;
     text-decoration: none;
+    transition: opacity 0.7s ease;
+  }
+
+  .hero__scroll.is-hidden {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .hero__scroll-label {
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
+    color: var(--color-on-dark-mut);
   }
 
   .hero__scroll-line {
@@ -104,6 +183,35 @@ const t = tr.hero;
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero__slide.is-active { animation: none; }
     .hero__scroll-line { animation: none; }
   }
 </style>
+
+<script>
+  // Hero slaytı: ~6 sn ekranda, 1.2 sn cross-fade, sonsuz döngü, kontrol yok.
+  // Hareket azaltma tercihi varsa ilk görsel sabit kalır.
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero__slide'));
+
+  if (!prefersReduced && slides.length > 1) {
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('is-active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('is-active');
+    }, 6000);
+  }
+
+  // "Kaydırın" işareti ilk scroll'da kaybolur.
+  const cue = document.getElementById('hero-scroll');
+  if (cue) {
+    const hide = () => {
+      if (window.scrollY > 40) {
+        cue.classList.add('is-hidden');
+        window.removeEventListener('scroll', hide);
+      }
+    };
+    window.addEventListener('scroll', hide, { passive: true });
+  }
+</script>

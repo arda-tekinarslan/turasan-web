@@ -13,18 +13,26 @@ export const tr = {
       'Turasan Şarapçılık hakkında bilgilendirme sitesi: 1943 mirası, Kapadokya terroir’i, tüfe oyulmuş mahzenler ve ziyaret bilgileri. Ürgüp, Nevşehir.',
   },
   nav: [
-    { href: '#miras', label: 'Hakkımızda' },
-    { href: '#terroir', label: 'Bağlar' },
+    { href: '#miras', label: 'Miras' },
+    { href: '#bagcilik', label: 'Bağcılık' },
     { href: '#uretim', label: 'Üretim' },
+    { href: '#oduller', label: 'Ödüller' },
     { href: '#ziyaret', label: 'Ziyaret' },
     { href: '#iletisim', label: 'İletişim' },
   ],
   hero: {
-    overline: 'Ürgüp · Kapadokya · Est. 1943',
+    overline: 'Ürgüp, Kapadokya · Est. 1943',
     title: 'Turasan',
-    sub: 'Kapadokya’nın volkanik topraklarında, seksen yılı aşkın süredir aynı ailenin elinde.',
+    sub: 'Erciyes’in eteklerinde, tüf kayaların içinde olgunlaşan bir toprağın hikâyesi — sabırla, kuşaktan kuşağa.',
     scroll: 'Kaydırın',
-    phLabel: 'görsel · kapadokya panoraması',
+    // Gerçek fotoğraflar geldiğinde her yer tutucu bir <img> ile değişecek.
+    slides: [
+      'görsel · bağlar, gün doğumu',
+      'görsel · tüf vadisi',
+      'görsel · kaya mahzen',
+      'görsel · hasat',
+      'görsel · ürgüp panoraması',
+    ],
   },
   manifesto:
     'Bir bağ ancak toprağı kadar konuşur; bizim toprağımız tüften, hikâyemiz 1943’ten.',
