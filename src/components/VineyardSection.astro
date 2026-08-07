@@ -1,0 +1,127 @@
+---
+/**
+ * Bağcılık (açık bölüm) — üstte lejantlı Kapadokya harita yer tutucusu,
+ * terroir metni, bölge/üzüm kartları ve "Üzümler →" linki.
+ * Üst boşluk, Miras bölümünden taşan portreye yer açacak kadar geniştir.
+ */
+import { tr } from '../content/site';
+import GrapeCard from './GrapeCard.astro';
+const t = tr.vineyard;
+---
+
+<section id={t.id} class="section theme-light vineyard" data-descent="Bağcılık">
+  <div class="container">
+    <div class="vineyard__head reveal">
+      <p class="overline">{t.overline}</p>
+      <h2 class="display">{t.title}</h2>
+    </div>
+
+    <!-- Harita: gerçek görsel geldiğinde işaretler koordinatlarına oturtulur -->
+    <figure class="vineyard__map reveal">
+      <div class="ph vineyard__map-ph">
+        <span class="ph__label">{t.mapLabel}</span>
+        <!-- Temsili işaretler — dekoratif -->
+        <span class="vineyard__pin vineyard__pin--own" style="left: 32%; top: 38%;" aria-hidden="true"></span>
+        <span class="vineyard__pin vineyard__pin--own" style="left: 44%; top: 55%;" aria-hidden="true"></span>
+        <span class="vineyard__pin vineyard__pin--own" style="left: 51%; top: 42%;" aria-hidden="true"></span>
+        <span class="vineyard__pin vineyard__pin--partner" style="left: 62%; top: 30%;" aria-hidden="true"></span>
+        <span class="vineyard__pin vineyard__pin--partner" style="left: 70%; top: 58%;" aria-hidden="true"></span>
+        <span class="vineyard__pin vineyard__pin--partner" style="left: 25%; top: 62%;" aria-hidden="true"></span>
+      </div>
+      <figcaption class="vineyard__legend">
+        {t.legend.map((l) => (
+          <span class="vineyard__legend-item">
+            <span class:list={['vineyard__pin', `vineyard__pin--${l.key}`, 'vineyard__pin--legend']} aria-hidden="true"></span>
+            {l.label}
+          </span>
+        ))}
+      </figcaption>
+    </figure>
+
+    <div class="vineyard__body prose-block lead muted">
+      {t.body.map((p, i) => (
+        <p class="reveal" style={`transition-delay: ${i * 80}ms;`}>{p}</p>
+      ))}
+    </div>
+
+    <div class="vineyard__grapes">
+      {t.grapes.map((g, i) => (
+        <div class="reveal" style={`transition-delay: ${i * 80}ms;`}>
+          <GrapeCard {...g} />
+        </div>
+      ))}
+    </div>
+
+    <p class="reveal" style="margin-top: 2.4em;">
+      <a class="cta" href={t.cta.href}>
+        {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  /* Miras bölümünden taşan portre için ek üst boşluk */
+  .vineyard {
+    padding-top: calc(var(--section-y) + clamp(96px, 14vh, 160px));
+  }
+
+  .vineyard__head { max-width: 62ch; }
+
+  .vineyard__map { margin: clamp(36px, 6vh, 64px) 0 0; }
+
+  .vineyard__map-ph {
+    aspect-ratio: 16 / 8;
+    width: 100%;
+  }
+
+  .vineyard__pin {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .vineyard__pin--own { background: var(--color-garnet); }
+
+  .vineyard__pin--partner {
+    background: transparent;
+    border: 2px solid var(--color-ochre);
+  }
+
+  .vineyard__legend {
+    display: flex;
+    gap: 28px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--color-on-light-mut);
+  }
+
+  .vineyard__legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .vineyard__pin--legend {
+    position: static;
+    flex: none;
+  }
+
+  .vineyard__body {
+    margin-top: clamp(36px, 6vh, 64px);
+    max-width: 58ch;
+  }
+
+  .vineyard__grapes {
+    margin-top: clamp(40px, 7vh, 72px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 2.5vw, 28px);
+  }
+
+  @media (max-width: 760px) {
+    .vineyard__grapes { grid-template-columns: 1fr; }
+    .vineyard { padding-top: calc(var(--section-y) + clamp(72px, 10vh, 120px)); }
+  }
+</style>

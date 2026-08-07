@@ -34,8 +34,6 @@ export const tr = {
       'görsel · ürgüp panoraması',
     ],
   },
-  manifesto:
-    'Bir bağ ancak toprağı kadar konuşur; bizim toprağımız tüften, hikâyemiz 1943’ten.',
   heritage: {
     id: 'miras',
     overline: 'Miras',
@@ -49,20 +47,46 @@ export const tr = {
     portraitLabel: 'portre · Hakan Turasan',
     portraitCaption: 'Hakan Turasan — üçüncü kuşak',
   },
-  terroir: {
-    id: 'terroir',
-    overline: 'Terroir',
-    title: 'Volkanik tüf, yüksek rakım',
+  vineyard: {
+    id: 'bagcilik',
+    overline: 'Bağcılık',
+    title: 'Kapadokya terroir’i',
+    mapLabel: 'görsel · kapadokya bağ haritası',
+    legend: [
+      { key: 'own', label: 'Bağlarımız' },
+      { key: 'partner', label: 'Anlaşmalı bağlar' },
+    ],
     body: [
       'Kapadokya’nın toprağı, milyonlarca yıl önceki volkanik faaliyetin bıraktığı tüften oluşur. Süzek yapısı ve mineral içeriğiyle bu toprak, bağcılık için ayırt edici bir zemin sunar.',
-      'Bölgenin yüksek rakımı; gündüz–gece sıcaklık farkını belirginleştirir, üzümün yavaş ve dengeli olgunlaşmasına imkân verir. Emir, Kalecik Karası ve Narince gibi üzümler bu koşullarda yetişir.',
+      'Bölgenin yüksek rakımı ve sert kara iklimi, gündüz–gece sıcaklık farkını belirginleştirir; üzüm yavaş ve dengeli olgunlaşır. Üretim, kendi bağlarımızın yanı sıra bölgedeki anlaşmalı bağlardan alınan üzümlerle sürdürülür.',
     ],
-    facts: [
-      { value: '1943', label: 'Kuruluş' },
-      { value: 'Emir · Narince · Kalecik Karası', label: 'Yöreye özgü üzümler' },
-      { value: 'Yüksek rakım', label: 'Kapadokya platosu' },
+    grapes: [
+      {
+        name: 'Emir',
+        type: 'Beyaz',
+        region: 'Nevşehir platosu',
+        note: 'Yöreye özgü beyaz üzüm; yüksek asidite, narenciye ve yeşil elma tonları.',
+      },
+      {
+        name: 'Narince',
+        type: 'Beyaz',
+        region: 'Tokat kökenli, bölgede yetiştirilir',
+        note: 'Dengeli gövde; çiçeksi burun, olgun armut ve hafif mineral bitiş.',
+      },
+      {
+        name: 'Kalecik Karası',
+        type: 'Kırmızı',
+        region: 'Ankara–Kalecik kökenli',
+        note: 'Orta gövdeli kırmızı; kırmızı meyve ağırlıklı, yumuşak tanenli yapı.',
+      },
+      {
+        name: 'Öküzgözü',
+        type: 'Kırmızı',
+        region: 'Elazığ kökenli',
+        note: 'Canlı asidite; vişne ve karadut karakteri, orta uzunlukta bitiş.',
+      },
     ],
-    phLabel: 'görsel · bağlar',
+    cta: { label: 'Üzümler', href: '/uzumler' },
   },
   craft: {
     id: 'uretim',
@@ -89,19 +113,6 @@ export const tr = {
     ],
     cta: { label: 'Yol tarifi & iletişim', href: '#iletisim' },
     phLabel: 'görsel · ziyaret alanı',
-  },
-  products: {
-    id: 'urunler',
-    overline: 'Ürünler',
-    title: 'Üzümler ve türler',
-    note:
-      'Bu bölüm yalnızca bilgilendirme amaçlıdır. Sitede ürün görseli ve satış bulunmaz; içerik, yürürlükteki mevzuata uygun olarak hazırlanmıştır.',
-    items: [
-      { grape: 'Emir', type: 'Beyaz' },
-      { grape: 'Narince', type: 'Beyaz' },
-      { grape: 'Kalecik Karası', type: 'Kırmızı' },
-      { grape: 'Öküzgözü', type: 'Kırmızı' },
-    ],
   },
   contact: {
     id: 'iletisim',

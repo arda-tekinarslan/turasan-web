@@ -1,0 +1,67 @@
+---
+/**
+ * Üzüm kartı — görselsiz. Ad (serif) + renk etiketi + bölge + kısa,
+ * nesnel aroma tarifi. Zemin tuff-2, kenarlıksız; yalnızca ince ayraçlar.
+ */
+interface Props {
+  name: string;
+  type: string;
+  region: string;
+  note: string;
+}
+
+const { name, type, region, note } = Astro.props;
+---
+
+<article class="grape">
+  <header class="grape__head">
+    <h3 class="display grape__name">{name}</h3>
+    <span class="grape__type">{type}</span>
+  </header>
+  <p class="grape__region muted">{region}</p>
+  <p class="grape__note">{note}</p>
+</article>
+
+<style>
+  .grape {
+    background: var(--color-tuff2);
+    padding: clamp(24px, 3vw, 36px);
+  }
+
+  .grape__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .grape__name {
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .grape__type {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-garnet);
+    white-space: nowrap;
+  }
+
+  .grape__region {
+    margin: 14px 0 0;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .grape__note {
+    margin: 8px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-on-light-mut);
+  }
+</style>

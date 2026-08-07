@@ -6,8 +6,7 @@ import Descent from '../components/Descent.astro';
 import Hero from '../components/Hero.astro';
 import HeritageSection from '../components/HeritageSection.astro';
 import SplitSection from '../components/SplitSection.astro';
-import Terroir from '../components/Terroir.astro';
-import ProductList from '../components/ProductList.astro';
+import VineyardSection from '../components/VineyardSection.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import { tr } from '../content/site';
@@ -24,7 +23,8 @@ import { tr } from '../content/site';
     <!-- Miras / 1943 — koyu bölüm, arşiv bandı + portre köprüsü -->
     <HeritageSection />
 
-    <Terroir />
+    <!-- Bağcılık — açık bölüm, harita + üzüm kartları -->
+    <VineyardSection />
 
     <!-- Üretim & Mahzen — açık bölüm, görsel sağda (ters) -->
     <SplitSection
@@ -60,7 +60,6 @@ import { tr } from '../content/site';
       </dl>
     </SplitSection>
 
-    <ProductList />
     <Contact />
   </main>
 
