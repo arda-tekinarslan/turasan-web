@@ -72,12 +72,22 @@ const t = tr.ageGate;
 </style>
 
 <script>
-  // Not: Oturumlar arası kalıcılık istenirse burada bir çerez kullanılabilir
-  // (KVKK/çerez politikasına eklenmek koşuluyla). Varsayılan: her girişte sorulur.
+  // Onay yalnızca tarayıcı oturumu boyunca hatırlanır (sessionStorage) —
+  // sayfalar arası gezinmede tekrar sorulmaz, yeni oturumda yeniden sorulur.
+  // Oturumlar arası kalıcılık istenirse çerez kullanılabilir (KVKK/çerez
+  // politikasına eklenmek koşuluyla).
+  const KEY = 'turasan-age-ok';
   const gate = document.getElementById('age-gate');
   const yes = document.getElementById('age-yes');
-  document.body.classList.add('gated');
+
+  if (sessionStorage.getItem(KEY) === '1') {
+    gate?.classList.add('is-hidden');
+  } else {
+    document.body.classList.add('gated');
+  }
+
   yes?.addEventListener('click', () => {
+    sessionStorage.setItem(KEY, '1');
     gate?.classList.add('is-hidden');
     document.body.classList.remove('gated');
     document.dispatchEvent(new CustomEvent('agegate:confirmed'));

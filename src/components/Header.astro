@@ -186,7 +186,7 @@ import { tr } from '../content/site';
 
   // Aktif bölümün nav linkini ince alt çizgiyle işaretle
   const links = Array.from(
-    document.querySelectorAll<HTMLAnchorElement>('.site-header__link[href^="#"]')
+    document.querySelectorAll<HTMLAnchorElement>('.site-header__link[href*="#"]')
   );
   const targets = links
     .map((a) => document.getElementById(a.hash.slice(1)))

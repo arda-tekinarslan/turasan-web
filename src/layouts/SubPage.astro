@@ -1,0 +1,67 @@
+---
+/**
+ * Alt sayfa iskeleti — koyu başlık bandı + açık içerik alanı.
+ * Header bu sayfalarda her zaman zeminli (pinned) görünür.
+ */
+import Base from './Base.astro';
+import AgeGate from '../components/AgeGate.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  overline: string;
+  heading: string;
+  lead?: string;
+}
+
+const { title, description, overline, heading, lead } = Astro.props;
+---
+
+<Base title={title} description={description} lang="tr">
+  <AgeGate />
+  <Header />
+
+  <main>
+    <section class="subhead theme-dark">
+      <div class="container">
+        <p class="overline reveal">{overline}</p>
+        <h1 class="display subhead__title reveal" style="transition-delay: 80ms;">{heading}</h1>
+        {lead && (
+          <p class="lead muted reveal" style="transition-delay: 160ms;">{lead}</p>
+        )}
+      </div>
+    </section>
+
+    <section class="section theme-light">
+      <div class="container">
+        <slot />
+        <p class="reveal" style="margin-top: 3em;">
+          <a class="cta" href="/">
+            <span class="arrow arrow--back" aria-hidden="true">←</span> Ana sayfa
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .subhead {
+    padding: clamp(140px, 24vh, 220px) 0 clamp(56px, 9vh, 96px);
+  }
+
+  .subhead__title {
+    font-size: clamp(34px, 5vw, 62px);
+    line-height: 1.05;
+    margin: 0.4em 0 0;
+  }
+
+  .subhead .lead { margin-top: 1.2em; }
+
+  .arrow--back { display: inline-block; }
+  .cta:hover .arrow--back { transform: translateX(-6px); }
+</style>

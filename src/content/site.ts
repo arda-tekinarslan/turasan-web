@@ -12,13 +12,14 @@ export const tr = {
     description:
       'Turasan Şarapçılık hakkında bilgilendirme sitesi: 1943 mirası, Kapadokya terroir’i, tüfe oyulmuş mahzenler ve ziyaret bilgileri. Ürgüp, Nevşehir.',
   },
+  // "/#..." biçimi, alt sayfalardan da ana sayfadaki bölüme götürür.
   nav: [
-    { href: '#miras', label: 'Miras' },
-    { href: '#bagcilik', label: 'Bağcılık' },
-    { href: '#uretim', label: 'Üretim' },
-    { href: '#oduller', label: 'Ödüller' },
-    { href: '#ziyaret', label: 'Ziyaret' },
-    { href: '#iletisim', label: 'İletişim' },
+    { href: '/#miras', label: 'Miras' },
+    { href: '/#bagcilik', label: 'Bağcılık' },
+    { href: '/#uretim', label: 'Üretim' },
+    { href: '/#oduller', label: 'Ödüller' },
+    { href: '/#ziyaret', label: 'Ziyaret' },
+    { href: '/#iletisim', label: 'İletişim' },
   ],
   hero: {
     overline: 'Ürgüp, Kapadokya · Est. 1943',
@@ -157,11 +158,13 @@ export const tr = {
       {
         title: 'Site',
         links: [
-          { label: 'Hakkımızda', href: '#miras' },
-          { label: 'Bağlar', href: '#terroir' },
-          { label: 'Üretim', href: '#uretim' },
-          { label: 'Ziyaret', href: '#ziyaret' },
-          { label: 'İletişim', href: '#iletisim' },
+          { label: 'Miras', href: '/#miras' },
+          { label: 'Bağcılık', href: '/#bagcilik' },
+          { label: 'Üzümler', href: '/uzumler' },
+          { label: 'Üretim', href: '/#uretim' },
+          { label: 'Ödüller', href: '/#oduller' },
+          { label: 'Ziyaret', href: '/#ziyaret' },
+          { label: 'İletişim', href: '/#iletisim' },
         ],
       },
       {
@@ -175,6 +178,134 @@ export const tr = {
     ],
     legal:
       '© 2026 Turasan Şarapçılık · Bu site bilgilendirme amaçlıdır; satış ve tanıtım içermez · 18+',
+  },
+  /** Alt sayfa içerikleri */
+  pages: {
+    heritage: {
+      title: 'Aile mirası',
+      overline: 'Miras',
+      lead:
+        '1943’ten bugüne üç kuşak; aynı yöre, aynı sorumluluk. Bu sayfa, kuruluşun ve ailenin hikâyesini kronolojik olarak aktarır.',
+      sections: [
+        {
+          title: 'Kuruluş — 1943',
+          body: [
+            'Hasan Turasan, 1943 yılında Ürgüp’te üretime başladı. İlk mahzen, yörede yüzyıllardır kullanılan yöntemle tüf kayaya oyuldu.',
+          ],
+          phLabel: 'görsel · arşiv, kuruluş yılları',
+        },
+        {
+          title: 'İkinci kuşak',
+          body: [
+            'Üretim bilgisi ve bağlar ikinci kuşağa devredildi; bu dönemde bağ alanları genişledi ve üretim kayıt altına alınarak sürdürüldü.',
+          ],
+          phLabel: 'görsel · arşiv, ikinci kuşak',
+        },
+        {
+          title: 'Bugün',
+          body: [
+            'Bugün üretim, Hakan Turasan yönetiminde; geleneksel mahzen ile modern üretim tekniklerini bir arada kullanarak devam ediyor.',
+          ],
+          phLabel: 'portre · Hakan Turasan',
+        },
+      ],
+    },
+    grapes: {
+      title: 'Üzümler',
+      overline: 'Bağcılık',
+      lead:
+        'Bölgede yetiştirilen dört üzümün kökeni, yetiştiği koşullar ve karakteri hakkında nesnel bilgi.',
+      details: [
+        {
+          name: 'Emir',
+          type: 'Beyaz',
+          region: 'Nevşehir platosu',
+          body: [
+            'Kapadokya’ya özgü beyaz üzümdür; başka bölgelerde yaygın olarak yetiştirilmez. Tüf toprakta ve yüksek rakımda karakterini bulur.',
+            'Yüksek asidite, narenciye ve yeşil elma tonları tipiktir; hafif gövdeli ve mineral yapıdadır.',
+          ],
+        },
+        {
+          name: 'Narince',
+          type: 'Beyaz',
+          region: 'Tokat kökenli, bölgede yetiştirilir',
+          body: [
+            'Kökeni Tokat–Kazova olan Narince, Kapadokya koşullarına uyum sağlamış bir beyaz üzümdür.',
+            'Dengeli gövde, çiçeksi burun, olgun armut ve hafif mineral bitiş görülür.',
+          ],
+        },
+        {
+          name: 'Kalecik Karası',
+          type: 'Kırmızı',
+          region: 'Ankara–Kalecik kökenli',
+          body: [
+            'Ankara’nın Kalecik ilçesine özgü bu kırmızı üzüm, Anadolu’nun köklü çeşitlerindendir.',
+            'Orta gövde, kırmızı meyve ağırlıklı aroma ve yumuşak tanen yapısı tipiktir.',
+          ],
+        },
+        {
+          name: 'Öküzgözü',
+          type: 'Kırmızı',
+          region: 'Elazığ kökenli',
+          body: [
+            'Elazığ yöresine özgü Öküzgözü, Türkiye’nin en yaygın kırmızı üzümlerinden biridir.',
+            'Canlı asidite, vişne ve karadut karakteri, orta uzunlukta bitiş görülür.',
+          ],
+        },
+      ],
+    },
+    process: {
+      title: 'Üretim süreci',
+      overline: 'Üretim',
+      lead:
+        'Hasattan şişelemeye süreç, tanımlı aşamalarla ve kontrollü koşullarda yürütülür.',
+      steps: [
+        {
+          title: 'Hasat',
+          body: 'Hasat zamanı üzümün olgunluğuna göre belirlenir; üzümler elle toplanır ve kısa sürede işleme alanına ulaştırılır.',
+        },
+        {
+          title: 'Ayıklama ve presleme',
+          body: 'Üzümler ayıklanır; beyazlarda presleme, kırmızılarda maserasyon süreci başlar.',
+        },
+        {
+          title: 'Fermantasyon',
+          body: 'Fermantasyon, sıcaklık kontrollü paslanmaz çelik tanklarda, önolog gözetiminde yürütülür.',
+        },
+        {
+          title: 'Dinlendirme',
+          body: 'Dinlendirme, tüfe oyulmuş kaya mahzenlerin yıl boyu sabit ve serin ortamında gerçekleşir.',
+        },
+        {
+          title: 'Şişeleme',
+          body: 'Şişeleme, kapalı hat üzerinde yapılır; her parti kayıt altına alınır.',
+        },
+      ],
+    },
+    awards: {
+      title: 'Ödül arşivi',
+      overline: 'Ödüller',
+      lead:
+        'Sonuçlar; yarışma adı, kategori ve yıl düzeyinde, kurum ve üretim yılıyla ilişkilendirilerek listelenir.',
+      years: [
+        {
+          year: '2026',
+          items: [
+            'Decanter World Wine Awards · Beyaz şaraplar',
+            'International Wine & Spirit Competition · Kırmızı şaraplar',
+            'Mundus Vini · Beyaz şaraplar',
+            'Concours Mondial de Bruxelles · Kırmızı şaraplar',
+          ],
+        },
+        {
+          year: '2025',
+          items: [
+            'Decanter World Wine Awards · Kırmızı şaraplar',
+            'Mundus Vini · Beyaz şaraplar',
+          ],
+        },
+      ],
+    },
   },
   ageGate: {
     overline: 'Turasan Şarapçılık · Ürgüp',

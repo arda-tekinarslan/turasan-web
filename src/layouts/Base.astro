@@ -28,5 +28,28 @@ const { title, description, lang = 'tr' } = Astro.props;
   </head>
   <body>
     <slot />
+    <script>
+      // Scroll reveal — .reveal öğeleri ekrana girdikçe yumuşakça belirir.
+      // Tüm sayfalarda ortak olduğu için layout'ta yaşar.
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const items = document.querySelectorAll('.reveal');
+
+      if (prefersReduced) {
+        items.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.18 }
+        );
+        items.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

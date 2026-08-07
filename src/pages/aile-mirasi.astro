@@ -1,0 +1,57 @@
+---
+import SubPage from '../layouts/SubPage.astro';
+import { tr } from '../content/site';
+const t = tr.pages.heritage;
+---
+
+<SubPage
+  title={`${t.title} — Turasan Şarapçılık`}
+  description="Turasan Şarapçılık'ın 1943'ten bugüne aile mirası: kuruluş, kuşaklar ve bugünkü yaklaşım."
+  overline={t.overline}
+  heading={t.title}
+  lead={t.lead}
+>
+  <div class="timeline">
+    {t.sections.map((s, i) => (
+      <article class="timeline__item reveal" style={`transition-delay: ${i * 80}ms;`}>
+        <div class="ph ph--portrait timeline__media">
+          <span class="ph__label">{s.phLabel}</span>
+        </div>
+        <div>
+          <h2 class="display timeline__title">{s.title}</h2>
+          <div class="prose-block lead muted">
+            {s.body.map((p) => <p>{p}</p>)}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</SubPage>
+
+<style>
+  .timeline {
+    display: grid;
+    gap: clamp(56px, 9vh, 96px);
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: minmax(200px, 320px) 1fr;
+    gap: var(--split-gap);
+    align-items: start;
+  }
+
+  /* Dönüşümlü hiza — editoryal ritim */
+  .timeline__item:nth-child(even) .timeline__media { order: 2; }
+
+  .timeline__title {
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.1;
+    margin: 0 0 0.6em;
+  }
+
+  @media (max-width: 760px) {
+    .timeline__item { grid-template-columns: 1fr; }
+    .timeline__item:nth-child(even) .timeline__media { order: 0; }
+  }
+</style>
