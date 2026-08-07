@@ -1,0 +1,48 @@
+---
+/**
+ * Üretim (koyu bölüm) — iki sütunlu editoryal düzen: önolog portresi (4/5)
+ * ve metin. Sütun sırası, Miras'taki sağa yaslı portrenin tersi olarak
+ * portre solda. Altta tam genişlik çelik tank bandı.
+ */
+import { tr } from '../content/site';
+const t = tr.production;
+---
+
+<section id={t.id} class="section theme-dark" data-descent="Üretim">
+  <div class="container">
+    <div class="split">
+      <div class="split__media reveal">
+        <div class="ph ph--portrait">
+          <span class="ph__label">{t.portraitLabel}</span>
+        </div>
+      </div>
+
+      <div class="split__text reveal" style="transition-delay: 80ms;">
+        <p class="overline">{t.overline}</p>
+        <h2 class="display">{t.title}</h2>
+        <div class="prose-block lead muted" style="margin-top: 1.2em;">
+          {t.body.map((p) => <p>{p}</p>)}
+        </div>
+        <p style="margin-top: 2em;">
+          <a class="cta" href={t.cta.href}>
+            {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fabrika / çelik tank alanı — tam genişlik bant -->
+  <div class="production__band reveal">
+    <div class="ph ph--band">
+      <span class="ph__label">{t.bandLabel}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .production__band {
+    margin-top: clamp(48px, 8vh, 88px);
+    padding-inline: clamp(0px, 3vw, 48px);
+  }
+</style>

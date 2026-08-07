@@ -1,0 +1,95 @@
+---
+/**
+ * Ödüller (açık bölüm) — kurumsal-nesnel ton. Yalnızca bu yılın sonuçları:
+ * mono logo + yarışma · kategori · yıl. Kupa/madalya estetiği ve övgü dili yok.
+ */
+import { tr } from '../content/site';
+const t = tr.awards;
+---
+
+<section id={t.id} class="section theme-light" data-descent="Ödüller">
+  <div class="container">
+    <div class="awards__head reveal">
+      <p class="overline">{t.overline}</p>
+      <h2 class="display">{t.title}</h2>
+      <p class="lead muted" style="margin-top: 1.2em;">{t.intro}</p>
+    </div>
+
+    <ul class="awards__row">
+      {t.items.map((a, i) => (
+        <li class="awards__item reveal" style={`transition-delay: ${i * 80}ms;`}>
+          <!-- Yarışma logosu — mono; üzerine gelince renklenir -->
+          <span class="awards__logo ph" aria-hidden="true">
+            <span class="ph__label awards__logo-label">{a.logoLabel}</span>
+          </span>
+          <span class="awards__text">
+            {a.competition} <span class="awards__sep">·</span> {a.category}
+            <span class="awards__sep">·</span> {a.year}
+          </span>
+        </li>
+      ))}
+    </ul>
+
+    <p class="reveal" style="margin-top: 2.4em;">
+      <a class="cta" href={t.cta.href}>
+        {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .awards__head { max-width: 62ch; }
+
+  .awards__row {
+    list-style: none;
+    margin: clamp(40px, 7vh, 64px) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(20px, 3vw, 40px);
+  }
+
+  .awards__item {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  /* Gerçek logo geldiğinde <img> filter: grayscale(1) → hover'da 0 olur */
+  .awards__logo {
+    width: 84px;
+    height: 84px;
+    display: grid;
+    place-items: center;
+    filter: grayscale(1);
+    opacity: 0.65;
+    transition: filter 0.4s ease, opacity 0.4s ease;
+  }
+
+  .awards__item:hover .awards__logo {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+
+  .awards__logo-label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-align: center;
+  }
+
+  .awards__text {
+    font-size: 14px;
+    color: var(--color-on-light);
+    line-height: 1.5;
+  }
+
+  .awards__sep { color: var(--color-on-light-mut); }
+
+  @media (max-width: 760px) {
+    .awards__row { grid-template-columns: 1fr 1fr; }
+  }
+</style>

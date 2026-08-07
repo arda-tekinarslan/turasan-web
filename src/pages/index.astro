@@ -7,6 +7,8 @@ import Hero from '../components/Hero.astro';
 import HeritageSection from '../components/HeritageSection.astro';
 import SplitSection from '../components/SplitSection.astro';
 import VineyardSection from '../components/VineyardSection.astro';
+import ProductionSection from '../components/ProductionSection.astro';
+import AwardsSection from '../components/AwardsSection.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import { tr } from '../content/site';
@@ -26,18 +28,11 @@ import { tr } from '../content/site';
     <!-- Bağcılık — açık bölüm, harita + üzüm kartları -->
     <VineyardSection />
 
-    <!-- Üretim & Mahzen — açık bölüm, görsel sağda (ters) -->
-    <SplitSection
-      id={tr.craft.id}
-      descentLabel="Üretim"
-      theme="light"
-      flip
-      overline={tr.craft.overline}
-      title={tr.craft.title}
-      body={tr.craft.body}
-      cta={tr.craft.cta}
-      phLabel={tr.craft.phLabel}
-    />
+    <!-- Üretim — koyu bölüm, önolog portresi + çelik tank bandı -->
+    <ProductionSection />
+
+    <!-- Ödüller — açık bölüm, kurumsal-nesnel liste -->
+    <AwardsSection />
 
     <!-- Ziyaret & Tadım — taş zemin, saat bilgisi ile -->
     <SplitSection

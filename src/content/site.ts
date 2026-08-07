@@ -88,16 +88,34 @@ export const tr = {
     ],
     cta: { label: 'Üzümler', href: '/uzumler' },
   },
-  craft: {
+  production: {
     id: 'uretim',
-    overline: 'Üretim & Mahzen',
-    title: 'Bağdan mahzene',
+    overline: 'Üretim',
+    title: 'Kaya mahzeni ile çelik tank arasında',
     body: [
-      'Üretim, bağda başlar: hasat zamanı üzümün olgunluğuna göre belirlenir ve üzümler elle toplanır. İşleme, hasadı izleyen kısa süre içinde yapılır.',
-      'Dinlendirme, tüfe oyulmuş mahzenlerde gerçekleşir. Tüfün doğal yalıtımı, yıl boyunca sabit ve serin bir ortam sağlar; bu, bölgede yüzyıllardır bilinen bir saklama yöntemidir.',
+      'Üretim, gelenekle tekniğin bir arada işlediği iki mekânda sürer: dinlendirme, tüfe oyulmuş kaya mahzenlerin sabit ve serin ortamında; fermantasyon, sıcaklık kontrollü paslanmaz çelik tanklarda yapılır.',
+      'Süreç, Fransız önologlar ve gıda mühendisleriyle birlikte yürütülür. Hasattan şişelemeye her aşama tanımlı ve kayıtlıdır; üzüm, bağdan işleme alanına kısa sürede ulaştırılır.',
     ],
-    cta: { label: 'Üretim sürecimiz', href: '#uretim' },
-    phLabel: 'görsel · tüf mahzen',
+    portraitLabel: 'portre · önolog',
+    bandLabel: 'görsel · çelik tanklar ve üretim personeli',
+    cta: { label: 'Üretim sürecimiz', href: '/uretim-sureci' },
+  },
+  // Örnek yer tutucu veriler — nihai liste ve dil, hukuk danışmanı
+  // onayından geçmelidir. Ödül bilgisi ürünle değil, kurumla ve üretim
+  // yılıyla ilişkilendirilir.
+  awards: {
+    id: 'oduller',
+    overline: 'Ödüller',
+    title: '2026 değerlendirmeleri',
+    intro:
+      'Aşağıda, kurumumuzun 2026 yılında katıldığı uluslararası yarışmalarda aldığı sonuçlar yarışma, kategori ve yıl düzeyinde listelenir.',
+    items: [
+      { competition: 'Decanter World Wine Awards', category: 'Beyaz şaraplar', year: '2026', logoLabel: 'logo · dwwa' },
+      { competition: 'International Wine & Spirit Competition', category: 'Kırmızı şaraplar', year: '2026', logoLabel: 'logo · iwsc' },
+      { competition: 'Mundus Vini', category: 'Beyaz şaraplar', year: '2026', logoLabel: 'logo · mundus vini' },
+      { competition: 'Concours Mondial de Bruxelles', category: 'Kırmızı şaraplar', year: '2026', logoLabel: 'logo · cmb' },
+    ],
+    cta: { label: 'Tüm ödüller', href: '/oduller' },
   },
   visit: {
     id: 'ziyaret',
