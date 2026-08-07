@@ -117,30 +117,39 @@ export const tr = {
     ],
     cta: { label: 'Tüm ödüller', href: '/oduller' },
   },
+  // Ton: "ziyaret bilgisi" — davet/özendirme dili kullanılmaz.
   visit: {
     id: 'ziyaret',
-    overline: 'Ziyaret & Tadım',
+    overline: 'Ziyaret',
     title: 'Mahzeni yerinde görün',
     body: [
-      'Üretim tesisimiz ve tüf mahzenlerimiz, çalışma saatleri içinde ziyarete açıktır. Ziyaret sırasında üretim süreci ve bölge bağcılığı hakkında bilgi verilir.',
-      'Grup ziyaretleri için önceden randevu alınması gerekir. Ayrıntılar için iletişim bölümündeki bilgileri kullanabilirsiniz.',
+      'Kaya mahzen ve üretim alanı, çalışma saatleri içinde ziyarete açıktır. Ziyaret sırasında üretim süreci ve bölge bağcılığı hakkında bilgi verilir.',
     ],
-    hours: [
+    info: [
+      { label: 'Günler', value: 'Pazartesi – Pazar' },
       { label: 'Hafta içi', value: '09.00 – 18.00' },
       { label: 'Hafta sonu', value: '10.00 – 17.00' },
+      { label: 'Grup ziyaretleri', value: 'En az üç iş günü önceden randevu gerekir' },
+      { label: 'Ulaşım', value: 'Ürgüp merkezine yürüme mesafesindedir; otopark mevcuttur' },
     ],
     cta: { label: 'Yol tarifi & iletişim', href: '#iletisim' },
-    phLabel: 'görsel · ziyaret alanı',
+    phLabel: 'görsel · kaya mahzen',
   },
   contact: {
     id: 'iletisim',
     overline: 'İletişim & Konum',
-    title: 'Ürgüp, Nevşehir',
+    city: 'Ürgüp',
+    region: 'Nevşehir',
     address: 'Yunak Mah. Tevfik Fikret Cad. No: 6A-B, 50400 Ürgüp / Nevşehir',
     phone: '+90 (384) 000 00 00',
     email: 'info@turasan.example',
-    mapLabel: 'harita · konum',
+    mapCta: { label: 'Haritada aç', href: 'https://maps.google.com/?q=Turasan+%C5%9Earap%C3%A7%C4%B1l%C4%B1k+%C3%9Crg%C3%BCp' },
+    mapLabel: 'harita · gömülü konum (lazy-load)',
     hoursTitle: 'Çalışma saatleri',
+    hours: [
+      { label: 'Hafta içi', value: '09.00 – 18.00' },
+      { label: 'Hafta sonu', value: '10.00 – 17.00' },
+    ],
   },
   footer: {
     about: 'Turasan Şarapçılık — Ürgüp, Kapadokya. 1943’ten beri.',

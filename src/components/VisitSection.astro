@@ -1,0 +1,81 @@
+---
+/**
+ * Mahzeni yerinde görün (taş/tuff bölüm) — nesnel ziyaret bilgisi.
+ * Bölüm sonundaki link, akışı kesmeden İletişim bölümüne kaydırır.
+ */
+import { tr } from '../content/site';
+const t = tr.visit;
+---
+
+<section id={t.id} class="section theme-light visit" data-descent="Ziyaret">
+  <div class="container">
+    <div class="split">
+      <div class="split__media reveal">
+        <div class="ph ph--portrait">
+          <span class="ph__label">{t.phLabel}</span>
+        </div>
+      </div>
+
+      <div class="split__text reveal" style="transition-delay: 80ms;">
+        <p class="overline">{t.overline}</p>
+        <h2 class="display">{t.title}</h2>
+        <div class="prose-block lead muted" style="margin-top: 1.2em;">
+          {t.body.map((p) => <p>{p}</p>)}
+        </div>
+
+        <dl class="visit__info">
+          {t.info.map((row) => (
+            <div class="visit__row">
+              <dt>{row.label}</dt>
+              <dd>{row.value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <p style="margin-top: 2em;">
+          <a class="cta" href={t.cta.href}>
+            {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Taş zemin — açık bölümlerden bir ton derin */
+  .visit { background: var(--color-tuff2); }
+
+  /* Yer tutucu, tuff-2 zeminden ayrışsın */
+  .visit :global(.ph) {
+    background:
+      radial-gradient(120% 90% at 30% 20%, var(--color-tuff), transparent 70%),
+      color-mix(in srgb, var(--color-tuff) 60%, var(--color-tuff2));
+  }
+
+  .visit__info {
+    margin: 1.8em 0 0;
+    max-width: 420px;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .visit__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+    font-size: 15px;
+  }
+
+  .visit__row dt {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .visit__row dd {
+    margin: 0;
+    color: var(--color-on-light-mut);
+    text-align: right;
+  }
+</style>

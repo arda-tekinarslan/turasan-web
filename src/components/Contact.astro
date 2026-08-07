@@ -1,55 +1,87 @@
 ---
+/**
+ * İletişim / Konum (açık bölüm) — en üstte çok büyük puntoyla şehir başlığı,
+ * altında sade bilgi listesi ve gömülü harita yer tutucusu (lazy-load).
+ */
 import { tr } from '../content/site';
 const t = tr.contact;
-const hours = tr.visit.hours;
 ---
 
 <section id={t.id} class="section theme-light" data-descent="İletişim">
   <div class="container">
-    <div class="split">
-      <div class="split__media reveal">
-        <!-- Canlıda buraya gömülü harita (iframe) gelecek -->
-        <div class="ph ph--portrait contact__map">
+    <p class="overline reveal">{t.overline}</p>
+    <h2 class="display contact__city reveal" style="transition-delay: 80ms;">
+      {t.city} <span class="contact__city-sep" aria-hidden="true">/</span> {t.region}
+    </h2>
+
+    <div class="contact__grid">
+      <dl class="contact__list reveal">
+        <div class="contact__item">
+          <dt class="overline contact__label">Adres</dt>
+          <dd>{t.address}</dd>
+        </div>
+        <div class="contact__item">
+          <dt class="overline contact__label">E-posta</dt>
+          <dd><a class="contact__link" href={`mailto:${t.email}`}>{t.email}</a></dd>
+        </div>
+        <div class="contact__item">
+          <dt class="overline contact__label">Telefon</dt>
+          <dd><a class="contact__link" href={`tel:${t.phone.replace(/[^+\d]/g, '')}`}>{t.phone}</a></dd>
+        </div>
+        <div class="contact__item">
+          <dt class="overline contact__label">Konum</dt>
+          <dd>
+            <a class="contact__link" href={t.mapCta.href} target="_blank" rel="noopener">
+              {t.mapCta.label} <span aria-hidden="true">→</span>
+            </a>
+          </dd>
+        </div>
+        <div class="contact__item">
+          <dt class="overline contact__label">{t.hoursTitle}</dt>
+          <dd>
+            {t.hours.map((h) => (
+              <span class="contact__hours-row">{h.label}: {h.value}</span>
+            ))}
+          </dd>
+        </div>
+      </dl>
+
+      <div class="reveal" style="transition-delay: 80ms;">
+        <!--
+          Canlıda: <iframe loading="lazy" src="https://www.google.com/maps/embed?..."
+          title="Turasan Şarapçılık konumu"> — yer tutucu aynı oranda bekletiyor.
+        -->
+        <div class="ph contact__map">
           <span class="ph__label">{t.mapLabel}</span>
         </div>
-      </div>
-
-      <div class="split__text reveal">
-        <p class="overline">{t.overline}</p>
-        <h2 class="display">{t.title}</h2>
-
-        <dl class="contact__list">
-          <div class="contact__item">
-            <dt class="overline contact__label">Adres</dt>
-            <dd>{t.address}</dd>
-          </div>
-          <div class="contact__item">
-            <dt class="overline contact__label">Telefon</dt>
-            <dd><a class="contact__link" href={`tel:${t.phone.replace(/[^+\d]/g, '')}`}>{t.phone}</a></dd>
-          </div>
-          <div class="contact__item">
-            <dt class="overline contact__label">E-posta</dt>
-            <dd><a class="contact__link" href={`mailto:${t.email}`}>{t.email}</a></dd>
-          </div>
-          <div class="contact__item">
-            <dt class="overline contact__label">{t.hoursTitle}</dt>
-            <dd>
-              {hours.map((h) => (
-                <span class="contact__hours-row">{h.label}: {h.value}</span>
-              ))}
-            </dd>
-          </div>
-        </dl>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  .contact__city {
+    font-size: clamp(48px, 10vw, 120px);
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.35em;
+  }
+
+  .contact__city-sep { color: var(--color-on-light-mut); }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--split-gap);
+    align-items: start;
+    margin-top: clamp(40px, 7vh, 72px);
+  }
+
   .contact__map { aspect-ratio: 4 / 3; }
 
   .contact__list {
-    margin: 2em 0 0;
+    margin: 0;
     display: grid;
     gap: 22px;
   }
@@ -70,4 +102,8 @@ const hours = tr.visit.hours;
   .contact__link:hover { color: var(--color-garnet); }
 
   .contact__hours-row { display: block; }
+
+  @media (max-width: 760px) {
+    .contact__grid { grid-template-columns: 1fr; }
+  }
 </style>
