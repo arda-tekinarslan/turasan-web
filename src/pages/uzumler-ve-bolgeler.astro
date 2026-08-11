@@ -1,0 +1,139 @@
+---
+/**
+ * Üzümler ve Bölgeler — src/content/regions.ts verisinden render edilir.
+ * Her bölge bir h2, her üzüm bir h3'tür; ikisi de anchor id taşır, dışarıdan
+ * doğrudan bağlantı verilebilir (örn. /uzumler-ve-bolgeler#kalecik-karasi).
+ * Birden çok bölgede yetişen üzümün tam açıklaması birincil bölgesindedir;
+ * diğer bölgelerde oraya çapraz bağlantı gösterilir.
+ */
+import SubPage from '../layouts/SubPage.astro';
+import { grapes, regions, regionName } from '../content/regions';
+---
+
+<SubPage
+  title="Üzümler ve Bölgeler — Turasan Şarapçılık"
+  description="Turasan'ın çalıştığı bölgeler ve bu bölgelerde yetişen üzümler: Kapadokya, Denizli/Güney, İzmir/Menderes, Tokat/Erbaa ve Elazığ."
+  overline="Bağcılık"
+  heading="Üzümler ve Bölgeler"
+  lead="Üretimde kullanılan üzümler, farklı bölgelerdeki kendi bağlarımızdan ve anlaşmalı bağlardan gelir. Aşağıda her bölge ve o bölgede yetişen üzümler nesnel olarak listelenir."
+>
+  <h2 class="display rb__heading reveal">Bölgesel Bağlar</h2>
+
+  <div class="rb">
+    {regions.map((region, ri) => (
+      <section id={region.id} class="rb__region reveal" style={`transition-delay: ${ri * 60}ms;`}>
+        <h2 class="display rb__region-name">{region.name}</h2>
+
+        <div class="rb__grapes">
+          {region.grapeIds.map((gid) => {
+            const g = grapes[gid];
+            const isPrimary = g.primary === region.id;
+            return isPrimary ? (
+              <article id={g.id} class="rb__grape">
+                <header class="rb__grape-head">
+                  <h3 class="display rb__grape-name">{g.name}</h3>
+                  <span class="rb__grape-type">{g.type}</span>
+                </header>
+                <div class="prose-block rb__grape-body">
+                  {g.body.map((p) => <p>{p}</p>)}
+                </div>
+              </article>
+            ) : (
+              <article class="rb__grape rb__grape--ref">
+                <header class="rb__grape-head">
+                  <h3 class="display rb__grape-name">{g.name}</h3>
+                  <span class="rb__grape-type">{g.type}</span>
+                </header>
+                <p class="rb__grape-ref muted">
+                  Bu bölgede de yetiştirilir — açıklama:
+                  <a href={`#${g.id}`}>{regionName(g.primary)} bölümünde</a>
+                </p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+  </div>
+</SubPage>
+
+<style>
+  /* Sabit header'ın altında kalmasın diye anchor hedeflerine üst boşluk */
+  .rb :global([id]),
+  .rb__region {
+    scroll-margin-top: 88px;
+  }
+
+  .rb__heading {
+    font-size: clamp(24px, 3vw, 34px);
+    margin: 0 0 0.4em;
+  }
+
+  .rb {
+    display: grid;
+    gap: clamp(48px, 8vh, 80px);
+  }
+
+  .rb__region {
+    padding-top: clamp(28px, 4vh, 40px);
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .rb__region-name {
+    font-size: clamp(28px, 3.8vw, 44px);
+    margin: 0;
+  }
+
+  .rb__grapes {
+    margin-top: clamp(24px, 3.5vh, 36px);
+    display: grid;
+    gap: clamp(24px, 3.5vh, 36px);
+    max-width: 62ch;
+  }
+
+  .rb__grape {
+    padding-left: clamp(16px, 2.5vw, 28px);
+    border-left: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .rb__grape-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .rb__grape-name {
+    font-size: clamp(20px, 2.4vw, 27px);
+    margin: 0;
+  }
+
+  .rb__grape-type {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-garnet);
+    white-space: nowrap;
+  }
+
+  .rb__grape-body {
+    margin-top: 0.7em;
+    color: var(--color-on-light-mut);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .rb__grape-ref {
+    margin: 0.6em 0 0;
+    font-size: 14px;
+  }
+
+  .rb__grape-ref a {
+    color: var(--color-garnet);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    margin-left: 0.3em;
+  }
+
+  .rb__grape-ref a:hover { color: var(--color-garnet-lo); }
+</style>

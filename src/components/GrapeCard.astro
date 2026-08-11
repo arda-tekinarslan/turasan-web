@@ -2,30 +2,38 @@
 /**
  * Üzüm kartı — görselsiz. Ad (serif) + renk etiketi + bölge + kısa,
  * nesnel aroma tarifi. Zemin tuff-2, kenarlıksız; yalnızca ince ayraçlar.
+ * href verilirse kartın tamamı, detay sayfasındaki üzüm anchor'ına bağlanır;
+ * görünüm değişmez.
  */
 interface Props {
   name: string;
   type: string;
   region: string;
   note: string;
+  href?: string;
 }
 
-const { name, type, region, note } = Astro.props;
+const { name, type, region, note, href } = Astro.props;
+const Tag = href ? 'a' : 'article';
 ---
 
-<article class="grape">
+<Tag class="grape" href={href}>
   <header class="grape__head">
     <h3 class="display grape__name">{name}</h3>
     <span class="grape__type">{type}</span>
   </header>
   <p class="grape__region muted">{region}</p>
   <p class="grape__note">{note}</p>
-</article>
+</Tag>
 
 <style>
   .grape {
+    display: block;
     background: var(--color-tuff2);
     padding: clamp(24px, 3vw, 36px);
+    /* Link olarak render edildiğinde de görünüm aynı kalır */
+    color: inherit;
+    text-decoration: none;
   }
 
   .grape__head {

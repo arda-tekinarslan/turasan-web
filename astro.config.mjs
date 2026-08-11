@@ -8,7 +8,14 @@ export default defineConfig({
   // Kendi alan adına geçerken: site'ı gerçek adresle değiştirin ve base'i silin.
   site: 'https://arda-tekinarslan.github.io',
   base: '/turasan-web',
-  integrations: [sitemap()],
+  // Not: /uzumler → /uzumler-ve-bolgeler yönlendirmesi src/pages/uzumler.astro
+  // içindedir (Astro'nun `redirects` ayarı base yolunu hedefe eklemiyor).
+  integrations: [
+    sitemap({
+      // Noindex yönlendirme sayfası site haritasına girmesin
+      filter: (page) => !page.endsWith('/uzumler/'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

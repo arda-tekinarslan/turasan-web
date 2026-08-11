@@ -48,7 +48,7 @@ const t = tr.vineyard;
     <div class="vineyard__grapes">
       {t.grapes.map((g, i) => (
         <div class="reveal" style={`transition-delay: ${i * 80}ms;`}>
-          <GrapeCard {...g} />
+          <GrapeCard {...g} href={withBase(g.href)} />
         </div>
       ))}
     </div>
