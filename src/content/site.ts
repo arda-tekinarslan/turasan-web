@@ -61,33 +61,38 @@ export const tr = {
       'Kapadokya’nın toprağı, milyonlarca yıl önceki volkanik faaliyetin bıraktığı tüften oluşur. Süzek yapısı ve mineral içeriğiyle bu toprak, bağcılık için ayırt edici bir zemin sunar.',
       'Bölgenin yüksek rakımı ve sert kara iklimi, gündüz–gece sıcaklık farkını belirginleştirir; üzüm yavaş ve dengeli olgunlaşır. Üretim, kendi bağlarımızın yanı sıra bölgedeki anlaşmalı bağlardan alınan üzümlerle sürdürülür.',
     ],
+    // Kart tasarımı/metni sabit; href yalnızca detay sayfasındaki anchor'a götürür.
     grapes: [
       {
         name: 'Emir',
         type: 'Beyaz',
         region: 'Nevşehir platosu',
         note: 'Yöreye özgü beyaz üzüm; yüksek asidite, narenciye ve yeşil elma tonları.',
+        href: '/uzumler-ve-bolgeler#emir',
       },
       {
         name: 'Narince',
         type: 'Beyaz',
         region: 'Tokat kökenli, bölgede yetiştirilir',
         note: 'Dengeli gövde; çiçeksi burun, olgun armut ve hafif mineral bitiş.',
+        href: '/uzumler-ve-bolgeler#narince',
       },
       {
         name: 'Kalecik Karası',
         type: 'Kırmızı',
         region: 'Ankara–Kalecik kökenli',
         note: 'Orta gövdeli kırmızı; kırmızı meyve ağırlıklı, yumuşak tanenli yapı.',
+        href: '/uzumler-ve-bolgeler#kalecik-karasi',
       },
       {
         name: 'Öküzgözü',
         type: 'Kırmızı',
         region: 'Elazığ kökenli',
         note: 'Canlı asidite; vişne ve karadut karakteri, orta uzunlukta bitiş.',
+        href: '/uzumler-ve-bolgeler#okuzgozu',
       },
     ],
-    cta: { label: 'Üzümler', href: '/uzumler' },
+    cta: { label: 'Üzümler ve bölgeler', href: '/uzumler-ve-bolgeler' },
   },
   production: {
     id: 'uretim',
@@ -100,23 +105,6 @@ export const tr = {
     portraitLabel: 'portre · önolog',
     bandLabel: 'görsel · çelik tanklar ve üretim personeli',
     cta: { label: 'Üretim sürecimiz', href: '/uretim-sureci' },
-  },
-  // Örnek yer tutucu veriler — nihai liste ve dil, hukuk danışmanı
-  // onayından geçmelidir. Ödül bilgisi ürünle değil, kurumla ve üretim
-  // yılıyla ilişkilendirilir.
-  awards: {
-    id: 'oduller',
-    overline: 'Ödüller',
-    title: '2026 değerlendirmeleri',
-    intro:
-      'Aşağıda, kurumumuzun 2026 yılında katıldığı uluslararası yarışmalarda aldığı sonuçlar yarışma, kategori ve yıl düzeyinde listelenir.',
-    items: [
-      { competition: 'Decanter World Wine Awards', category: 'Beyaz şaraplar', year: '2026', logoLabel: 'logo · dwwa' },
-      { competition: 'International Wine & Spirit Competition', category: 'Kırmızı şaraplar', year: '2026', logoLabel: 'logo · iwsc' },
-      { competition: 'Mundus Vini', category: 'Beyaz şaraplar', year: '2026', logoLabel: 'logo · mundus vini' },
-      { competition: 'Concours Mondial de Bruxelles', category: 'Kırmızı şaraplar', year: '2026', logoLabel: 'logo · cmb' },
-    ],
-    cta: { label: 'Tüm ödüller', href: '/oduller' },
   },
   // Ton: "ziyaret bilgisi" — davet/özendirme dili kullanılmaz.
   visit: {
@@ -142,8 +130,11 @@ export const tr = {
     city: 'Ürgüp',
     region: 'Nevşehir',
     address: 'Yunak Mah. Tevfik Fikret Cad. No: 6A-B, 50400 Ürgüp / Nevşehir',
-    phone: '+90 (384) 000 00 00',
-    email: 'info@turasan.example',
+    phone: '(0384) 341 49 61',
+    // Ekranda yerel biçim görünür; tel: bağlantısı uluslararası biçimde olur ki
+    // mobilden ve yurt dışından da doğru çevrilsin.
+    phoneDial: '+903843414961',
+    email: 'info@turasan.com.tr',
     mapCta: { label: 'Haritada aç', href: 'https://maps.google.com/?q=Turasan+%C5%9Earap%C3%A7%C4%B1l%C4%B1k+%C3%9Crg%C3%BCp' },
     mapLabel: 'harita · gömülü konum (lazy-load)',
     hoursTitle: 'Çalışma saatleri',
@@ -160,7 +151,7 @@ export const tr = {
         links: [
           { label: 'Miras', href: '/#miras' },
           { label: 'Bağcılık', href: '/#bagcilik' },
-          { label: 'Üzümler', href: '/uzumler' },
+          { label: 'Üzümler ve Bölgeler', href: '/uzumler-ve-bolgeler' },
           { label: 'Üretim', href: '/#uretim' },
           { label: 'Ödüller', href: '/#oduller' },
           { label: 'Ziyaret', href: '/#ziyaret' },
@@ -210,50 +201,6 @@ export const tr = {
         },
       ],
     },
-    grapes: {
-      title: 'Üzümler',
-      overline: 'Bağcılık',
-      lead:
-        'Bölgede yetiştirilen dört üzümün kökeni, yetiştiği koşullar ve karakteri hakkında nesnel bilgi.',
-      details: [
-        {
-          name: 'Emir',
-          type: 'Beyaz',
-          region: 'Nevşehir platosu',
-          body: [
-            'Kapadokya’ya özgü beyaz üzümdür; başka bölgelerde yaygın olarak yetiştirilmez. Tüf toprakta ve yüksek rakımda karakterini bulur.',
-            'Yüksek asidite, narenciye ve yeşil elma tonları tipiktir; hafif gövdeli ve mineral yapıdadır.',
-          ],
-        },
-        {
-          name: 'Narince',
-          type: 'Beyaz',
-          region: 'Tokat kökenli, bölgede yetiştirilir',
-          body: [
-            'Kökeni Tokat–Kazova olan Narince, Kapadokya koşullarına uyum sağlamış bir beyaz üzümdür.',
-            'Dengeli gövde, çiçeksi burun, olgun armut ve hafif mineral bitiş görülür.',
-          ],
-        },
-        {
-          name: 'Kalecik Karası',
-          type: 'Kırmızı',
-          region: 'Ankara–Kalecik kökenli',
-          body: [
-            'Ankara’nın Kalecik ilçesine özgü bu kırmızı üzüm, Anadolu’nun köklü çeşitlerindendir.',
-            'Orta gövde, kırmızı meyve ağırlıklı aroma ve yumuşak tanen yapısı tipiktir.',
-          ],
-        },
-        {
-          name: 'Öküzgözü',
-          type: 'Kırmızı',
-          region: 'Elazığ kökenli',
-          body: [
-            'Elazığ yöresine özgü Öküzgözü, Türkiye’nin en yaygın kırmızı üzümlerinden biridir.',
-            'Canlı asidite, vişne ve karadut karakteri, orta uzunlukta bitiş görülür.',
-          ],
-        },
-      ],
-    },
     process: {
       title: 'Üretim süreci',
       overline: 'Üretim',
@@ -279,30 +226,6 @@ export const tr = {
         {
           title: 'Şişeleme',
           body: 'Şişeleme, kapalı hat üzerinde yapılır; her parti kayıt altına alınır.',
-        },
-      ],
-    },
-    awards: {
-      title: 'Ödül arşivi',
-      overline: 'Ödüller',
-      lead:
-        'Sonuçlar; yarışma adı, kategori ve yıl düzeyinde, kurum ve üretim yılıyla ilişkilendirilerek listelenir.',
-      years: [
-        {
-          year: '2026',
-          items: [
-            'Decanter World Wine Awards · Beyaz şaraplar',
-            'International Wine & Spirit Competition · Kırmızı şaraplar',
-            'Mundus Vini · Beyaz şaraplar',
-            'Concours Mondial de Bruxelles · Kırmızı şaraplar',
-          ],
-        },
-        {
-          year: '2025',
-          items: [
-            'Decanter World Wine Awards · Kırmızı şaraplar',
-            'Mundus Vini · Beyaz şaraplar',
-          ],
         },
       ],
     },
