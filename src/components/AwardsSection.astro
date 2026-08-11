@@ -1,39 +1,54 @@
 ---
 /**
- * Ödüller (açık bölüm) — kurumsal-nesnel ton. Yalnızca bu yılın sonuçları:
- * mono logo + yarışma · kategori · yıl. Kupa/madalya estetiği ve övgü dili yok.
+ * Ödüller (açık bölüm) — kurumsal-nesnel ton; veriler src/content/awards.ts
+ * dosyasından gelir, yalnızca FEATURED_YEAR yılına ait ödüller gösterilir.
+ *
+ * Logo: her kartta sabit kare (1:1) alan. public/images/oduller/{slug}.png
+ * dosyası varsa <img> render edilir (mono → hover'da renkli); yoksa aynı
+ * boyutta nötr boş kutu kalır — layout kaymaz, hata oluşmaz.
  */
-import { tr } from '../content/site';
+import fs from 'node:fs';
+import { awards, FEATURED_YEAR } from '../content/awards';
 import { withBase } from '../lib/url';
-const t = tr.awards;
+
+const featured = awards.filter((a) => a.year === FEATURED_YEAR);
+const logoExists = (logo: string) => fs.existsSync(`public${logo}`);
+
+const title = `${FEATURED_YEAR} değerlendirmeleri`;
+const intro =
+  `Aşağıda, kurumumuzun ${FEATURED_YEAR} yılında katıldığı uluslararası ` +
+  'yarışmalarda aldığı sonuçlar; yarışma, şarap ve derece düzeyinde listelenir.';
 ---
 
-<section id={t.id} class="section theme-light" data-descent="Ödüller">
+<section id="oduller" class="section theme-light" data-descent="Ödüller">
   <div class="container">
     <div class="awards__head reveal">
-      <p class="overline">{t.overline}</p>
-      <h2 class="display">{t.title}</h2>
-      <p class="lead muted" style="margin-top: 1.2em;">{t.intro}</p>
+      <p class="overline">Ödüller</p>
+      <h2 class="display">{title}</h2>
+      <p class="lead muted" style="margin-top: 1.2em;">{intro}</p>
     </div>
 
     <ul class="awards__row">
-      {t.items.map((a, i) => (
+      {featured.map((a, i) => (
         <li class="awards__item reveal" style={`transition-delay: ${i * 80}ms;`}>
-          <!-- Yarışma logosu — mono; üzerine gelince renklenir -->
-          <span class="awards__logo ph" aria-hidden="true">
-            <span class="ph__label awards__logo-label">{a.logoLabel}</span>
+          <span class="awards__logo" aria-hidden="true">
+            {logoExists(a.logo) ? (
+              <img src={withBase(a.logo)} alt="" width="96" height="96" loading="lazy" />
+            ) : (
+              <span class="awards__logo-empty"></span>
+            )}
           </span>
           <span class="awards__text">
-            {a.competition} <span class="awards__sep">·</span> {a.category}
-            <span class="awards__sep">·</span> {a.year}
+            <span class="awards__comp">{a.competition}</span>
+            {a.wine} <span class="awards__sep">·</span> {a.medal}
           </span>
         </li>
       ))}
     </ul>
 
     <p class="reveal" style="margin-top: 2.4em;">
-      <a class="cta" href={withBase(t.cta.href)}>
-        {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
+      <a class="cta" href={withBase('/oduller')}>
+        Tüm Ödüller <span class="arrow" aria-hidden="true">→</span>
       </a>
     </p>
   </div>
@@ -47,7 +62,7 @@ const t = tr.awards;
     margin: clamp(40px, 7vh, 64px) 0 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
     gap: clamp(20px, 3vw, 40px);
   }
 
@@ -60,32 +75,45 @@ const t = tr.awards;
     border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
   }
 
-  /* Gerçek logo geldiğinde <img> filter: grayscale(1) → hover'da 0 olur */
+  /* Sabit kare logo alanı — dosya olsun olmasın aynı yer kaplar */
   .awards__logo {
-    width: 84px;
-    height: 84px;
+    width: 96px;
+    aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
+  }
+
+  .awards__logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     filter: grayscale(1);
-    opacity: 0.65;
+    opacity: 0.75;
     transition: filter 0.4s ease, opacity 0.4s ease;
   }
 
-  .awards__item:hover .awards__logo {
+  .awards__item:hover .awards__logo img {
     filter: grayscale(0);
     opacity: 1;
   }
 
-  .awards__logo-label {
-    font-size: 9px;
-    letter-spacing: 0.14em;
-    text-align: center;
+  /* Logo henüz eklenmediyse: nötr boş kutu */
+  .awards__logo-empty {
+    width: 100%;
+    height: 100%;
+    background: var(--color-tuff2);
   }
 
   .awards__text {
     font-size: 14px;
     color: var(--color-on-light);
     line-height: 1.5;
+  }
+
+  .awards__comp {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 2px;
   }
 
   .awards__sep { color: var(--color-on-light-mut); }

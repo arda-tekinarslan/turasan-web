@@ -1,27 +1,36 @@
 ---
 /**
- * Ödül arşivi — kurumsal-nesnel liste. Kupa/madalya grafiği ve övgü dili yok;
- * nihai içerik hukuk danışmanı onayından geçmelidir.
+ * Ödül arşivi — src/content/awards.ts verisinden render edilir.
+ * Tüm yıllar (FEATURED_YEAR dahil), yeniden eskiye gruplanmış; metin tabanlı
+ * liste. Kupa/madalya grafiği ve övgü dili yok; nihai içerik hukuk danışmanı
+ * onayından geçmelidir.
  */
 import SubPage from '../layouts/SubPage.astro';
-import { tr } from '../content/site';
-const t = tr.pages.awards;
+import { awardsByYear } from '../content/awards';
+
+const total = awardsByYear.reduce((n, g) => n + g.items.length, 0);
 ---
 
 <SubPage
-  title={`${t.title} — Turasan Şarapçılık`}
-  description="Turasan Şarapçılık'ın uluslararası yarışma sonuçları; yarışma, kategori ve yıl düzeyinde arşiv."
-  overline={t.overline}
-  heading={t.title}
-  lead={t.lead}
+  title="Ödül Arşivi — Turasan Şarapçılık"
+  description="Turasan Şarapçılık'ın uluslararası yarışma sonuçları; yarışma, şarap ve derece düzeyinde, yıla göre arşiv."
+  overline="Ödüller"
+  heading="Ödül arşivi"
+  lead={`${awardsByYear[awardsByYear.length - 1].year}–${awardsByYear[0].year} arasında uluslararası yarışmalarda alınan ${total} sonuç; yarışma, şarap ve derece düzeyinde, yeniden eskiye listelenir.`}
 >
   <div class="archive">
-    {t.years.map((y, i) => (
-      <section class="archive__year reveal" style={`transition-delay: ${i * 80}ms;`}>
-        <h2 class="display archive__title">{y.year}</h2>
+    {awardsByYear.map((group, gi) => (
+      <section id={`yil-${group.year}`} class="archive__year reveal" style={`transition-delay: ${Math.min(gi, 4) * 60}ms;`}>
+        <h2 class="display archive__title">{group.year}</h2>
         <ul class="archive__list">
-          {y.items.map((item) => (
-            <li class="archive__item">{item}</li>
+          {group.items.map((a) => (
+            <li class="archive__item">
+              <span class="archive__wine">{a.wine}</span>
+              <span class="archive__meta">
+                {a.competition} <span class="archive__sep">·</span> {a.medal}
+                {a.note && <span class="archive__sep"> · {a.note}</span>}
+              </span>
+            </li>
           ))}
         </ul>
       </section>
@@ -33,12 +42,13 @@ const t = tr.pages.awards;
   .archive {
     display: grid;
     gap: clamp(40px, 6vh, 64px);
-    max-width: 62ch;
+    max-width: 68ch;
   }
 
   .archive__year {
     padding-top: clamp(24px, 3.5vh, 36px);
     border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+    scroll-margin-top: 88px;
   }
 
   .archive__title {
@@ -54,9 +64,33 @@ const t = tr.pages.awards;
   }
 
   .archive__item {
-    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    padding: 10px 0;
     border-bottom: 1px solid color-mix(in srgb, var(--color-on-light) 10%, transparent);
     font-size: 15px;
+  }
+
+  .archive__wine { color: var(--color-on-light); }
+
+  .archive__meta {
     color: var(--color-on-light-mut);
+    font-size: 13px;
+    text-align: right;
+    flex-shrink: 0;
+    max-width: 55%;
+  }
+
+  .archive__sep { color: var(--color-on-light-mut); }
+
+  @media (max-width: 600px) {
+    .archive__item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .archive__meta { text-align: left; max-width: none; }
   }
 </style>
