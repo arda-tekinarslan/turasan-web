@@ -76,18 +76,19 @@ const t = tr.ageGate;
   // sayfalar arası gezinmede tekrar sorulmaz, yeni oturumda yeniden sorulur.
   // Oturumlar arası kalıcılık istenirse çerez kullanılabilir (KVKK/çerez
   // politikasına eklenmek koşuluyla).
-  const KEY = 'turasan-age-ok';
+  import { YAS_ONAY_KEY, yasOnayiVar } from '../lib/yas-kapisi';
+
   const gate = document.getElementById('age-gate');
   const yes = document.getElementById('age-yes');
 
-  if (sessionStorage.getItem(KEY) === '1') {
+  if (yasOnayiVar()) {
     gate?.classList.add('is-hidden');
   } else {
     document.body.classList.add('gated');
   }
 
   yes?.addEventListener('click', () => {
-    sessionStorage.setItem(KEY, '1');
+    sessionStorage.setItem(YAS_ONAY_KEY, '1');
     gate?.classList.add('is-hidden');
     document.body.classList.remove('gated');
     document.dispatchEvent(new CustomEvent('agegate:confirmed'));

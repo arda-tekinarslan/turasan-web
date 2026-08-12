@@ -10,10 +10,11 @@
  *   <AgeGate />
  *   <YuklemeEkrani />
  *
- * Tetikleme: AgeGate'in "Evet, 18 yaşından büyüğüm" butonunun click
- * handler'ının sonuna şu satır eklenir:
- *
- *   document.dispatchEvent(new CustomEvent('agegate:accepted'));
+ * Ne zaman oynar:
+ *   - İlk girişte, yaş kapısı onaylandığında (`agegate:accepted` event'i;
+ *     AgeGate'in click handler'ının sonunda yayınlanır).
+ *   - Onay zaten verilmişse, sayfa yenilendiğinde (F5 / reload).
+ *   - Site içi gezinmede oynamaz.
  *
  * Animasyon bittiğinde `yukleme:bitti` event'i yayınlanır — hero animasyonunu
  * buna bağlamak istersen dinleyebilirsin.
@@ -171,6 +172,8 @@ const { dolumSuresi = 900, kapanisSuresi = 320 } = Astro.props;
 </style>
 
 <script>
+  import { yasOnayiVar } from '../lib/yas-kapisi';
+
   const ekran = document.querySelector('[data-yukleme-ekrani]');
 
   if (ekran instanceof HTMLElement) {
@@ -178,6 +181,7 @@ const { dolumSuresi = 900, kapanisSuresi = 320 } = Astro.props;
     const dolum = Number(ekran.dataset.dolum ?? 900);
     const kapanis = Number(ekran.dataset.kapanis ?? 320);
     const bekleme = 120; // dolum bitince nefes payı
+    const toplam = dolum + bekleme + kapanis;
 
     let oynadi = false;
     let zamanlayicilar: number[] = [];
@@ -207,12 +211,26 @@ const { dolumSuresi = 900, kapanisSuresi = 320 } = Astro.props;
           ekran.dataset.durum = 'kapaniyor';
         }, dolum + bekleme),
       );
-      zamanlayicilar.push(window.setTimeout(bitir, dolum + bekleme + kapanis));
-      // Emniyet: bir şey ters giderse ekran kilitli kalmasın
-      zamanlayicilar.push(window.setTimeout(bitir, 3000));
+      zamanlayicilar.push(window.setTimeout(bitir, toplam));
+      // Emniyet: bir şey ters giderse ekran kilitli kalmasın.
+      // Süreler prop ile uzatılırsa bu pay da onunla birlikte uzar.
+      zamanlayicilar.push(window.setTimeout(bitir, toplam + 1500));
     }
 
-    document.addEventListener('agegate:accepted', oynat, { once: true });
+    // Ne zaman oynar:
+    //  - Kapı henüz onaylanmadıysa: onay verilince (ilk giriş).
+    //  - Onay zaten varsa: yalnızca sayfa yenilendiğinde.
+    // Site içi gezinmede (navigation type 'navigate') oynamaz — her tıklamada
+    // araya giren bir bekleme ekranı istemiyoruz.
+    if (yasOnayiVar()) {
+      const gezinme = performance.getEntriesByType('navigation')[0] as
+        | PerformanceNavigationTiming
+        | undefined;
+      if (gezinme?.type === 'reload') oynat();
+    } else {
+      document.addEventListener('agegate:accepted', oynat, { once: true });
+    }
+
     // Elle tetiklemek / test etmek için
     (window as any).TurasanYukleme = { oynat };
   }
