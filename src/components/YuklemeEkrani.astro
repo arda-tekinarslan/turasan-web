@@ -1,0 +1,219 @@
+---
+/**
+ * YuklemeEkrani.astro
+ * 18+ yaş kapısı onaylandıktan sonra bir kez oynayan geçiş animasyonu.
+ * Kadeh aşağıdan yukarıya şarapla dolar, dolunca ekran fade-out ile açılır.
+ *
+ * Kullanım (src/layouts/Layout.astro veya src/pages/index.astro içinde,
+ * AgeGate ile aynı seviyede, <body>'nin hemen içinde):
+ *
+ *   <AgeGate />
+ *   <YuklemeEkrani />
+ *
+ * Tetikleme: AgeGate'in "Evet, 18 yaşından büyüğüm" butonunun click
+ * handler'ının sonuna şu satır eklenir:
+ *
+ *   document.dispatchEvent(new CustomEvent('agegate:accepted'));
+ *
+ * Animasyon bittiğinde `yukleme:bitti` event'i yayınlanır — hero animasyonunu
+ * buna bağlamak istersen dinleyebilirsin.
+ */
+
+interface Props {
+  /** Kadehin dolma süresi (ms) */
+  dolumSuresi?: number;
+  /** Dolduktan sonra ekranın kaybolma süresi (ms) */
+  kapanisSuresi?: number;
+}
+
+const { dolumSuresi = 900, kapanisSuresi = 320 } = Astro.props;
+---
+
+<div
+  class="yukleme"
+  data-yukleme-ekrani
+  data-durum="bekliyor"
+  data-dolum={dolumSuresi}
+  data-kapanis={kapanisSuresi}
+  style={`--dolum: ${dolumSuresi}ms; --kapanis: ${kapanisSuresi}ms;`}
+>
+  <p class="yukleme__ses" role="status">Site hazırlanıyor</p>
+
+  <svg class="kadeh" viewBox="0 0 120 200" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Şarabın kırpma alanı: hazneden bir tık içeride, cam payı kalsın diye -->
+      <clipPath id="kadeh-hazne">
+        <path
+          d="M27 8 C21 28 18 48 18 64 C18 86 36 102 60 103 C84 102 102 86 102 64 C102 48 99 28 93 8 Z"
+          transform="translate(60 55.5) scale(0.93) translate(-60 -55.5)"
+        />
+      </clipPath>
+
+      <linearGradient id="sarap-rengi" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#941B00" />
+        <stop offset="0.38" stop-color="#6F1400" />
+        <stop offset="1" stop-color="#470D00" />
+      </linearGradient>
+    </defs>
+
+    <!-- Şarap: dalgalanarak yükselir -->
+    <g clip-path="url(#kadeh-hazne)">
+      <g class="sarap">
+        <g class="dalga">
+          <path
+            d="M-160 101 Q-140 96 -120 101 T-80 101 T-40 101 T0 101 T40 101 T80 101 T120 101 T160 101 T200 101 T240 101 T280 101 L280 300 L-160 300 Z"
+            fill="url(#sarap-rengi)"
+            stroke="rgba(255,255,255,0.12)"
+            stroke-width="0.8"
+          />
+        </g>
+      </g>
+    </g>
+
+    <!-- Hazne: ince kontur -->
+    <path
+      d="M27 8 C21 28 18 48 18 64 C18 86 36 102 60 103 C84 102 102 86 102 64 C102 48 99 28 93 8 Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+
+    <!-- Ayak ve taban: dolu -->
+    <g fill="currentColor">
+      <path d="M50.5 103 C54.5 125 57 152 57.8 184 L62.2 184 C63 152 65.5 125 69.5 103 Z" />
+      <ellipse cx="60" cy="186" rx="27" ry="7" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .yukleme {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: none;
+    place-items: center;
+    background: radial-gradient(
+      120% 90% at 50% 45%,
+      var(--color-ink, #1d1714) 0%,
+      var(--color-cave, #0e0b0a) 72%
+    );
+  }
+
+  .yukleme[data-durum='oynuyor'],
+  .yukleme[data-durum='kapaniyor'] {
+    display: grid;
+  }
+
+  .yukleme[data-durum='kapaniyor'] {
+    animation: ekran-kapan var(--kapanis) ease-in forwards;
+  }
+
+  .kadeh {
+    width: min(36vw, 134px);
+    height: auto;
+    color: var(--color-on-dark, #e6dccb);
+  }
+
+  .sarap {
+    animation: dolum var(--dolum) cubic-bezier(0.45, 0.05, 0.2, 1) forwards;
+  }
+
+  .dalga {
+    animation: dalga 1600ms linear infinite;
+  }
+
+  /* Hazne dibi y=101 → şarap yüzeyi y=28 (ağza yakın, üstte cam payı kalır) */
+  @keyframes dolum {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-73px);
+    }
+  }
+
+  /* Dalga periyodu 80 birim (hazne genişliği kadar) — bir periyot kayınca dikişsiz döner */
+  @keyframes dalga {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-80px);
+    }
+  }
+
+  @keyframes ekran-kapan {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .yukleme__ses {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yukleme {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  const ekran = document.querySelector('[data-yukleme-ekrani]');
+
+  if (ekran instanceof HTMLElement) {
+    const azHareket = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dolum = Number(ekran.dataset.dolum ?? 900);
+    const kapanis = Number(ekran.dataset.kapanis ?? 320);
+    const bekleme = 120; // dolum bitince nefes payı
+
+    let oynadi = false;
+    let zamanlayicilar: number[] = [];
+
+    function bitir() {
+      zamanlayicilar.forEach(clearTimeout);
+      zamanlayicilar = [];
+      document.documentElement.style.overflow = '';
+      ekran.remove();
+      document.dispatchEvent(new CustomEvent('yukleme:bitti'));
+    }
+
+    function oynat() {
+      if (oynadi) return;
+      oynadi = true;
+
+      if (azHareket) {
+        bitir();
+        return;
+      }
+
+      document.documentElement.style.overflow = 'hidden';
+      ekran.dataset.durum = 'oynuyor';
+
+      zamanlayicilar.push(
+        window.setTimeout(() => {
+          ekran.dataset.durum = 'kapaniyor';
+        }, dolum + bekleme),
+      );
+      zamanlayicilar.push(window.setTimeout(bitir, dolum + bekleme + kapanis));
+      // Emniyet: bir şey ters giderse ekran kilitli kalmasın
+      zamanlayicilar.push(window.setTimeout(bitir, 3000));
+    }
+
+    document.addEventListener('agegate:accepted', oynat, { once: true });
+    // Elle tetiklemek / test etmek için
+    (window as any).TurasanYukleme = { oynat };
+  }
+</script>

@@ -91,5 +91,7 @@ const t = tr.ageGate;
     gate?.classList.add('is-hidden');
     document.body.classList.remove('gated');
     document.dispatchEvent(new CustomEvent('agegate:confirmed'));
+    // Yükleme ekranını tetikler — overlay kapandıktan sonra, en sonda.
+    document.dispatchEvent(new CustomEvent('agegate:accepted'));
   });
 </script>

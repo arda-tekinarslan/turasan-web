@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { withBase } from '../lib/url';
+import YuklemeEkrani from '../components/YuklemeEkrani.astro';
 
 interface Props {
   title: string;
@@ -29,6 +30,14 @@ const { title, description, lang = 'tr' } = Astro.props;
   </head>
   <body>
     <slot />
+
+    <!--
+      Yaş kapısı onayından sonra bir kez oynayan geçiş animasyonu.
+      AgeGate ile aynı seviyede (ikisi de body çocuğu) ve onun altında
+      (z-index 90 < 100). Her sayfa Base'den geçtiği için tek yerde durur.
+    -->
+    <YuklemeEkrani />
+
     <script>
       // Scroll reveal — .reveal öğeleri ekrana girdikçe yumuşakça belirir.
       // Tüm sayfalarda ortak olduğu için layout'ta yaşar.
