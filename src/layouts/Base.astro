@@ -39,6 +39,25 @@ const { title, description, lang = 'tr' } = Astro.props;
     <YuklemeEkrani dolumSuresi={1600} />
 
     <script>
+      // Derin bağlantı telafisi: yaş kapısı açıkken <body> kilitli olduğu için
+      // tarayıcının hash kaydırması boşa düşebiliyor ve kapı kapandığında
+      // yeniden denenmiyor. Giriş sırası bittiğinde hedefe konumlanırız.
+      // (Harita bölgeleri gibi paylaşılan #anchor linkleri buna dayanıyor.)
+      document.addEventListener(
+        'yukleme:bitti',
+        () => {
+          if (!location.hash) return;
+          let hedef = null;
+          try {
+            hedef = document.querySelector(location.hash);
+          } catch {
+            return; // hash geçerli bir seçici değil
+          }
+          hedef?.scrollIntoView({ behavior: 'auto', block: 'start' });
+        },
+        { once: true }
+      );
+
       // Scroll reveal — .reveal öğeleri ekrana girdikçe yumuşakça belirir.
       // Tüm sayfalarda ortak olduğu için layout'ta yaşar.
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

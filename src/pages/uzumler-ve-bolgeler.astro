@@ -58,10 +58,31 @@ import { grapes, regions, regionName } from '../content/regions';
 </SubPage>
 
 <style>
-  /* Sabit header'ın altında kalmasın diye anchor hedeflerine üst boşluk */
+  /* Sabit header'ın altında kalmasın diye anchor hedeflerine üst boşluk:
+     header yüksekliği (68px) + 1rem */
   .rb :global([id]),
   .rb__region {
-    scroll-margin-top: 88px;
+    scroll-margin-top: calc(68px + 1rem);
+  }
+
+  /* Haritadan ya da üzüm kartlarından gelindiğinde hedef satır işaretlenir.
+     Vurgu kalıcıdır — sönümlenen bir animasyon, kullanıcı sayfaya geç
+     bakarsa hiç görülmemiş olurdu. */
+  .rb__region:target,
+  .rb__grape:target {
+    background: color-mix(in srgb, var(--color-tuff2) 65%, transparent);
+    /* Yayılım, arka planı içeriğin dışına taşırır; düzen kaymaz */
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--color-tuff2) 65%, transparent);
+    border-radius: 2px;
+  }
+
+  .rb__region:target > .rb__region-name,
+  .rb__grape:target .rb__grape-name {
+    color: var(--color-garnet);
+  }
+
+  .rb__grape:target {
+    border-left-color: var(--color-garnet);
   }
 
   .rb__heading {
