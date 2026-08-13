@@ -52,11 +52,8 @@ export const tr = {
     id: 'bagcilik',
     overline: 'Bağcılık',
     title: 'Kapadokya terroir’i',
-    mapLabel: 'görsel · kapadokya bağ haritası',
-    legend: [
-      { key: 'own', label: 'Bağlarımız' },
-      { key: 'partner', label: 'Anlaşmalı bağlar' },
-    ],
+    // Harita artık interaktif (TerroirHaritasi.astro) ve verisini
+    // src/content/regions.ts'ten alıyor; yer tutucu etiketi ile lejant kalktı.
     body: [
       'Kapadokya’nın toprağı, milyonlarca yıl önceki volkanik faaliyetin bıraktığı tüften oluşur. Süzek yapısı ve mineral içeriğiyle bu toprak, bağcılık için ayırt edici bir zemin sunar.',
       'Bölgenin yüksek rakımı ve sert kara iklimi, gündüz–gece sıcaklık farkını belirginleştirir; üzüm yavaş ve dengeli olgunlaşır. Üretim, kendi bağlarımızın yanı sıra bölgedeki anlaşmalı bağlardan alınan üzümlerle sürdürülür.',

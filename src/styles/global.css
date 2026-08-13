@@ -9,6 +9,10 @@
   --color-ink: #241a16;
   --color-tuff: #e5ddce;
   --color-tuff2: #d7ccb9;
+  /* El çizimi harita görselinin kâğıt zemini (görselden örneklendi).
+     Bağcılık bölümü bu rengi kullanır ki görsel ayrı bir kare gibi durmasın.
+     Görsel değişirse bu değer yeniden örneklenmeli. */
+  --color-paper: #f6e1c6;
   --color-garnet: #722a3a;
   --color-garnet-lo: #8f3a4c;
   --color-ochre: #b4894a;

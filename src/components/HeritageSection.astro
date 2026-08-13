@@ -2,7 +2,7 @@
 /**
  * Miras — 1943'ten bugüne (koyu bölüm).
  * Tam genişliğe yakın arşiv fotoğrafı, kademeli (stagger) açılan metin,
- * bölüm sonunda bir sonraki bölüme taşan Hakan Turasan portresi.
+ * bölüm sonunda sağa yaslı Hakan Turasan portresi.
  */
 import { tr } from '../content/site';
 import { withBase } from '../lib/url';
@@ -36,7 +36,6 @@ const t = tr.heritage;
       </a>
     </p>
 
-    <!-- Portre köprüsü: alt kenarı bir sonraki (açık) bölüme taşar -->
     <figure class="heritage__portrait reveal">
       <div class="ph ph--portrait">
         <span class="ph__label">{t.portraitLabel}</span>
@@ -47,12 +46,6 @@ const t = tr.heritage;
 </section>
 
 <style>
-  /* Portrenin taşması için alt boşluk sıfır; taşan miktar kadar bir sonraki
-     bölümün üstünde yer açılır (index.astro'da .after-heritage). */
-  .heritage {
-    padding-bottom: 0;
-  }
-
   .heritage__head { max-width: 62ch; }
 
   .heritage__archive {
@@ -70,11 +63,12 @@ const t = tr.heritage;
 
   .heritage__body { max-width: 58ch; }
 
+  /* Portre bölümün içinde kalır — koyu zemini bir sonraki açık bölüme
+     taşmaz. (Önceden sonraki bölüme sarkan bir "köprü"ydü; Bağcılık'ın
+     kâğıt zemininde yamalı durduğu için kaldırıldı.) */
   .heritage__portrait {
-    margin: clamp(56px, 9vh, 96px) 0 clamp(-140px, -12vh, -80px) auto;
+    margin: clamp(56px, 9vh, 96px) 0 0 auto;
     width: min(360px, 70%);
-    position: relative;
-    z-index: 2;
   }
 
   .heritage__portrait-caption {

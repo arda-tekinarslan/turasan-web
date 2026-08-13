@@ -1,13 +1,28 @@
 ---
 /**
- * Bağcılık (açık bölüm) — üstte lejantlı Kapadokya harita yer tutucusu,
- * terroir metni, bölge/üzüm kartları ve "Üzümler →" linki.
+ * Bağcılık (açık bölüm) — üstte bölge haritası görseli, terroir metni,
+ * üzüm kartları ve "Üzümler ve bölgeler →" linki.
  * Üst boşluk, Miras bölümünden taşan portreye yer açacak kadar geniştir.
+ *
+ * Harita statik bir görseldir (el çizimi): public/images/terroir.jpeg
+ * Dosya yoksa etiketli yer tutucu görünür, build kırılmaz.
  */
+import fs from 'node:fs';
 import { tr } from '../content/site';
 import GrapeCard from './GrapeCard.astro';
 import { withBase } from '../lib/url';
 const t = tr.vineyard;
+
+const HARITA = '/images/terroir.jpeg';
+const haritaVar = fs.existsSync(`public${HARITA}`);
+
+// Görsel metin içerdiği için alt, aynı bilgiyi eksiksiz aktarır.
+const haritaAlt =
+  'Türkiye haritası üzerinde bağ bölgeleri ve üzümleri: ' +
+  'Kapadokya/Nevşehir — Emir, Kalecik Karası, Öküzgözü, Riesling; ' +
+  'Denizli/Güney — Sauvignon Blanc, Chardonnay, Misket, Boğazkere, ' +
+  'Cabernet Sauvignon, Cabernet Franc, Kalecik Karası, Merlot, Syrah; ' +
+  'İzmir/Menderes — Misket; Tokat — Narince; Elazığ — Öküzgözü.';
 ---
 
 <section id={t.id} class="section theme-light vineyard" data-descent="Bağcılık">
@@ -17,26 +32,21 @@ const t = tr.vineyard;
       <h2 class="display">{t.title}</h2>
     </div>
 
-    <!-- Harita: gerçek görsel geldiğinde işaretler koordinatlarına oturtulur -->
     <figure class="vineyard__map reveal">
-      <div class="ph vineyard__map-ph">
-        <span class="ph__label">{t.mapLabel}</span>
-        <!-- Temsili işaretler — dekoratif -->
-        <span class="vineyard__pin vineyard__pin--own" style="left: 32%; top: 38%;" aria-hidden="true"></span>
-        <span class="vineyard__pin vineyard__pin--own" style="left: 44%; top: 55%;" aria-hidden="true"></span>
-        <span class="vineyard__pin vineyard__pin--own" style="left: 51%; top: 42%;" aria-hidden="true"></span>
-        <span class="vineyard__pin vineyard__pin--partner" style="left: 62%; top: 30%;" aria-hidden="true"></span>
-        <span class="vineyard__pin vineyard__pin--partner" style="left: 70%; top: 58%;" aria-hidden="true"></span>
-        <span class="vineyard__pin vineyard__pin--partner" style="left: 25%; top: 62%;" aria-hidden="true"></span>
-      </div>
-      <figcaption class="vineyard__legend">
-        {t.legend.map((l) => (
-          <span class="vineyard__legend-item">
-            <span class:list={['vineyard__pin', `vineyard__pin--${l.key}`, 'vineyard__pin--legend']} aria-hidden="true"></span>
-            {l.label}
-          </span>
-        ))}
-      </figcaption>
+      {haritaVar ? (
+        <img
+          class="vineyard__map-img"
+          src={withBase(HARITA)}
+          alt={haritaAlt}
+          width="1254"
+          height="1254"
+          loading="lazy"
+        />
+      ) : (
+        <div class="ph vineyard__map-ph">
+          <span class="ph__label">görsel · bölge haritası — public/images/terroir.jpeg</span>
+        </div>
+      )}
     </figure>
 
     <div class="vineyard__body prose-block lead muted">
@@ -62,51 +72,43 @@ const t = tr.vineyard;
 </section>
 
 <style>
-  /* Miras bölümünden taşan portre için ek üst boşluk */
+  /* Zemin, harita görselinin kâğıt rengiyle birebir aynı — görselin kendi
+     kremi bölüme karışır, kenarı belli olmaz. Bölüm iki koyu bölümün
+     (Miras ve Üretim) arasında olduğu için komşularıyla dikiş oluşmaz. */
   .vineyard {
-    padding-top: calc(var(--section-y) + clamp(96px, 14vh, 160px));
+    background: var(--color-paper);
   }
 
   .vineyard__head { max-width: 62ch; }
 
-  .vineyard__map { margin: clamp(36px, 6vh, 64px) 0 0; }
+  /* Görsel kare (1254×1254) ama çizim y 240–1128 bandında duruyor; üstte
+     %19, altta %10 boşluk var. Pencereyi y 200–1170 aralığına kırpıyoruz:
+     çizim üstte ve altta ~40px payla tamamen görünür, gereksiz dikey
+     boşluk gider. Görsel değişirse bu iki değer yeniden ölçülmeli. */
+  .vineyard__map {
+    margin: clamp(36px, 6vh, 64px) auto 0;
+    max-width: 880px;
+    aspect-ratio: 1254 / 970;
+    overflow: hidden;
+  }
+
+  .vineyard__map-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Kırpma payı: görselin üst %15,9'u pencerenin dışında kalır */
+    margin-top: -15.9%;
+  }
+
+  /* Yer tutucu kırpılmaz; kendi oranında durur */
+  .vineyard__map:has(.vineyard__map-ph) {
+    aspect-ratio: auto;
+    overflow: visible;
+  }
 
   .vineyard__map-ph {
-    aspect-ratio: 16 / 8;
+    aspect-ratio: 16 / 9;
     width: 100%;
-  }
-
-  .vineyard__pin {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
-
-  .vineyard__pin--own { background: var(--color-garnet); }
-
-  .vineyard__pin--partner {
-    background: transparent;
-    border: 2px solid var(--color-ochre);
-  }
-
-  .vineyard__legend {
-    display: flex;
-    gap: 28px;
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--color-on-light-mut);
-  }
-
-  .vineyard__legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .vineyard__pin--legend {
-    position: static;
-    flex: none;
   }
 
   .vineyard__body {
@@ -121,8 +123,15 @@ const t = tr.vineyard;
     gap: clamp(16px, 2.5vw, 28px);
   }
 
+  /* Aynı satırdaki kartlar eşit yükseklikte dursun. Sarmalayıcılar grid
+     tarafından zaten geriliyordu; kartın da sarmalayıcıyı doldurması için
+     onu grid öğesi yapıyoruz. Aksi hâlde açıklaması tek satıra sığan kart
+     (ör. Öküzgözü) komşusundan kısa kalıyor. */
+  .vineyard__grapes > * {
+    display: grid;
+  }
+
   @media (max-width: 760px) {
     .vineyard__grapes { grid-template-columns: 1fr; }
-    .vineyard { padding-top: calc(var(--section-y) + clamp(72px, 10vh, 120px)); }
   }
 </style>
