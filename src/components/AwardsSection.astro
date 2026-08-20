@@ -4,8 +4,9 @@
  * dosyasından gelir, yalnızca FEATURED_YEAR yılına ait ödüller gösterilir.
  *
  * Logo: her kartta sabit kare (1:1) alan. public/images/oduller/{slug}.png
- * dosyası varsa <img> render edilir (mono → hover'da renkli); yoksa aynı
- * boyutta nötr boş kutu kalır — layout kaymaz, hata oluşmaz.
+ * dosyası varsa <img> render edilir (her zaman renkli, hover'da hafifçe
+ * büyür); yoksa aynı boyutta nötr boş kutu kalır — layout kaymaz, hata
+ * oluşmaz.
  */
 import fs from 'node:fs';
 import { awards, FEATURED_YEAR } from '../content/awards';
@@ -89,14 +90,18 @@ const intro =
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    filter: grayscale(1);
-    opacity: 0.75;
-    transition: filter 0.4s ease, opacity 0.4s ease;
+    transition: transform 0.4s ease;
   }
 
+  /* Madalya her zaman renkli durur; hover yalnızca hafif bir büyütme yapar.
+     Tuval payı %12 olduğu için büyüme kutunun dışına taşmaz. */
   .awards__item:hover .awards__logo img {
-    filter: grayscale(0);
-    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .awards__logo img { transition: none; }
+    .awards__item:hover .awards__logo img { transform: none; }
   }
 
   /* Logo henüz eklenmediyse: nötr boş kutu */
