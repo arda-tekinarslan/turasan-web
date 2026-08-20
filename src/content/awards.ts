@@ -32,8 +32,8 @@ export const FEATURED_YEAR = 2026;
 export const competitionLogos: Record<string, string> = {
   'Chardonnay du Monde': '/images/oduller/chardonnay-du-monde.png',
   'China Wine & Spirits Awards': '/images/oduller/china-wine-spirits-awards.png',
-  'Concours International de Lyon': '/images/oduller/concours-international-de-lyon.jpeg',
-  'Concours Mondial de Bruxelles': '/images/oduller/concours-mondial-de-bruxelles.jpeg',
+  'Concours International de Lyon': '/images/oduller/concours-international-de-lyon.png',
+  'Concours Mondial de Bruxelles': '/images/oduller/concours-mondial-de-bruxelles.png',
   'Gusto': '/images/oduller/gusto.png',
   'International Wine Challenge London': '/images/oduller/international-wine-challenge-london.png',
   'Japan Wine Challenge': '/images/oduller/japan-wine-challenge.png',

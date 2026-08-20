@@ -33,7 +33,7 @@ const intro =
         <li class="awards__item reveal" style={`transition-delay: ${i * 80}ms;`}>
           <span class="awards__logo" aria-hidden="true">
             {logoExists(a.logo) ? (
-              <img src={withBase(a.logo)} alt="" width="96" height="96" loading="lazy" />
+              <img src={withBase(a.logo)} alt="" width="288" height="288" loading="lazy" />
             ) : (
               <span class="awards__logo-empty"></span>
             )}
@@ -75,9 +75,11 @@ const intro =
     border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
   }
 
-  /* Sabit kare logo alanı — dosya olsun olmasın aynı yer kaplar */
+  /* Sabit kare logo alanı — dosya olsun olmasın aynı yer kaplar.
+     Görseller 288×288 kare tuvalde, madalya tuvalin %88'i ve ortalanmış
+     olarak hazırlanır; böylece farklı yarışma logoları aynı boyutta durur. */
   .awards__logo {
-    width: 96px;
+    width: clamp(104px, 12vw, 136px);
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
