@@ -5,7 +5,22 @@ import { withBase } from '../lib/url';
 
 <header id="site-header" class="site-header" data-state="over-hero">
   <div class="site-header__inner">
-    <a class="site-header__brand display" href={withBase('/')}>Turasan</a>
+    <!--
+      Header'da logonun sadeleştirilmiş sürümü: yalnız TURASAN kelime markası.
+      Tam kilit bu boyuta indiğinde "1943" bandı ~5px kalıyor ve okunmuyor,
+      o yüzden kilit hero'da, kelime markası burada durur.
+      Header her durumda koyu zemin üzerinde (hero'da şeffaf, sonrasında
+      koyu blur), bu yüzden krem sürüm kullanılır.
+    -->
+    <a class="site-header__brand" href={withBase('/')}>
+      <img
+        class="site-header__brand-img"
+        src={withBase('/images/logo-wordmark-koyu.png')}
+        alt={tr.hero.logo.name}
+        width="431"
+        height="72"
+      />
+    </a>
 
     <nav class="site-header__nav" aria-label="Ana menü">
       {tr.nav.map((item) => (
@@ -66,10 +81,17 @@ import { withBase } from '../lib/url';
   }
 
   .site-header__brand {
-    font-size: 22px;
-    font-weight: 400;
+    display: block;
+    line-height: 0;
     color: inherit;
     text-decoration: none;
+  }
+
+  /* Yükseklik sabit; genişlik görselin kendi oranından (431×72) gelir */
+  .site-header__brand-img {
+    display: block;
+    height: clamp(18px, 2.2vw, 24px);
+    width: auto;
   }
 
   .site-header__nav {

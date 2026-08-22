@@ -1,5 +1,6 @@
 ---
 import { tr } from '../content/site';
+import { withBase } from '../lib/url';
 const t = tr.hero;
 ---
 
@@ -21,9 +22,23 @@ const t = tr.hero;
   <div class="hero__shade" aria-hidden="true"></div>
 
   <div class="hero__content container">
-    <p class="overline">{t.overline}</p>
-    <!-- Logo yer tutucusu — gerçek logo SVG'si geldiğinde bu h1 içine yerleşir -->
-    <h1 class="display hero__logo">{t.title}</h1>
+    <!--
+      Basılı logonun koyu zemin sürümü. Kaynak dosya lacivert/kırmızı
+      (public/images/logo.png); mahzen koyusunda okunmadığı için renkleri
+      krem ve altına çevrilmiş kopyası kullanılır. İkisi de depoda durur:
+      lacivert olan açık zeminli ve basılı kullanımlar için.
+      Ekranın ilk karesinde göründüğü için lazy-load yok.
+    -->
+    <h1 class="hero__logo">
+      <img
+        class="hero__logo-img"
+        src={withBase('/images/logo-koyu-zemin.png')}
+        alt={`${t.logo.name} ${t.logo.year}`}
+        width="868"
+        height="287"
+        fetchpriority="high"
+      />
+    </h1>
     <p class="lead hero__sub">{t.sub}</p>
   </div>
 
@@ -124,12 +139,18 @@ const t = tr.hero;
     gap: 14px;
   }
 
-  /* Logo genişliği hedefi: clamp(180px, 26vw, 380px) — metin yer tutucusunda
-     punto olarak yaklaşık karşılığı */
   .hero__logo {
-    font-size: clamp(52px, 8.6vw, 118px);
-    line-height: 0.98;
     margin: 0;
+    line-height: 0;
+  }
+
+  /* Genişlik viewport'a bağlı; yükseklik görselin kendi oranından (868×287)
+     gelir. width/height nitelikleri de bu oranı taşır, böylece görsel
+     yüklenirken hero'daki metin yer değiştirmez. */
+  .hero__logo-img {
+    display: block;
+    width: clamp(240px, 44vw, 540px);
+    height: auto;
   }
 
   .hero__sub {

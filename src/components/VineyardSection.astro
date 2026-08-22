@@ -81,14 +81,14 @@ const haritaAlt =
 
   .vineyard__head { max-width: 62ch; }
 
-  /* Görsel kare (1254×1254) ama çizim y 240–1128 bandında duruyor; üstte
-     %19, altta %10 boşluk var. Pencereyi y 200–1170 aralığına kırpıyoruz:
+  /* Görsel kare (1254×1254) ama çizim y 237–1152 bandında duruyor; üstte
+     %18,9, altta %8,1 boşluk var. Pencereyi y 197–1192 aralığına kırpıyoruz:
      çizim üstte ve altta ~40px payla tamamen görünür, gereksiz dikey
      boşluk gider. Görsel değişirse bu iki değer yeniden ölçülmeli. */
   .vineyard__map {
     margin: clamp(36px, 6vh, 64px) auto 0;
     max-width: 880px;
-    aspect-ratio: 1254 / 970;
+    aspect-ratio: 1254 / 995;
     overflow: hidden;
   }
 
@@ -96,8 +96,8 @@ const haritaAlt =
     display: block;
     width: 100%;
     height: auto;
-    /* Kırpma payı: görselin üst %15,9'u pencerenin dışında kalır */
-    margin-top: -15.9%;
+    /* Kırpma payı: görselin üst %15,7'si pencerenin dışında kalır */
+    margin-top: -15.7%;
   }
 
   /* Yer tutucu kırpılmaz; kendi oranında durur */

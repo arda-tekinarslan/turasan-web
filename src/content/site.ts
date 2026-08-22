@@ -22,8 +22,14 @@ export const tr = {
     { href: '/#iletisim', label: 'İletişim' },
   ],
   hero: {
-    overline: 'Ürgüp, Kapadokya · Est. 1943',
-    title: 'Turasan',
+    /**
+     * Hero'daki logo görselinin alternatif metni buradan kurulur
+     * ("Turasan 1943"). Görselin kendisi public/images/logo-koyu-zemin.png.
+     */
+    logo: {
+      name: 'Turasan',
+      year: '1943',
+    },
     sub: 'Erciyes’in eteklerinde, tüf kayaların içinde olgunlaşan bir toprağın hikâyesi — sabırla, kuşaktan kuşağa.',
     scroll: 'Kaydırın',
     // Gerçek fotoğraflar geldiğinde her yer tutucu bir <img> ile değişecek.
