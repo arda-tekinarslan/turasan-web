@@ -143,6 +143,20 @@ export const tr = {
       { label: 'Hafta sonu', value: '10.00 – 17.00' },
     ],
   },
+  /**
+   * Sosyal medya — İletişim bölümünde ve footer'da aynı bileşenle render edilir.
+   * `icon` alanı SocialLinks.astro içindeki çizimi seçer.
+   *
+   * Adresler kurumun kendi hesaplarıdır. Yeni bir ağ eklenecekse buraya bir
+   * kayıt ekleyip SocialLinks.astro'ya aynı adla bir simge tanımlamak yeterli.
+   */
+  social: {
+    title: 'Sosyal medya',
+    links: [
+      { label: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/turasanwines/' },
+      { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/turasan/' },
+    ],
+  },
   footer: {
     about: 'Turasan Şarapçılık — Ürgüp, Kapadokya. 1943’ten beri.',
     columns: [

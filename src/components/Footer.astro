@@ -1,15 +1,21 @@
 ---
 import { tr } from '../content/site';
 import { withBase } from '../lib/url';
+import SocialLinks from './SocialLinks.astro';
 const t = tr.footer;
 ---
 
 <footer class="site-footer theme-dark">
   <div class="container">
     <div class="site-footer__grid">
-      <div>
+      <div class="site-footer__brand-col">
         <p class="display site-footer__brand">Turasan</p>
         <p class="muted site-footer__about">{t.about}</p>
+        <!-- Sarmalayıcı şart: konum stilleri Footer'ın scope'unda tanımlı,
+             SocialLinks'in kendi ürettiği <ul> o scope'u taşımaz. -->
+        <div class="site-footer__social">
+          <SocialLinks size={36} />
+        </div>
       </div>
 
       {t.columns.map((col) => (
@@ -55,6 +61,20 @@ const t = tr.footer;
   .site-footer__about {
     font-size: 14px;
     max-width: 30ch;
+  }
+
+  /* Marka sütunu, komşu bağlantı sütunlarından kısa kalıyor; simgeleri
+     sütunun dibine yaslayarak o boşluğu kapatır ve son footer bağlantısıyla
+     aynı hizaya getiririz. padding-top, metne yapışmasını engelleyen taban. */
+  .site-footer__brand-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-footer__social {
+    margin-top: auto;
+    padding-top: 32px;
   }
 
   .site-footer__col-title {

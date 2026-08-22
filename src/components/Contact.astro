@@ -4,6 +4,7 @@
  * altında sade bilgi listesi ve gömülü harita yer tutucusu (lazy-load).
  */
 import { tr } from '../content/site';
+import SocialLinks from './SocialLinks.astro';
 const t = tr.contact;
 ---
 
@@ -43,6 +44,10 @@ const t = tr.contact;
               <span class="contact__hours-row">{h.label}: {h.value}</span>
             ))}
           </dd>
+        </div>
+        <div class="contact__item">
+          <dt class="overline contact__label">{tr.social.title}</dt>
+          <dd><SocialLinks size={32} /></dd>
         </div>
       </dl>
 
