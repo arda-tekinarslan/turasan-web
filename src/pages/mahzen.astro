@@ -1,0 +1,128 @@
+---
+/**
+ * Mahzen ve dinlendirme — mahzenin tarihçesi, koşulları ve şaraba katkısı.
+ *
+ * Bölüm ritmi aile-mirasi.astro ile aynı: dönüşümlü hizalı, görselli
+ * bloklar. Görseller public/images/mahzen/ altında bekleniyor; dosya yoksa
+ * beklenen yolu yazan yer tutucu görünür, build kırılmaz.
+ */
+import fs from 'node:fs';
+import SubPage from '../layouts/SubPage.astro';
+import { tr } from '../content/site';
+import { withBase } from '../lib/url';
+const t = tr.pages.cellar;
+
+const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
+---
+
+<SubPage
+  title={`${t.title} — Turasan Şarapçılık`}
+  description="Turasan'ın tüfe oyulmuş mahzeni: tarihçesi, sıcaklık ve nem koşulları, fıçı ve şişe dinlendirmesi, şaraba katkısı."
+  overline={t.overline}
+  heading={t.title}
+  lead={t.lead}
+>
+  <dl class="conditions reveal">
+    {t.conditions.map((row) => (
+      <div class="conditions__row">
+        <dt>{row.label}</dt>
+        <dd>{row.value}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <div class="cellar-blocks">
+    {t.sections.map((s, i) => (
+      <article class="cellar-block reveal" style={`transition-delay: ${i * 80}ms;`}>
+        <figure class="cellar-block__media">
+          {gorselVar(s.image) ? (
+            <img
+              class="cellar-block__img"
+              src={withBase(s.image)}
+              alt={s.alt}
+              width="1600"
+              height="2000"
+              loading="lazy"
+            />
+          ) : (
+            <div class="ph ph--portrait">
+              <span class="ph__label">görsel · public{s.image}</span>
+            </div>
+          )}
+        </figure>
+        <div>
+          <h2 class="display cellar-block__title">{s.title}</h2>
+          <div class="prose-block lead muted">
+            {s.body.map((p) => <p>{p}</p>)}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</SubPage>
+
+<style>
+  /* Koşul tablosu — kaldırılan Ziyaret bölümündeki dl/dt/dd düzeniyle aynı */
+  .conditions {
+    margin: 0 0 clamp(56px, 9vh, 96px);
+    max-width: 480px;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .conditions__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+    font-size: 15px;
+  }
+
+  .conditions__row dt {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .conditions__row dd {
+    margin: 0;
+    color: var(--color-on-light-mut);
+    text-align: right;
+  }
+
+  .cellar-blocks {
+    display: grid;
+    gap: clamp(56px, 9vh, 96px);
+  }
+
+  .cellar-block {
+    display: grid;
+    grid-template-columns: minmax(200px, 320px) 1fr;
+    gap: var(--split-gap);
+    align-items: start;
+  }
+
+  /* Dönüşümlü hiza — editoryal ritim (aile-mirasi ile aynı) */
+  .cellar-block:nth-child(even) .cellar-block__media { order: 2; }
+
+  .cellar-block__media { margin: 0; }
+
+  /* Yer tutucuyla aynı oran (4/5) — fotoğraf gelince yerleşim kaymaz */
+  .cellar-block__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .cellar-block__title {
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.1;
+    margin: 0 0 0.6em;
+  }
+
+  @media (max-width: 760px) {
+    .cellar-block { grid-template-columns: 1fr; }
+    .cellar-block:nth-child(even) .cellar-block__media { order: 0; }
+  }
+</style>

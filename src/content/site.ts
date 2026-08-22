@@ -10,7 +10,7 @@ export const tr = {
   meta: {
     title: 'Turasan Şarapçılık — Ürgüp, Kapadokya · Est. 1943',
     description:
-      'Turasan Şarapçılık hakkında bilgilendirme sitesi: 1943 mirası, Kapadokya terroir’i, tüfe oyulmuş mahzenler ve ziyaret bilgileri. Ürgüp, Nevşehir.',
+      'Turasan Şarapçılık hakkında bilgilendirme sitesi: 1943 mirası, Kapadokya terroir’i, tüfe oyulmuş mahzenler ve üretim süreci. Ürgüp, Nevşehir.',
   },
   // "/#..." biçimi, alt sayfalardan da ana sayfadaki bölüme götürür.
   nav: [
@@ -18,7 +18,7 @@ export const tr = {
     { href: '/#bagcilik', label: 'Bağcılık' },
     { href: '/#uretim', label: 'Üretim' },
     { href: '/#oduller', label: 'Ödüller' },
-    { href: '/#ziyaret', label: 'Ziyaret' },
+    { href: '/#mahzen', label: 'Mahzen' },
     { href: '/#iletisim', label: 'İletişim' },
   ],
   hero: {
@@ -109,23 +109,20 @@ export const tr = {
     bandLabel: 'görsel · çelik tanklar ve üretim personeli',
     cta: { label: 'Üretim sürecimiz', href: '/uretim-sureci' },
   },
-  // Ton: "ziyaret bilgisi" — davet/özendirme dili kullanılmaz.
-  visit: {
-    id: 'ziyaret',
-    overline: 'Ziyaret',
-    title: 'Mahzeni yerinde görün',
+  // Ton: nesnel anlatım — davet/özendirme dili kullanılmaz.
+  cellar: {
+    id: 'mahzen',
+    overline: 'Mahzen',
+    title: 'Tüfe oyulmuş mahzen',
     body: [
-      'Kaya mahzen ve üretim alanı, çalışma saatleri içinde ziyarete açıktır. Ziyaret sırasında üretim süreci ve bölge bağcılığı hakkında bilgi verilir.',
+      'Dinlendirme, Ürgüp’te tüf kayaya oyulmuş mahzenlerde yapılır. Tüfün gözenekli yapısı, dışarıda mevsim ne olursa olsun içeride sıcaklığı ve nemi dar bir aralıkta tutar.',
+      'Şarap bu ortamda önce meşe fıçılarda, ardından şişede dinlenir. Mekanik soğutmaya ihtiyaç duyulmadan sağlanan bu denge, yörede dinlendirmenin yüzyıllardır aynı yöntemle sürmesinin sebebidir.',
     ],
-    info: [
-      { label: 'Günler', value: 'Pazartesi – Pazar' },
-      { label: 'Hafta içi', value: '09.00 – 18.00' },
-      { label: 'Hafta sonu', value: '10.00 – 17.00' },
-      { label: 'Grup ziyaretleri', value: 'En az üç iş günü önceden randevu gerekir' },
-      { label: 'Ulaşım', value: 'Ürgüp merkezine yürüme mesafesindedir; otopark mevcuttur' },
-    ],
-    cta: { label: 'Yol tarifi & iletişim', href: '#iletisim' },
-    phLabel: 'görsel · kaya mahzen',
+    cta: { label: 'Mahzen ve dinlendirme', href: '/mahzen' },
+    // Dosya yoksa yer tutucu görünür; yolu buradan değiştirin.
+    image: '/images/mahzen/mahzen-koridor.jpeg',
+    imageAlt: 'Tüf kayaya oyulmuş mahzen koridoru; duvar boyunca dizilmiş meşe fıçılar.',
+    phLabel: 'görsel · kaya mahzen — public/images/mahzen/mahzen-koridor.jpeg',
   },
   contact: {
     id: 'iletisim',
@@ -157,7 +154,8 @@ export const tr = {
           { label: 'Üzümler ve Bölgeler', href: '/uzumler-ve-bolgeler' },
           { label: 'Üretim', href: '/#uretim' },
           { label: 'Ödüller', href: '/#oduller' },
-          { label: 'Ziyaret', href: '/#ziyaret' },
+          { label: 'Mahzen', href: '/#mahzen' },
+          { label: 'Mahzen ve Dinlendirme', href: '/mahzen' },
           { label: 'İletişim', href: '/#iletisim' },
         ],
       },
@@ -232,15 +230,80 @@ export const tr = {
         },
       ],
     },
+    cellar: {
+      title: 'Mahzen ve dinlendirme',
+      overline: 'Mahzen',
+      lead:
+        'Mahzen, şarabın beklediği bir depo değil; dinlendirme koşullarını belirleyen bir mekândır. Bu sayfa mahzenin tarihçesini, fiziksel koşullarını ve şaraba katkısını aktarır.',
+      /**
+       * DİKKAT — sıcaklık, nem ve süre değerleri yer tutucudur; Kapadokya
+       * tüf mahzenleri için tipik aralıklardır. Yayına almadan önce kendi
+       * ölçümlerinizle doğrulayın ve gerekiyorsa güncelleyin.
+       */
+      conditions: [
+        { label: 'Sıcaklık', value: '11 – 14 °C, yıl boyu' },
+        { label: 'Bağıl nem', value: '%70 – 85' },
+        { label: 'Işık', value: 'Doğal ışık almaz; yalnızca çalışma aydınlatması' },
+        { label: 'Fıçıda dinlendirme', value: 'Ürüne göre 6 – 18 ay' },
+        { label: 'Şişede dinlendirme', value: 'Sevkiyat öncesi en az 3 ay' },
+        { label: 'İklimlendirme', value: 'Mekanik soğutma kullanılmaz' },
+      ],
+      sections: [
+        {
+          title: 'Kayaya oyulmuş bir yapı',
+          body: [
+            'Kapadokya’da tüf, milyonlarca yıl önceki volkanik faaliyetin bıraktığı yumuşak ama dayanıklı bir kayaçtır. Elle işlenebilecek kadar yumuşak, oyulduktan sonra kendini taşıyacak kadar sağlamdır; bölgede depolama ve dinlendirme alanları yüzyıllardır bu yöntemle açılmıştır.',
+            'Turasan’ın ilk mahzeni de 1943’te aynı yöntemle açıldı. Sonraki kuşaklarda üretim büyüdükçe mahzen genişletildi; yapının özü, yani kayanın içinde kalma tercihi değişmedi.',
+          ],
+          image: '/images/mahzen/tuf-duvar.jpeg',
+          alt: 'Mahzenin oyma izleri görünen tüf duvarı, yakın çekim.',
+        },
+        {
+          title: 'Sabit sıcaklık ve nem',
+          body: [
+            'Tüfün kalınlığı ve gözenekli yapısı, dışarıdaki mevsim salınımını içeriye taşımaz. Yaz ile kış arasındaki fark, mahzen içinde birkaç dereceye iner; sıcaklık yıl boyu dar bir aralıkta kalır.',
+            'Aynı yapı nemi de dengeler. Yüksek bağıl nem, fıçılardaki buharlaşmayı yavaşlatır ve mantarların kurumasını önler. Bu koşullar mekanik iklimlendirme olmadan, kayanın kendi davranışıyla sağlanır.',
+          ],
+          image: '/images/mahzen/mahzen-genel.jpeg',
+          alt: 'Mahzenin tonozlu iç mekânı; kaya duvarlar ve zemine vuran çalışma aydınlatması.',
+        },
+        {
+          title: 'Fıçıda dinlendirme',
+          body: [
+            'Kırmızılar ve bir kısım beyaz, fermantasyon sonrası meşe fıçılara alınır. Fıçı, şaraba yalnızca aroma katmaz; duvarından geçen çok yavaş oksijen alışverişi tanenlerin yumuşamasını ve yapının oturmasını sağlar.',
+            'Süre üzüme, rekolteye ve hedeflenen karaktere göre belirlenir. Her fıçı partisi kayıt altına alınır ve dinlendirme boyunca önolog gözetiminde düzenli olarak tadılır.',
+          ],
+          image: '/images/mahzen/ficilar.jpeg',
+          alt: 'Mahzende üst üste istiflenmiş meşe fıçı sıraları.',
+        },
+        {
+          title: 'Şişede dinlendirme ve şaraba katkısı',
+          body: [
+            'Şişeleme sonrası şarap, sevkiyattan önce mahzende yatay olarak dinlendirilir. Bu aşamada şişeleme sırasında oluşan sarsıntının etkisi geçer, aromalar bütünleşir.',
+            'Mahzenin toplam katkısı tek bir aşamada değil, sürekliliktedir: sıcaklık dalgalanmasının olmaması yaşlanmayı yavaşlatır ve öngörülebilir kılar; karanlık ortam ışığa duyarlı bileşenleri korur; yüksek nem hacim kaybını sınırlar. Sonuçta şarap, dışarıdaki mevsimden bağımsız bir hızda olgunlaşır.',
+          ],
+          image: '/images/mahzen/sise-dinlendirme.jpeg',
+          alt: 'Mahzen nişlerinde yatay olarak dinlendirilen şişeler.',
+        },
+      ],
+    },
   },
   ageGate: {
-    overline: 'Turasan Şarapçılık · Ürgüp',
-    title: 'Bu site bilgilendirme amaçlıdır',
-    body:
-      'İçerik, alkollü içki üreticisi bir kuruluşa aittir ve yalnızca 18 yaş ve üzeri ziyaretçilere yöneliktir. Devam etmeden önce yaşınızı doğrulayın.',
-    yes: '18 yaşından büyüğüm',
-    no: 'Değilim',
+    /** Kart üstündeki logo — kart zemini krem olduğu için lacivert asıl sürüm. */
+    logo: '/images/logo.png',
+    logoAlt: 'Turasan 1943',
+    /** Her madde ekranda ayrı bir paragraf; masaüstünde ikişer satır sarar. */
+    body: [
+      'Bu web sitesi şarap üreticisi Turasan’a aittir ve yalnızca 18 yaş ve üzeri ziyaretçilere yöneliktir.',
+      'Siteyi ziyaret edebilmek için yasal alkol tüketim yaşında olmanız gerekmektedir.',
+    ],
+    prompt: 'Devam etmeden önce yaşınızı doğrulayın.',
+    yes: '18 Yaşından Büyüğüm',
+    no: '18 Yaşından Küçüğüm',
     noHref: 'https://www.google.com',
+    note: 'Bu site bilgilendirme amaçlıdır.',
+    /** Tam ekran taş doku zemini. Dosya yoksa tüf tonlarında gradyan görünür. */
+    background: '/images/yas-kapisi-zemin.jpeg',
   },
   langSwitch: { current: 'TR', other: 'EN', otherHref: '#' },
 };
