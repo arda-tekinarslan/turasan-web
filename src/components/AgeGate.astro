@@ -81,6 +81,11 @@ const zeminVar = fs.existsSync(`public${t.background}`);
 
   .age-gate.is-hidden { display: none; }
 
+  /* Base.astro'daki satır içi script, onay varsa bu sınıfı <html>'e ilk
+     boyamadan önce ekler — kapı hiç çizilmez. is-hidden ise script
+     çalıştıktan sonraki durumu korur; ikisi birlikte parlamayı bitirir. */
+  :global(html.yas-onayli) .age-gate { display: none; }
+
   /* Ölçüler hem genişliğe hem yüksekliğe bağlı: dikey boşluklar vh ile
      verildiği için kısa ekranlarda kart kendiliğinden toparlanır ve
      iç kaydırma çubuğu çıkmaz. overflow-y yalnızca son çare. */
@@ -223,6 +228,9 @@ const zeminVar = fs.existsSync(`public${t.background}`);
 
   yes?.addEventListener('click', () => {
     sessionStorage.setItem(YAS_ONAY_KEY, '1');
+    // Base.astro'daki satır içi script'in sonraki sayfa yüklemelerinde
+    // koyacağı işareti burada da koyarız ki durum aynı sayfada da tutarlı olsun.
+    document.documentElement.classList.add('yas-onayli');
     gate?.classList.add('is-hidden');
     document.body.classList.remove('gated');
     document.dispatchEvent(new CustomEvent('agegate:confirmed'));

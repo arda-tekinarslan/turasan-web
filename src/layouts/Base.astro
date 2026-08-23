@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { withBase } from '../lib/url';
+import { YAS_ONAY_KEY } from '../lib/yas-kapisi';
 import YuklemeEkrani from '../components/YuklemeEkrani.astro';
 
 interface Props {
@@ -27,6 +28,24 @@ const { title, description, lang = 'tr' } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&display=swap"
       rel="stylesheet"
     />
+
+    <!--
+      Yaş kapısının bir kare boyunca görünmesini engeller.
+      AgeGate'in kendi script'i modül olduğu için ertelenir (defer) ve
+      HTML çizildikten sonra çalışır; sayfalar arası gezinmede kapı kısa
+      süre parlıyordu. Bu satır <head> içinde senkron çalışır, işaret
+      <html> üzerine daha ilk boyamadan önce düşer.
+      is:inline şart: Astro aksi halde bunu da modüle çevirip ertelerdi.
+    -->
+    <script is:inline define:vars={{ yasKey: YAS_ONAY_KEY }}>
+      try {
+        if (sessionStorage.getItem(yasKey) === '1') {
+          document.documentElement.classList.add('yas-onayli');
+        }
+      } catch (e) {
+        /* sessionStorage kapalıysa kapı normal akışta gösterilir */
+      }
+    </script>
   </head>
   <body>
     <slot />

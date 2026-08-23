@@ -1,0 +1,50 @@
+---
+/**
+ * Şubelerimiz ve Tesislerimiz — lokasyon kartları.
+ *
+ * Kartlar src/content/subeler.ts'ten map'lenir; yeni şube eklemek için
+ * yalnızca o dosyaya kayıt eklemek yeterlidir, bu sayfa değişmez.
+ * Grid masaüstünde 3, tablette 2, mobilde tek sütundur.
+ */
+import SubPage from '../layouts/SubPage.astro';
+import SubeCard from '../components/SubeCard.astro';
+import { tr } from '../content/site';
+import { subeler } from '../content/subeler';
+const t = tr.pages.branches;
+---
+
+<SubPage
+  title={`${t.title} — Turasan Şarapçılık`}
+  description="Turasan Pazarlama'nın genel merkezi, satış mağazası ve şarap evi, İstanbul bölge müdürlüğü ve Sakarya şubesi — adres ve iletişim bilgileri."
+  overline={t.overline}
+  heading={t.title}
+  lead={t.lead}
+>
+  <div class="subeler">
+    {subeler.map((s, i) => (
+      <div class="reveal" style={`transition-delay: ${(i % 3) * 80}ms;`}>
+        <SubeCard sube={s} />
+      </div>
+    ))}
+  </div>
+</SubPage>
+
+<style>
+  .subeler {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 2.5vw, 32px);
+  }
+
+  /* Grid çocukları .reveal sarmalayıcılar; kartın satır yüksekliğini
+     doldurabilmesi için sarmalayıcının da esnemesi gerekir. */
+  .subeler > * { display: flex; }
+
+  @media (max-width: 1000px) {
+    .subeler { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .subeler { grid-template-columns: 1fr; }
+  }
+</style>

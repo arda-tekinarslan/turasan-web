@@ -142,6 +142,7 @@ export const tr = {
       { label: 'Hafta içi', value: '09.00 – 18.00' },
       { label: 'Hafta sonu', value: '10.00 – 17.00' },
     ],
+    branchesCta: { label: 'Şubelerimiz ve Tesislerimiz', href: '/subelerimiz' },
   },
   /**
    * Sosyal medya — İletişim bölümünde ve footer'da aynı bileşenle render edilir.
@@ -171,6 +172,7 @@ export const tr = {
           { label: 'Mahzen', href: '/#mahzen' },
           { label: 'Mahzen ve Dinlendirme', href: '/mahzen' },
           { label: 'İletişim', href: '/#iletisim' },
+          { label: 'Şubelerimiz ve Tesislerimiz', href: '/subelerimiz' },
         ],
       },
       {
@@ -243,6 +245,12 @@ export const tr = {
           body: 'Şişeleme, kapalı hat üzerinde yapılır; her parti kayıt altına alınır.',
         },
       ],
+    },
+    branches: {
+      title: 'Şubelerimiz ve Tesislerimiz',
+      overline: 'Lokasyonlarımız',
+      lead:
+        'Gelişmiş tesis ve şube ağımızla sizlere daha yakın ve hızlı hizmet sunuyoruz.',
     },
     cellar: {
       title: 'Mahzen ve dinlendirme',

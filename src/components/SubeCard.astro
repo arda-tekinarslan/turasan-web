@@ -1,0 +1,126 @@
+---
+/**
+ * Şube/tesis kartı — GrapeCard ile aynı dil: tuff-2 zemin, kenarlıksız,
+ * ince ayraç, küçük büyük-harf etiketler. Veriler src/content/subeler.ts.
+ */
+import { kategoriVurgusu, haritaBagi, type Sube } from '../content/subeler';
+
+interface Props {
+  sube: Sube;
+}
+
+const { sube } = Astro.props;
+const vurgu = kategoriVurgusu[sube.kategori] ?? 'ochre';
+const harita = haritaBagi(sube);
+---
+
+<article class="sube" data-vurgu={vurgu}>
+  <p class="sube__rozet">{sube.kategori}</p>
+
+  <p class="sube__unvan muted">{sube.unvan}</p>
+  <h2 class="display sube__ad">{sube.ad}</h2>
+
+  <dl class="sube__bilgi">
+    <div class="sube__satir">
+      <dt>Adres</dt>
+      <dd>
+        <a class="sube__adres" href={harita} target="_blank" rel="noopener">
+          {sube.adres}
+        </a>
+      </dd>
+    </div>
+    <div class="sube__satir">
+      <dt>Tel</dt>
+      <dd><a class="sube__link" href={`tel:${sube.telDial}`}>{sube.tel}</a></dd>
+    </div>
+    <div class="sube__satir">
+      <dt>Faks</dt>
+      <dd><a class="sube__link" href={`tel:${sube.faksDial}`}>{sube.faks}</a></dd>
+    </div>
+  </dl>
+</article>
+
+<style>
+  .sube {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    background: var(--color-tuff2);
+    padding: clamp(24px, 3vw, 36px);
+  }
+
+  /* Rozet — .overline idiomu, kategoriye göre garnet ya da ochre */
+  .sube__rozet {
+    align-self: flex-start;
+    margin: 0 0 18px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-tuff);
+    background: var(--color-ochre);
+  }
+
+  .sube[data-vurgu='garnet'] .sube__rozet { background: var(--color-garnet); }
+
+  .sube__unvan {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .sube__ad {
+    font-size: clamp(20px, 2.2vw, 26px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 6px 0 0;
+  }
+
+  .sube__bilgi {
+    /* margin-top:auto — kartlar farklı uzunlukta olsa da bilgi bloğu
+       hepsinde kartın dibine yaslanır, grid satırı düzgün hizalanır. */
+    margin: auto 0 0;
+    padding-top: 18px;
+  }
+
+  .sube__satir {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+    font-size: 14px;
+  }
+
+  .sube__satir dt {
+    font-weight: 500;
+    color: var(--color-on-light);
+  }
+
+  .sube__satir dd {
+    margin: 0;
+    color: var(--color-on-light-mut);
+    line-height: 1.5;
+  }
+
+  .sube__link,
+  .sube__adres {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.35s ease;
+  }
+
+  .sube__link:hover,
+  .sube__adres:hover {
+    color: var(--color-garnet);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  @media (max-width: 420px) {
+    /* Dar ekranda etiket üstte, değer altta — 54px'lik sütun sıkışmasın */
+    .sube__satir { grid-template-columns: 1fr; gap: 2px; }
+  }
+</style>
