@@ -1,0 +1,154 @@
+---
+/**
+ * Yeniden kullanılabilir pencere kabuğu.
+ *
+ * Native <dialog> + showModal() kullanılır: odak tuzağı, Esc ile kapanma,
+ * sayfanın geri kalanının inert olması ve backdrop tarayıcıdan gelir —
+ * elle yazılan bir modal'da bunların hepsini kaçırmak kolaydır.
+ *
+ * Açmak için sayfada herhangi bir yerde:
+ *   <button data-modal-ac="kimlik">…</button>
+ * Kapatma (× , eylem butonu, backdrop tıklaması) burada yönetilir.
+ */
+interface Props {
+  /** data-modal-ac ile eşleşen kimlik */
+  id: string;
+  baslik: string;
+}
+
+const { id, baslik } = Astro.props;
+---
+
+<dialog class="modal" id={`modal-${id}`} aria-labelledby={`modal-${id}-baslik`}>
+  <div class="modal__panel">
+    <header class="modal__head">
+      <h2 class="display modal__baslik" id={`modal-${id}-baslik`}>{baslik}</h2>
+      <button class="modal__kapat" type="button" data-modal-kapat aria-label="Pencereyi kapat">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"
+             fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="modal__govde">
+      <slot />
+    </div>
+
+    <footer class="modal__eylem">
+      <slot name="eylem" />
+    </footer>
+  </div>
+</dialog>
+
+<style>
+  .modal {
+    width: min(660px, calc(100vw - 2 * clamp(16px, 5vw, 48px)));
+    max-height: min(760px, calc(100vh - 2 * clamp(16px, 5vh, 48px)));
+    /* Tailwind preflight tüm öğelere margin:0 verdiği için tarayıcının
+       <dialog>'u ortalayan margin:auto kuralı eziliyor; geri koyuyoruz. */
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: var(--color-tuff);
+    color: var(--color-on-light);
+    box-shadow: 0 24px 70px rgb(0 0 0 / 0.34);
+    overflow: hidden;
+  }
+
+  .modal::backdrop {
+    background: color-mix(in srgb, var(--color-cave) 72%, transparent);
+  }
+
+  /* Panel dikey bölünür: başlık ve eylem sabit, yalnızca gövde kayar */
+  .modal__panel {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    max-height: inherit;
+    /* dialog'un kendi max-height'ı yüzdelik olmadığı için burada tekrar */
+    max-height: min(760px, calc(100vh - 2 * clamp(16px, 5vh, 48px)));
+  }
+
+  .modal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: clamp(20px, 3vw, 28px) clamp(20px, 3.4vw, 34px);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .modal__baslik {
+    margin: 0;
+    font-size: clamp(19px, 2.2vw, 25px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-garnet);
+  }
+
+  .modal__kapat {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-on-light-mut);
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .modal__kapat:hover {
+    background: color-mix(in srgb, var(--color-on-light) 8%, transparent);
+    color: var(--color-on-light);
+  }
+
+  .modal__govde {
+    overflow-y: auto;
+    padding: clamp(20px, 3vw, 28px) clamp(20px, 3.4vw, 34px);
+  }
+
+  .modal__eylem {
+    display: flex;
+    justify-content: flex-end;
+    padding: clamp(16px, 2.4vw, 22px) clamp(20px, 3.4vw, 34px);
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+    background: color-mix(in srgb, var(--color-tuff2) 45%, var(--color-tuff));
+  }
+</style>
+
+<script>
+  // Tüm pencereler için tek kurulum; her Modal örneği bu script'i
+  // bir kez çalıştırır, o yüzden işaretleyip tekrarı önlüyoruz.
+  const KURULDU = 'modalKuruldu';
+
+  if (!(KURULDU in document.body.dataset)) {
+    document.body.dataset[KURULDU] = '1';
+
+    document.addEventListener('click', (e) => {
+      const hedef = e.target as HTMLElement;
+
+      const acici = hedef.closest<HTMLElement>('[data-modal-ac]');
+      if (acici) {
+        const d = document.getElementById(`modal-${acici.dataset.modalAc}`);
+        if (d instanceof HTMLDialogElement) {
+          d.showModal();
+          d.dispatchEvent(new CustomEvent('modal:acildi'));
+        }
+        return;
+      }
+
+      if (hedef.closest('[data-modal-kapat]')) {
+        hedef.closest('dialog')?.close();
+        return;
+      }
+
+      // Panelin dışına (backdrop'a) tıklandıysa kapat
+      if (hedef instanceof HTMLDialogElement && hedef.open) hedef.close();
+    });
+  }
+</script>

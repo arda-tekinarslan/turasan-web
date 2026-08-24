@@ -1,0 +1,245 @@
+---
+/**
+ * Footer'daki kurumsal pencereler: KVKK aydınlatma metni ve çerez tercihleri.
+ * Footer bir kez render eder; açma butonları footer'daki bağlantılardır.
+ */
+import Modal from './Modal.astro';
+import { tr } from '../content/site';
+const k = tr.yasal.kvkk;
+const c = tr.yasal.cerez;
+---
+
+<Modal id="kvkk" baslik={k.baslik}>
+  <h3 class="yasal__ust">{k.ustBaslik}</h3>
+  <p class="yasal__giris">{k.giris}</p>
+
+  {k.bolumler.map((b) => (
+    <section class="yasal__bolum">
+      <h4 class="overline yasal__bolum-baslik">{b.baslik}</h4>
+      <p class="yasal__metin">{b.metin}</p>
+    </section>
+  ))}
+
+  <button slot="eylem" class="yasal__btn yasal__btn--cerceve" type="button" data-modal-kapat>
+    {k.kapat}
+  </button>
+</Modal>
+
+<Modal id="cerez" baslik={c.baslik}>
+  <p class="yasal__giris">{c.giris}</p>
+
+  <ul class="cerez">
+    {c.turler.map((t) => (
+      <li class="cerez__satir">
+        <div class="cerez__metin">
+          <p class="cerez__baslik">{t.baslik}</p>
+          <p class="cerez__aciklama">{t.aciklama}</p>
+        </div>
+        <input
+          class="cerez__kutu"
+          type="checkbox"
+          id={`cerez-${t.id}`}
+          data-cerez={t.id}
+          checked={t.varsayilan}
+          disabled={t.zorunlu}
+          aria-label={t.baslik}
+        />
+      </li>
+    ))}
+  </ul>
+
+  <p class="cerez__durum" data-cerez-durum role="status"></p>
+
+  <button slot="eylem" class="yasal__btn yasal__btn--dolu" type="button" data-cerez-kaydet>
+    {c.kaydet}
+  </button>
+</Modal>
+
+<style>
+  .yasal__ust {
+    margin: 0 0 1em;
+    padding-bottom: 0.8em;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+    font-family: var(--font-display);
+    font-size: clamp(15px, 1.7vw, 18px);
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .yasal__giris {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-on-light-mut);
+  }
+
+  .yasal__bolum { margin-top: 1.6em; }
+
+  .yasal__bolum-baslik {
+    margin: 0 0 0.7em;
+    font-size: 11px;
+  }
+
+  .yasal__metin {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-on-light-mut);
+  }
+
+  /* --- Çerez listesi --- */
+  .cerez {
+    list-style: none;
+    margin: 1.6em 0 0;
+    padding: 0;
+  }
+
+  .cerez__satir {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  .cerez__baslik {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .cerez__aciklama {
+    margin: 4px 0 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-on-light-mut);
+  }
+
+  .cerez__kutu {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--color-garnet);
+    cursor: pointer;
+  }
+
+  .cerez__kutu:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+
+  .cerez__durum {
+    margin: 14px 0 0;
+    min-height: 1.2em;
+    font-size: 13px;
+    color: var(--color-garnet);
+  }
+
+  /* --- Butonlar — sitedeki cta/age-gate diliyle aynı --- */
+  .yasal__btn {
+    padding: 12px 26px;
+    border-radius: 8px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  }
+
+  .yasal__btn--dolu {
+    border: 1px solid var(--color-garnet);
+    background: var(--color-garnet);
+    color: var(--color-tuff);
+  }
+
+  .yasal__btn--dolu:hover {
+    background: color-mix(in srgb, var(--color-garnet) 86%, #000);
+    border-color: color-mix(in srgb, var(--color-garnet) 86%, #000);
+  }
+
+  .yasal__btn--cerceve {
+    border: 1px solid var(--color-ochre);
+    background: transparent;
+    color: color-mix(in srgb, var(--color-ochre) 80%, #000);
+  }
+
+  .yasal__btn--cerceve:hover {
+    background: color-mix(in srgb, var(--color-ochre) 12%, transparent);
+  }
+
+  @media (max-width: 480px) {
+    .yasal__btn { width: 100%; }
+  }
+</style>
+
+<script>
+  /**
+   * Çerez tercihleri.
+   *
+   * ÖNEMLİ: Bu site şu anda analitik ya da pazarlama çerezi KULLANMIYOR;
+   * tek kalıcı veri yaş kapısının sessionStorage kaydıdır. Buradaki tercih
+   * yalnızca saklanır. İleride analitik/pazarlama script'i eklenirse,
+   * o script'i mutlaka `cerezTercihi()` sonucuna bakarak koşullu yükleyin —
+   * aksi halde kullanıcıya sorulup dikkate alınmamış olur.
+   */
+  const ANAHTAR = 'turasan-cerez-tercihi';
+
+  type Tercih = Record<string, boolean>;
+
+  function oku(): Tercih | null {
+    try {
+      const ham = localStorage.getItem(ANAHTAR);
+      return ham ? (JSON.parse(ham) as Tercih) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  const dialog = document.getElementById('modal-cerez');
+  const kutular = Array.from(
+    document.querySelectorAll<HTMLInputElement>('[data-cerez]'),
+  );
+  const durum = document.querySelector<HTMLElement>('[data-cerez-durum]');
+  const kaydet = document.querySelector<HTMLElement>('[data-cerez-kaydet]');
+
+  /** Kayıtlı tercih varsa kutulara uygular; yoksa varsayılanlar kalır. */
+  function uygula() {
+    const t = oku();
+    if (!t) return;
+    kutular.forEach((k) => {
+      const id = k.dataset.cerez;
+      if (id && id in t && !k.disabled) k.checked = t[id];
+    });
+  }
+
+  uygula();
+  dialog?.addEventListener('modal:acildi', () => {
+    uygula();
+    if (durum) durum.textContent = '';
+  });
+
+  kaydet?.addEventListener('click', () => {
+    const t: Tercih = {};
+    kutular.forEach((k) => {
+      if (k.dataset.cerez) t[k.dataset.cerez] = k.checked;
+    });
+
+    try {
+      localStorage.setItem(ANAHTAR, JSON.stringify(t));
+      if (durum) durum.textContent = 'Tercihleriniz kaydedildi.';
+      window.setTimeout(() => {
+        (dialog as HTMLDialogElement | null)?.close();
+      }, 700);
+    } catch {
+      if (durum) {
+        durum.textContent =
+          'Tercih kaydedilemedi — tarayıcınız site verilerini engelliyor olabilir.';
+      }
+    }
+  });
+
+  // Analitik/pazarlama script'i eklendiğinde buradan okunur.
+  (window as any).cerezTercihi = oku;
+</script>

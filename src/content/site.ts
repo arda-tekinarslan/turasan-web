@@ -178,14 +178,79 @@ export const tr = {
       {
         title: 'Kurumsal',
         links: [
-          { label: 'KVKK Aydınlatma Metni', href: '#' },
-          { label: 'Çerez Politikası', href: '#' },
-          { label: 'Gizlilik', href: '#' },
+          // `modal` verilen kayıtlar link değil, pencere açan buton olur.
+          { label: 'KVKK Aydınlatma Metni', modal: 'kvkk' },
+          { label: 'Çerez Politikası', modal: 'cerez' },
         ],
       },
     ],
     legal:
       '© 2026 Turasan Şarapçılık · Bu site bilgilendirme amaçlıdır; satış ve tanıtım içermez · 18+',
+  },
+  /**
+   * Footer'daki kurumsal pencerelerin içeriği.
+   *
+   * DİKKAT — KVKK metni hukuki bir belgedir. Buradaki metin taslaktır;
+   * yayına almadan önce hukuk danışmanı onayından geçirin. Özellikle
+   * veri sorumlusu kimliği, saklama süreleri, aktarım yapılan taraflar
+   * ve başvuru kanalı bilgileri eksiktir.
+   */
+  yasal: {
+    kvkk: {
+      baslik: 'KVKK Aydınlatma Metni',
+      ustBaslik: '6698 Sayılı KVKK Uyarınca Kişisel Verilerin Korunması',
+      giris:
+        'Turasan Pazarlama Sanayi ve Ticaret Limited Şirketi olarak kişisel verilerinizin güvenliği hususuna azami hassasiyet göstermekteyiz. 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) uyarınca, şirketimiz ile paylaştığınız kişisel verileriniz hukuka ve dürüstlük kurallarına uygun olarak işlenmektedir.',
+      bolumler: [
+        {
+          baslik: 'Verilerin İşlenme Amacı',
+          metin:
+            'Toplanan kişisel verileriniz; ürün ve hizmet dağıtım süreçlerinin yürütülmesi, iletişim faaliyetlerinin gerçekleştirilmesi, talep ve şikayetlerin değerlendirilmesi ve yasal yükümlülüklerin yerine getirilmesi amaçlarıyla işlenmektedir.',
+        },
+        {
+          baslik: 'Veri Sahibi Hakları',
+          metin:
+            'KVKK’nın 11. maddesi uyarınca veri sahipleri; kişisel verilerinin işlenip işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep etme, işlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme, eksik veya yanlış işlenmişse düzeltilmesini ve silinmesini isteme hakkına sahiptir.',
+        },
+      ],
+      kapat: 'Anladım / Kapat',
+    },
+    cerez: {
+      baslik: 'Çerez (Cookie) Tercihleri',
+      giris:
+        'Aşağıdaki seçeneklerden çerez türü tercihlerinizi yapılandırabilirsiniz:',
+      /**
+       * `zorunlu: true` olan satır işaretli ve devre dışı gelir.
+       * `varsayilan`, tercih daha önce kaydedilmemişse kullanılır.
+       */
+      turler: [
+        {
+          id: 'zorunlu',
+          baslik: 'Zorunlu Çerezler',
+          aciklama:
+            'Web sitesinin temel işlevlerini yerine getirmesi için gerekli çerezlerdir.',
+          zorunlu: true,
+          varsayilan: true,
+        },
+        {
+          id: 'analitik',
+          baslik: 'Analitik Çerezler',
+          aciklama:
+            'Sitenin nasıl kullanıldığını anlamamıza ve performansını artırmamıza yardımcı olur.',
+          zorunlu: false,
+          varsayilan: true,
+        },
+        {
+          id: 'pazarlama',
+          baslik: 'Pazarlama ve İşlevsel Çerezler',
+          aciklama:
+            'Size daha kişiselleştirilmiş içerik ve teklifler sunmamızı sağlar.',
+          zorunlu: false,
+          varsayilan: false,
+        },
+      ],
+      kaydet: 'Tercihleri Kaydet',
+    },
   },
   /** Alt sayfa içerikleri */
   pages: {

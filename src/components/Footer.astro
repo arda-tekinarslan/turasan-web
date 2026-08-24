@@ -2,6 +2,7 @@
 import { tr } from '../content/site';
 import { withBase } from '../lib/url';
 import SocialLinks from './SocialLinks.astro';
+import YasalMetinler from './YasalMetinler.astro';
 const t = tr.footer;
 ---
 
@@ -23,7 +24,15 @@ const t = tr.footer;
           <p class="overline site-footer__col-title">{col.title}</p>
           <ul class="site-footer__links">
             {col.links.map((l) => (
-              <li><a href={withBase(l.href)}>{l.label}</a></li>
+              <li>
+                {'modal' in l ? (
+                  <button class="site-footer__modal-btn" type="button" data-modal-ac={l.modal}>
+                    {l.label}
+                  </button>
+                ) : (
+                  <a href={withBase(l.href)}>{l.label}</a>
+                )}
+              </li>
             ))}
           </ul>
         </nav>
@@ -39,6 +48,9 @@ const t = tr.footer;
 
     <p class="muted site-footer__legal">{t.legal}</p>
   </div>
+
+  <!-- Kurumsal pencereler — footer'daki butonlar bunları açar -->
+  <YasalMetinler />
 </footer>
 
 <style>
@@ -97,6 +109,24 @@ const t = tr.footer;
   }
 
   .site-footer__links a:hover {
+    color: var(--color-ochre);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* Pencere açan öğeler buton; komşu linklerle birebir aynı görünür */
+  .site-footer__modal-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 14px;
+    color: var(--color-on-dark);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .site-footer__modal-btn:hover {
     color: var(--color-ochre);
     text-decoration: underline;
     text-underline-offset: 4px;
