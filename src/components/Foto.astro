@@ -1,0 +1,55 @@
+---
+/**
+ * Fotoğraf yuvası — dosya varsa <img>, yoksa beklenen yolu yazan yer tutucu.
+ *
+ * Build anında public/ altında dosya aranır; dosyayı koyup yeniden
+ * derlemek (ya da dev sunucuda sayfayı yenilemek) yeterli, kod değişmez.
+ * Oranlar yer tutucuyla aynı olduğu için fotoğraf gelince yerleşim kaymaz.
+ */
+import fs from 'node:fs';
+import { withBase } from '../lib/url';
+
+interface Props {
+  /** public/ altındaki yol, ör. /images/miras/arsiv-1943.jpeg */
+  src: string;
+  alt: string;
+  /** Yer tutucu etiketi */
+  label: string;
+  /** portrait = 4:5 (1600×2000), band = 16:7 (2400×1050) */
+  oran: 'portrait' | 'band';
+  /** Yer tutucuya eklenecek ek sınıf (bölüme özel zemin vb.) */
+  phClass?: string;
+}
+
+const { src, alt, label, oran, phClass } = Astro.props;
+const var_ = fs.existsSync(`public${src}`);
+const boyut = oran === 'portrait' ? { w: 1600, h: 2000 } : { w: 2400, h: 1050 };
+---
+
+{var_ ? (
+  <img
+    class:list={['foto', `foto--${oran}`]}
+    src={withBase(src)}
+    alt={alt}
+    width={boyut.w}
+    height={boyut.h}
+    loading="lazy"
+    decoding="async"
+  />
+) : (
+  <div class:list={['ph', `ph--${oran}`, phClass]}>
+    <span class="ph__label">{label} — public{src}</span>
+  </div>
+)}
+
+<style>
+  .foto {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .foto--portrait { aspect-ratio: 4 / 5; }
+  .foto--band { aspect-ratio: 16 / 7; }
+</style>

@@ -32,13 +32,16 @@ export const tr = {
     },
     sub: 'Erciyes’in eteklerinde, tüf kayaların içinde olgunlaşan bir toprağın hikâyesi — sabırla, kuşaktan kuşağa.',
     scroll: 'Kaydırın',
-    // Gerçek fotoğraflar geldiğinde her yer tutucu bir <img> ile değişecek.
+    // Slayt görselleri dekoratiftir (alt metin yok). Dosya yoksa slayt
+    // etiketli yer tutucu olarak kalır. Önerilen: yatay, 2400×1600.
     slides: [
-      'görsel · bağlar, gün doğumu',
-      'görsel · tüf vadisi',
-      'görsel · kaya mahzen',
-      'görsel · hasat',
-      'görsel · ürgüp panoraması',
+      { label: 'görsel · bağlar, gün doğumu', image: '/images/hero/01-baglar-gun-dogumu.jpeg' },
+      { label: 'görsel · tüf vadisi', image: '/images/hero/02-tuf-vadisi.jpeg' },
+      { label: 'görsel · kaya mahzen', image: '/images/hero/03-kaya-mahzen.jpeg' },
+      { label: 'görsel · hasat', image: '/images/hero/04-hasat.jpeg' },
+      { label: 'görsel · ürgüp panoraması', image: '/images/hero/05-urgup-panorama.jpeg' },
+      { label: 'görsel · slayt 6', image: '/images/hero/06-slayt.jpeg' },
+      { label: 'görsel · slayt 7', image: '/images/hero/07-slayt.jpeg' },
     ],
   },
   heritage: {
@@ -51,7 +54,12 @@ export const tr = {
     ],
     cta: { label: 'Aile mirası', href: '/aile-mirasi' },
     archiveLabel: 'görsel · arşiv, 1943',
+    archiveImage: '/images/miras/arsiv-1943.jpeg',
+    archiveAlt: 'Turasan’ın kuruluş yıllarından arşiv fotoğrafı.',
     portraitLabel: 'portre · Hakan Turasan',
+    // Aile mirası sayfasındaki "Bugün" bölümü de aynı dosyayı kullanır.
+    portraitImage: '/images/miras/hakan-turasan.jpeg',
+    portraitAlt: 'Hakan Turasan portresi.',
     portraitCaption: 'Hakan Turasan — üçüncü kuşak',
   },
   vineyard: {
@@ -106,7 +114,11 @@ export const tr = {
       'Süreç, Fransız önologlar ve gıda mühendisleriyle birlikte yürütülür. Hasattan şişelemeye her aşama tanımlı ve kayıtlıdır; üzüm, bağdan işleme alanına kısa sürede ulaştırılır.',
     ],
     portraitLabel: 'portre · önolog',
+    portraitImage: '/images/uretim/onolog.jpeg',
+    portraitAlt: 'Turasan önoloğu, üretim alanında.',
     bandLabel: 'görsel · çelik tanklar ve üretim personeli',
+    bandImage: '/images/uretim/celik-tanklar.jpeg',
+    bandAlt: 'Paslanmaz çelik fermantasyon tankları ve üretim personeli.',
     cta: { label: 'Üretim sürecimiz', href: '/uretim-sureci' },
   },
   // Ton: nesnel anlatım — davet/özendirme dili kullanılmaz.
@@ -266,6 +278,8 @@ export const tr = {
             'Hasan Turasan, 1943 yılında Ürgüp’te üretime başladı. İlk mahzen, yörede yüzyıllardır kullanılan yöntemle tüf kayaya oyuldu.',
           ],
           phLabel: 'görsel · arşiv, kuruluş yılları',
+          image: '/images/aile-mirasi/kurulus-yillari.jpeg',
+          alt: 'Kuruluş yıllarından arşiv fotoğrafı.',
         },
         {
           title: 'İkinci kuşak',
@@ -273,6 +287,8 @@ export const tr = {
             'Üretim bilgisi ve bağlar ikinci kuşağa devredildi; bu dönemde bağ alanları genişledi ve üretim kayıt altına alınarak sürdürüldü.',
           ],
           phLabel: 'görsel · arşiv, ikinci kuşak',
+          image: '/images/aile-mirasi/ikinci-kusak.jpeg',
+          alt: 'İkinci kuşak döneminden arşiv fotoğrafı.',
         },
         {
           title: 'Bugün',
@@ -280,6 +296,9 @@ export const tr = {
             'Bugün üretim, Hakan Turasan yönetiminde; geleneksel mahzen ile modern üretim tekniklerini bir arada kullanarak devam ediyor.',
           ],
           phLabel: 'portre · Hakan Turasan',
+          // Ana sayfadaki Miras portresiyle aynı dosya.
+          image: '/images/miras/hakan-turasan.jpeg',
+          alt: 'Hakan Turasan portresi.',
         },
       ],
     },

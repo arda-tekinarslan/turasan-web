@@ -1,7 +1,11 @@
 ---
+import fs from 'node:fs';
 import { tr } from '../content/site';
 import { withBase } from '../lib/url';
 const t = tr.hero;
+
+// Dosya yoksa slayt, etiketli yer tutucu olarak kalır (build kırılmaz).
+const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
 ---
 
 <section id="top" class="hero theme-dark" data-descent="Giriş">
@@ -11,9 +15,22 @@ const t = tr.hero;
     lazy-load <img> (diğerleri) ile değişecek.
   -->
   <div class="hero__slides" aria-hidden="true">
-    {t.slides.map((label, i) => (
+    {t.slides.map((s, i) => (
       <div class:list={['hero__slide', { 'is-active': i === 0 }]} data-slide={i}>
-        <span class="ph__label hero__slide-label">{label}</span>
+        {gorselVar(s.image) ? (
+          <img
+            class="hero__slide-img"
+            src={withBase(s.image)}
+            alt=""
+            width="2400"
+            height="1600"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : undefined}
+            decoding="async"
+          />
+        ) : (
+          <span class="ph__label hero__slide-label">{s.label} — public{s.image}</span>
+        )}
       </div>
     ))}
   </div>
@@ -109,6 +126,27 @@ const t = tr.hero;
     background:
       radial-gradient(100% 65% at 45% 95%, color-mix(in srgb, var(--color-garnet) 10%, var(--color-ochre) 6%), transparent 70%),
       linear-gradient(180deg, var(--color-ink) 0%, var(--color-cave) 80%);
+  }
+  .hero__slide[data-slide='5'] {
+    background:
+      radial-gradient(95% 60% at 60% 90%, color-mix(in srgb, var(--color-ochre) 16%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--color-cave) 0%, var(--color-ink) 70%, var(--color-cave) 100%);
+  }
+  .hero__slide[data-slide='6'] {
+    background:
+      radial-gradient(105% 65% at 40% 100%, color-mix(in srgb, var(--color-garnet) 14%, transparent), transparent 72%),
+      linear-gradient(180deg, var(--color-ink) 0%, var(--color-cave) 88%);
+  }
+
+  /* Fotoğraf slaytı kaplar; zoom animasyonu slayta uygulandığı için
+     görsel de onunla birlikte büyür. İlk slayt ekranın ilk karesinde
+     göründüğü için eager + fetchpriority=high, diğerleri lazy. */
+  .hero__slide-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .hero__slide-label {

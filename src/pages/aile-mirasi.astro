@@ -1,5 +1,6 @@
 ---
 import SubPage from '../layouts/SubPage.astro';
+import Foto from '../components/Foto.astro';
 import { tr } from '../content/site';
 const t = tr.pages.heritage;
 ---
@@ -14,8 +15,8 @@ const t = tr.pages.heritage;
   <div class="timeline">
     {t.sections.map((s, i) => (
       <article class="timeline__item reveal" style={`transition-delay: ${i * 80}ms;`}>
-        <div class="ph ph--portrait timeline__media">
-          <span class="ph__label">{s.phLabel}</span>
+        <div class="timeline__media">
+          <Foto src={s.image} alt={s.alt} label={s.phLabel} oran="portrait" />
         </div>
         <div>
           <h2 class="display timeline__title">{s.title}</h2>

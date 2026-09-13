@@ -6,6 +6,7 @@
  */
 import { tr } from '../content/site';
 import { withBase } from '../lib/url';
+import Foto from './Foto.astro';
 const t = tr.heritage;
 ---
 
@@ -19,9 +20,7 @@ const t = tr.heritage;
 
   <!-- Arşiv fotoğrafı — eski, siyah-beyaz/sepya doku -->
   <div class="heritage__archive reveal">
-    <div class="ph ph--band heritage__archive-ph">
-      <span class="ph__label">{t.archiveLabel}</span>
-    </div>
+    <Foto src={t.archiveImage} alt={t.archiveAlt} label={t.archiveLabel} oran="band" phClass="heritage__archive-ph" />
   </div>
 
   <div class="container">
@@ -37,9 +36,7 @@ const t = tr.heritage;
     </p>
 
     <figure class="heritage__portrait reveal">
-      <div class="ph ph--portrait">
-        <span class="ph__label">{t.portraitLabel}</span>
-      </div>
+      <Foto src={t.portraitImage} alt={t.portraitAlt} label={t.portraitLabel} oran="portrait" />
       <figcaption class="muted heritage__portrait-caption">{t.portraitCaption}</figcaption>
     </figure>
   </div>
@@ -55,7 +52,7 @@ const t = tr.heritage;
 
   /* Sepya doku hissi — gerçek fotoğraf geldiğinde filter: sepia() ile
      aynı etki <img> üzerinde verilebilir. */
-  .heritage__archive-ph {
+  :global(.heritage__archive-ph) {
     background:
       radial-gradient(120% 90% at 30% 20%, color-mix(in srgb, var(--color-ochre) 12%, var(--color-ink)), transparent 70%),
       var(--color-ink);

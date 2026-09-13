@@ -6,6 +6,7 @@
  */
 import { tr } from '../content/site';
 import { withBase } from '../lib/url';
+import Foto from './Foto.astro';
 const t = tr.production;
 ---
 
@@ -13,9 +14,7 @@ const t = tr.production;
   <div class="container">
     <div class="split">
       <div class="split__media reveal">
-        <div class="ph ph--portrait">
-          <span class="ph__label">{t.portraitLabel}</span>
-        </div>
+        <Foto src={t.portraitImage} alt={t.portraitAlt} label={t.portraitLabel} oran="portrait" />
       </div>
 
       <div class="split__text reveal" style="transition-delay: 80ms;">
@@ -35,9 +34,7 @@ const t = tr.production;
 
   <!-- Fabrika / çelik tank alanı — tam genişlik bant -->
   <div class="production__band reveal">
-    <div class="ph ph--band">
-      <span class="ph__label">{t.bandLabel}</span>
-    </div>
+    <Foto src={t.bandImage} alt={t.bandAlt} label={t.bandLabel} oran="band" />
   </div>
 </section>
 
