@@ -30,6 +30,8 @@ const enYol = lang === 'en' ? burasi : karsiDilYolu(Astro.url);
     <link rel="alternate" hreflang="en" href={new URL(enYol, Astro.site)} />
     <link rel="alternate" hreflang="x-default" href={new URL(trYol, Astro.site)} />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon-32.png')} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

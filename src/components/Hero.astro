@@ -36,9 +36,6 @@ const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
     ))}
   </div>
 
-  <!-- Kahverengi ton — açık renkli fotoğraflarda krem logo kaybolmasın -->
-  <div class="hero__tint" aria-hidden="true"></div>
-
   <!-- Metnin okunması için alttan yukarı ince koyu gradyan -->
   <div class="hero__shade" aria-hidden="true"></div>
 
@@ -96,7 +93,7 @@ const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
 
   .hero__slide.is-active {
     opacity: 1;
-    animation: hero-zoom 8.2s linear forwards;
+    animation: hero-zoom 6.7s linear forwards;
   }
 
   @keyframes hero-zoom {
@@ -151,27 +148,12 @@ const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Renkleri kahve tonuna çeker (ör. mavi kasalar logonun altınıyla yarışmaz) */
-    filter: sepia(0.45) saturate(0.8);
   }
 
   .hero__slide-label {
     position: absolute;
     right: var(--gutter);
     bottom: 20px;
-  }
-
-  /* Kahverengi tint: tüm slaytların üstünde sabit durur (slaytla birlikte
-     solmaz). Mürekkep kahvesi düz katman + logonun durduğu üst-orta alanda
-     biraz daha yoğun bir halka; böylece en açık fotoğrafta bile krem/altın
-     logo zeminden ayrışır. Yoğunluğu değiştirmek için yüzdelerle oynayın. */
-  .hero__tint {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(60% 45% at 50% 32%, color-mix(in srgb, var(--color-cave) 35%, transparent), transparent 75%),
-      color-mix(in srgb, var(--color-ink) 50%, transparent);
-    pointer-events: none;
   }
 
   .hero__shade {
@@ -267,7 +249,7 @@ const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
 </style>
 
 <script>
-  // Hero slaytı: ~7 sn ekranda, 1.2 sn cross-fade, sonsuz döngü, kontrol yok.
+  // Hero slaytı: ~5,5 sn ekranda, 1.2 sn cross-fade, sonsuz döngü, kontrol yok.
   // Hareket azaltma tercihi varsa ilk görsel sabit kalır.
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero__slide'));
@@ -278,7 +260,7 @@ const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
       slides[current].classList.remove('is-active');
       current = (current + 1) % slides.length;
       slides[current].classList.add('is-active');
-    }, 7000);
+    }, 5500);
   }
 
   // "Kaydırın" işareti ilk scroll'da kaybolur.
