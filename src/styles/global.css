@@ -21,7 +21,10 @@
   --color-on-light: #2a201b;
   --color-on-light-mut: #6c5f53;
 
-  --font-display: "Fraunces", "Georgia", serif;
+  /* Başlık fontu. Charis SIL — SIL Open Font License, Google Fonts üzerinden.
+     Yalnızca 400 ve 700 ağırlıkları vardır; daha ince bir değer istenirse
+     tarayıcı 400'e yuvarlar. */
+  --font-display: "Charis SIL", "Georgia", serif;
   --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -117,7 +120,8 @@ body {
 
 .display {
   font-family: var(--font-display);
-  font-weight: 300;
+  /* Charis SIL'de 300 yok; tarayıcı zaten 400'e düşürüyordu, açıkça yazıyoruz */
+  font-weight: 400;
   letter-spacing: -0.01em;
 }
 
