@@ -3,7 +3,8 @@
  * Şube/tesis kartı — GrapeCard ile aynı dil: tuff-2 zemin, kenarlıksız,
  * ince ayraç, küçük büyük-harf etiketler. Veriler src/content/subeler.ts.
  */
-import { kategoriVurgusu, haritaBagi, type Sube } from '../content/subeler';
+import { kategoriVurgusu, kategoriEtiketi, haritaBagi, type Sube } from '../content/subeler';
+import { dilBul, icerik } from '../lib/dil';
 
 interface Props {
   sube: Sube;
@@ -12,17 +13,21 @@ interface Props {
 const { sube } = Astro.props;
 const vurgu = kategoriVurgusu[sube.kategori] ?? 'ochre';
 const harita = haritaBagi(sube);
+const lang = dilBul(Astro.url);
+const etiket = icerik(lang).pages.branches.labels;
+// Ünvan ve adres resmi bilgi olduğu için iki dilde de Türkçe kalır
+const ad = lang === 'en' ? sube.adEn : sube.ad;
 ---
 
 <article class="sube" data-vurgu={vurgu}>
-  <p class="sube__rozet">{sube.kategori}</p>
+  <p class="sube__rozet">{kategoriEtiketi[sube.kategori][lang]}</p>
 
   <p class="sube__unvan muted">{sube.unvan}</p>
-  <h2 class="display sube__ad">{sube.ad}</h2>
+  <h2 class="display sube__ad">{ad}</h2>
 
   <dl class="sube__bilgi">
     <div class="sube__satir">
-      <dt>Adres</dt>
+      <dt>{etiket.address}</dt>
       <dd>
         <a class="sube__adres" href={harita} target="_blank" rel="noopener">
           {sube.adres}
@@ -30,11 +35,11 @@ const harita = haritaBagi(sube);
       </dd>
     </div>
     <div class="sube__satir">
-      <dt>Tel</dt>
+      <dt>{etiket.phone}</dt>
       <dd><a class="sube__link" href={`tel:${sube.telDial}`}>{sube.tel}</a></dd>
     </div>
     <div class="sube__satir">
-      <dt>Faks</dt>
+      <dt>{etiket.fax}</dt>
       <dd><a class="sube__link" href={`tel:${sube.faksDial}`}>{sube.faks}</a></dd>
     </div>
   </dl>

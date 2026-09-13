@@ -7,14 +7,15 @@
  * Dosya yoksa etiketli yer tutucu görünür, build kırılmaz.
  */
 import fs from 'node:fs';
-import { tr } from '../content/site';
+import { dilBul, icerik, yol } from '../lib/dil';
 import { withBase } from '../lib/url';
-const t = tr.cellar;
+const lang = dilBul(Astro.url);
+const t = icerik(lang).cellar;
 
 const gorselVar = fs.existsSync(`public${t.image}`);
 ---
 
-<section id={t.id} class="section theme-light cellar" data-descent="Mahzen">
+<section id={t.id} class="section theme-light cellar" data-descent={t.overline}>
   <div class="container">
     <div class="split">
       <div class="split__media reveal">
@@ -42,7 +43,7 @@ const gorselVar = fs.existsSync(`public${t.image}`);
         </div>
 
         <p style="margin-top: 2em;">
-          <a class="cta" href={withBase(t.cta.href)}>
+          <a class="cta" href={yol(lang, t.cta.href)}>
             {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
           </a>
         </p>

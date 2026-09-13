@@ -199,3 +199,18 @@ export const awardsByYear: { year: number; items: Award[] }[] = [
 ]
   .sort((a, b) => b - a)
   .map((year) => ({ year, items: awards.filter((a) => a.year === year) }));
+
+/**
+ * Derece metinlerinin İngilizce karşılıkları. Veri Türkçe tutulur;
+ * puanlar (ör. 88/100) ve 'Commended' gibi zaten İngilizce olanlar aynen kalır.
+ */
+const DERECE_EN: Record<string, string> = {
+  'Altın Madalya': 'Gold Medal',
+  'Büyük Altın Madalya': 'Grand Gold Medal',
+  'Gümüş Madalya': 'Silver Medal',
+  'Bronz Madalya': 'Bronze Medal',
+};
+
+export function derece(medal: string, lang: 'tr' | 'en' = 'tr'): string {
+  return lang === 'en' ? DERECE_EN[medal] ?? medal : medal;
+}

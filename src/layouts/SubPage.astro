@@ -7,7 +7,7 @@ import Base from './Base.astro';
 import AgeGate from '../components/AgeGate.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { withBase } from '../lib/url';
+import { dilBul, icerik, yol } from '../lib/dil';
 
 interface Props {
   title: string;
@@ -18,9 +18,11 @@ interface Props {
 }
 
 const { title, description, overline, heading, lead } = Astro.props;
+const lang = dilBul(Astro.url);
+const ui = icerik(lang).ui;
 ---
 
-<Base title={title} description={description} lang="tr">
+<Base title={title} description={description}>
   <AgeGate />
   <Header />
 
@@ -39,8 +41,8 @@ const { title, description, overline, heading, lead } = Astro.props;
       <div class="container">
         <slot />
         <p class="reveal" style="margin-top: 3em;">
-          <a class="cta" href={withBase('/')}>
-            <span class="arrow arrow--back" aria-hidden="true">←</span> Ana sayfa
+          <a class="cta" href={yol(lang, '/')}>
+            <span class="arrow arrow--back" aria-hidden="true">←</span> {ui.home}
           </a>
         </p>
       </div>

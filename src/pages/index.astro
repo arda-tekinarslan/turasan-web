@@ -11,10 +11,11 @@ import AwardsSection from '../components/AwardsSection.astro';
 import CellarSection from '../components/CellarSection.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
-import { tr } from '../content/site';
+import { dilBul, icerik } from '../lib/dil';
+const c = icerik(dilBul(Astro.url));
 ---
 
-<Base title={tr.meta.title} description={tr.meta.description} lang="tr">
+<Base title={c.meta.title} description={c.meta.description}>
   <AgeGate />
   <Header />
   <Descent />

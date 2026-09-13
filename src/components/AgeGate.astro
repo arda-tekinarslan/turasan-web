@@ -9,9 +9,9 @@
  * Dosya yoksa tüf tonlarında gradyana düşer, build kırılmaz.
  */
 import fs from 'node:fs';
-import { tr } from '../content/site';
+import { dilBul, icerik } from '../lib/dil';
 import { withBase } from '../lib/url';
-const t = tr.ageGate;
+const t = icerik(dilBul(Astro.url)).ageGate;
 
 const zeminVar = fs.existsSync(`public${t.background}`);
 ---

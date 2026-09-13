@@ -6,7 +6,7 @@
  * hover'da açık bölümde garnet, koyu bölümde ochre olur (sitedeki .cta ile
  * aynı davranış). Adresler ve etiketler src/content/site.ts içinde.
  */
-import { tr } from '../content/site';
+import { dilBul, icerik } from '../lib/dil';
 
 interface Props {
   /** Simge kenar uzunluğu (px). Footer'da biraz küçük kullanılır. */
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { size = 22 } = Astro.props;
-const t = tr.social;
+const t = icerik(dilBul(Astro.url)).social;
 
 /*
  * Konumlandırma bilinçli olarak dışarıda: bu bileşenin ürettiği <ul>,

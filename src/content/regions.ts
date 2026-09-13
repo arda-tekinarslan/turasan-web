@@ -26,12 +26,16 @@ export interface Grape {
   primary: string;
   /** Nesnel açıklama paragrafları */
   body: string[];
+  /** İngilizce açıklama paragrafları */
+  bodyEn: string[];
 }
 
 export interface Region {
   /** Anchor id */
   id: string;
   name: string;
+  /** İngilizce ad */
+  nameEn: string;
   /** Bu bölgede yetişen üzümlerin id'leri (belgedeki eşleşmeler) */
   grapeIds: string[];
 }
@@ -46,6 +50,10 @@ export const grapes: Record<string, Grape> = {
       'Kapadokya’ya özgü beyaz üzümdür; başka bölgelerde yaygın olarak yetiştirilmez. Tüf toprakta ve yüksek rakımda karakterini bulur.',
       'Yüksek asidite, narenciye ve yeşil elma tonları tipiktir; hafif gövdeli ve mineral yapıdadır.',
     ],
+    bodyEn: [
+      'A white grape native to Cappadocia; it is not widely grown in other regions. It finds its character in tuff soil at high altitude.',
+      'High acidity with citrus and green apple notes is typical; it is light-bodied with a mineral structure.',
+    ],
   },
   riesling: {
     id: 'riesling',
@@ -55,6 +63,10 @@ export const grapes: Record<string, Grape> = {
     body: [
       'Almanya–Ren kökenli beyaz üzümdür; Kapadokya’da Turasan bağlarında yetiştirilir.',
       'Yüksek asidite, yeşil elma ve narenciye tonları ile belirgin mineral karakter görülür.',
+    ],
+    bodyEn: [
+      'A white grape originating in the Rhine, Germany; grown in Turasan vineyards in Cappadocia.',
+      'High acidity, green apple and citrus notes, with a pronounced mineral character.',
     ],
   },
   'sauvignon-blanc': {
@@ -66,6 +78,10 @@ export const grapes: Record<string, Grape> = {
       'Fransa–Loire kökenli aromatik beyaz üzümdür.',
       'Bitkisel ve narenciye ağırlıklı burun, canlı asidite ve taze bir yapı tipiktir.',
     ],
+    bodyEn: [
+      'An aromatic white grape originating in the Loire, France.',
+      'A herbaceous, citrus-led nose, lively acidity and a fresh structure are typical.',
+    ],
   },
   chardonnay: {
     id: 'chardonnay',
@@ -75,6 +91,10 @@ export const grapes: Record<string, Grape> = {
     body: [
       'Burgonya kökenli beyaz üzümdür; dünyada en yaygın yetiştirilen çeşitlerdendir.',
       'Elma ve turunçgil tonları görülür; karakteri uygulanan üretim yöntemine göre nötrden yuvarlağa uzanır.',
+    ],
+    bodyEn: [
+      'A white grape originating in Burgundy; one of the most widely planted varieties in the world.',
+      'Apple and citrus notes; its character ranges from neutral to rounded depending on the winemaking method.',
     ],
   },
   misket: {
@@ -86,6 +106,10 @@ export const grapes: Record<string, Grape> = {
       'Muskat ailesinden aromatik bir beyaz üzümdür.',
       'Çiçeksi ve üzümsü burun belirgindir; hafif gövdeli, aromatik yapıdadır.',
     ],
+    bodyEn: [
+      'An aromatic white grape from the Muscat family.',
+      'A pronounced floral and grapey nose; light-bodied with an aromatic structure.',
+    ],
   },
   narince: {
     id: 'narince',
@@ -95,6 +119,10 @@ export const grapes: Record<string, Grape> = {
     body: [
       'Kökeni Tokat–Kazova olan Narince, Anadolu’nun köklü beyaz üzümlerindendir.',
       'Dengeli gövde, çiçeksi burun, olgun armut ve hafif mineral bitiş görülür.',
+    ],
+    bodyEn: [
+      'Originating in Kazova, Tokat, Narince is one of Anatolia’s long-established white grapes.',
+      'Balanced body, a floral nose, ripe pear and a light mineral finish.',
     ],
   },
   bogazkere: {
@@ -106,6 +134,10 @@ export const grapes: Record<string, Grape> = {
       'Diyarbakır kökenli kırmızı üzümdür; adını güçlü tanen yapısından alır.',
       'Koyu meyve karakteri, belirgin tanen ve uzun bitiş tipiktir.',
     ],
+    bodyEn: [
+      'A red grape originating in Diyarbakır; its name, meaning “throat scraper”, refers to its firm tannins.',
+      'Dark fruit character, pronounced tannins and a long finish are typical.',
+    ],
   },
   'cabernet-sauvignon': {
     id: 'cabernet-sauvignon',
@@ -115,6 +147,10 @@ export const grapes: Record<string, Grape> = {
     body: [
       'Bordeaux kökenli kırmızı üzümdür; dünyada en yaygın yetiştirilen çeşitlerdendir.',
       'Siyah frenk üzümü karakteri, belirgin tanen ve uzun bitiş görülür.',
+    ],
+    bodyEn: [
+      'A red grape originating in Bordeaux; one of the most widely planted varieties in the world.',
+      'Blackcurrant character, pronounced tannins and a long finish.',
     ],
   },
   'cabernet-franc': {
@@ -126,6 +162,10 @@ export const grapes: Record<string, Grape> = {
       'Bordeaux kökenli kırmızı üzümdür; Cabernet Sauvignon’un ebeveyn çeşitlerindendir.',
       'Kırmızı meyve ve hafif baharat tonları; Cabernet Sauvignon’a göre daha yumuşak tanen yapısı görülür.',
     ],
+    bodyEn: [
+      'A red grape originating in Bordeaux; one of the parent varieties of Cabernet Sauvignon.',
+      'Red fruit and light spice notes; softer tannins than Cabernet Sauvignon.',
+    ],
   },
   'kalecik-karasi': {
     id: 'kalecik-karasi',
@@ -135,6 +175,10 @@ export const grapes: Record<string, Grape> = {
     body: [
       'Ankara’nın Kalecik ilçesine özgü bu kırmızı üzüm, Anadolu’nun köklü çeşitlerindendir.',
       'Orta gövde, kırmızı meyve ağırlıklı aroma ve yumuşak tanen yapısı tipiktir.',
+    ],
+    bodyEn: [
+      'Native to the Kalecik district of Ankara, this red grape is one of Anatolia’s long-established varieties.',
+      'Medium body, red fruit-led aromas and soft tannins are typical.',
     ],
   },
   okuzgozu: {
@@ -146,6 +190,10 @@ export const grapes: Record<string, Grape> = {
       'Elazığ yöresine özgü Öküzgözü, Türkiye’nin en yaygın kırmızı üzümlerinden biridir.',
       'Canlı asidite, vişne ve karadut karakteri, orta uzunlukta bitiş görülür.',
     ],
+    bodyEn: [
+      'Native to the Elazığ area, Öküzgözü is one of the most widely grown red grapes in Türkiye.',
+      'Lively acidity, sour cherry and black mulberry character, and a medium-length finish.',
+    ],
   },
   merlot: {
     id: 'merlot',
@@ -155,6 +203,10 @@ export const grapes: Record<string, Grape> = {
     body: [
       'Bordeaux kökenli kırmızı üzümdür.',
       'Erik ve olgun kırmızı meyve tonları ile yumuşak tanen yapısı tipiktir.',
+    ],
+    bodyEn: [
+      'A red grape originating in Bordeaux.',
+      'Plum and ripe red fruit notes with soft tannins are typical.',
     ],
   },
   syrah: {
@@ -166,6 +218,10 @@ export const grapes: Record<string, Grape> = {
       'Rhône kökenli kırmızı üzümdür.',
       'Koyu meyve ve karabiber tonları; orta–güçlü gövde görülür.',
     ],
+    bodyEn: [
+      'A red grape originating in the Rhône.',
+      'Dark fruit and black pepper notes; medium to full body.',
+    ],
   },
 };
 
@@ -173,11 +229,13 @@ export const regions: Region[] = [
   {
     id: 'kapadokya',
     name: 'Kapadokya',
+    nameEn: 'Cappadocia',
     grapeIds: ['emir', 'riesling', 'kalecik-karasi', 'okuzgozu'],
   },
   {
     id: 'denizli-guney',
     name: 'Denizli / Güney',
+    nameEn: 'Denizli / Güney',
     grapeIds: [
       'sauvignon-blanc',
       'chardonnay',
@@ -193,20 +251,30 @@ export const regions: Region[] = [
   {
     id: 'izmir-menderes',
     name: 'İzmir / Menderes',
+    nameEn: 'İzmir / Menderes',
     grapeIds: ['misket'],
   },
   {
     id: 'tokat-erbaa',
     name: 'Tokat / Erbaa',
+    nameEn: 'Tokat / Erbaa',
     grapeIds: ['narince'],
   },
   {
     id: 'elazig',
     name: 'Elazığ',
+    nameEn: 'Elazığ',
     grapeIds: ['okuzgozu'],
   },
 ];
 
 /** Bölge id → ad (çapraz bağlantı metinleri için) */
-export const regionName = (id: string): string =>
-  regions.find((r) => r.id === id)?.name ?? id;
+export const regionName = (id: string, lang: 'tr' | 'en' = 'tr'): string => {
+  const r = regions.find((x) => x.id === id);
+  if (!r) return id;
+  return lang === 'en' ? r.nameEn : r.name;
+};
+
+/** Üzüm türü etiketi — veri Türkçe tutulur, İngilizcesi burada eşlenir. */
+export const grapeTypeLabel = (type: GrapeType, lang: 'tr' | 'en' = 'tr'): string =>
+  lang === 'en' ? (type === 'Beyaz' ? 'White' : 'Red') : type;

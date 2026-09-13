@@ -8,24 +8,20 @@
  * Dosya yoksa etiketli yer tutucu görünür, build kırılmaz.
  */
 import fs from 'node:fs';
-import { tr } from '../content/site';
+import { dilBul, icerik, yol } from '../lib/dil';
 import GrapeCard from './GrapeCard.astro';
 import { withBase } from '../lib/url';
-const t = tr.vineyard;
+const lang = dilBul(Astro.url);
+const t = icerik(lang).vineyard;
 
 const HARITA = '/images/terroir.jpeg';
 const haritaVar = fs.existsSync(`public${HARITA}`);
 
-// Görsel metin içerdiği için alt, aynı bilgiyi eksiksiz aktarır.
-const haritaAlt =
-  'Türkiye haritası üzerinde bağ bölgeleri ve üzümleri: ' +
-  'Kapadokya/Nevşehir — Emir, Kalecik Karası, Öküzgözü, Riesling; ' +
-  'Denizli/Güney — Sauvignon Blanc, Chardonnay, Misket, Boğazkere, ' +
-  'Cabernet Sauvignon, Cabernet Franc, Kalecik Karası, Merlot, Syrah; ' +
-  'İzmir/Menderes — Misket; Tokat — Narince; Elazığ — Öküzgözü.';
+// Görsel metin içerdiği için alt, aynı bilgiyi eksiksiz aktarır (metin site.ts'te).
+const haritaAlt = t.mapAlt;
 ---
 
-<section id={t.id} class="section theme-light vineyard" data-descent="Bağcılık">
+<section id={t.id} class="section theme-light vineyard" data-descent={t.overline}>
   <div class="container">
     <div class="vineyard__head reveal">
       <p class="overline">{t.overline}</p>
@@ -58,13 +54,13 @@ const haritaAlt =
     <div class="vineyard__grapes">
       {t.grapes.map((g, i) => (
         <div class="reveal" style={`transition-delay: ${i * 80}ms;`}>
-          <GrapeCard {...g} href={withBase(g.href)} />
+          <GrapeCard {...g} href={yol(lang, g.href)} />
         </div>
       ))}
     </div>
 
     <p class="reveal" style="margin-top: 2.4em;">
-      <a class="cta" href={withBase(t.cta.href)}>
+      <a class="cta" href={yol(lang, t.cta.href)}>
         {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
       </a>
     </p>

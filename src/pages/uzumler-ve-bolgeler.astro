@@ -7,22 +7,27 @@
  * diğer bölgelerde oraya çapraz bağlantı gösterilir.
  */
 import SubPage from '../layouts/SubPage.astro';
-import { grapes, regions, regionName } from '../content/regions';
+import { grapes, regions, regionName, grapeTypeLabel } from '../content/regions';
+import { dilBul, icerik } from '../lib/dil';
+
+const lang = dilBul(Astro.url);
+const c = icerik(lang);
+const t = c.pages.grapes;
 ---
 
 <SubPage
-  title="Üzümler ve Bölgeler — Turasan Şarapçılık"
-  description="Turasan'ın çalıştığı bölgeler ve bu bölgelerde yetişen üzümler: Kapadokya, Denizli/Güney, İzmir/Menderes, Tokat/Erbaa ve Elazığ."
-  overline="Bağcılık"
-  heading="Üzümler ve Bölgeler"
-  lead="Üretimde kullanılan üzümler, farklı bölgelerdeki kendi bağlarımızdan ve anlaşmalı bağlardan gelir. Aşağıda her bölge ve o bölgede yetişen üzümler nesnel olarak listelenir."
+  title={`${t.docTitle} — ${c.ui.brand}`}
+  description={t.description}
+  overline={t.overline}
+  heading={t.heading}
+  lead={t.lead}
 >
-  <h2 class="display rb__heading reveal">Bölgesel Bağlar</h2>
+  <h2 class="display rb__heading reveal">{t.regionalHeading}</h2>
 
   <div class="rb">
     {regions.map((region, ri) => (
       <section id={region.id} class="rb__region reveal" style={`transition-delay: ${ri * 60}ms;`}>
-        <h2 class="display rb__region-name">{region.name}</h2>
+        <h2 class="display rb__region-name">{lang === 'en' ? region.nameEn : region.name}</h2>
 
         <div class="rb__grapes">
           {region.grapeIds.map((gid) => {
@@ -32,21 +37,21 @@ import { grapes, regions, regionName } from '../content/regions';
               <article id={g.id} class="rb__grape">
                 <header class="rb__grape-head">
                   <h3 class="display rb__grape-name">{g.name}</h3>
-                  <span class="rb__grape-type">{g.type}</span>
+                  <span class="rb__grape-type">{grapeTypeLabel(g.type, lang)}</span>
                 </header>
                 <div class="prose-block rb__grape-body">
-                  {g.body.map((p) => <p>{p}</p>)}
+                  {(lang === 'en' ? g.bodyEn : g.body).map((p) => <p>{p}</p>)}
                 </div>
               </article>
             ) : (
               <article class="rb__grape rb__grape--ref">
                 <header class="rb__grape-head">
                   <h3 class="display rb__grape-name">{g.name}</h3>
-                  <span class="rb__grape-type">{g.type}</span>
+                  <span class="rb__grape-type">{grapeTypeLabel(g.type, lang)}</span>
                 </header>
                 <p class="rb__grape-ref muted">
-                  Bu bölgede de yetiştirilir — açıklama:
-                  <a href={`#${g.id}`}>{regionName(g.primary)} bölümünde</a>
+                  {t.alsoGrown}
+                  <a href={`#${g.id}`}>{t.inRegion(regionName(g.primary, lang))}</a>
                 </p>
               </article>
             );

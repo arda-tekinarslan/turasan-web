@@ -1,6 +1,12 @@
 ---
-import { tr } from '../content/site';
 import { withBase } from '../lib/url';
+import { dilBul, icerik, yol, karsiDilYolu } from '../lib/dil';
+
+const lang = dilBul(Astro.url);
+const c = icerik(lang);
+// Dil geçişi bulunulan sayfanın diğer dildeki karşılığına gider
+const karsiDil = lang === 'tr' ? 'en' : 'tr';
+const karsiHref = karsiDilYolu(Astro.url);
 ---
 
 <header id="site-header" class="site-header" data-state="over-hero">
@@ -12,37 +18,40 @@ import { withBase } from '../lib/url';
       Header her durumda koyu zemin üzerinde (hero'da şeffaf, sonrasında
       koyu blur), bu yüzden krem sürüm kullanılır.
     -->
-    <a class="site-header__brand" href={withBase('/')}>
+    <a class="site-header__brand" href={yol(lang, '/')}>
       <img
         class="site-header__brand-img"
         src={withBase('/images/logo-wordmark-koyu.png')}
-        alt={tr.hero.logo.name}
+        alt={c.hero.logo.name}
         width="431"
         height="72"
       />
     </a>
 
-    <nav class="site-header__nav" aria-label="Ana menü">
-      {tr.nav.map((item) => (
-        <a class="site-header__link" href={withBase(item.href)}>{item.label}</a>
+    <nav class="site-header__nav" aria-label={c.ui.mainMenu}>
+      {c.nav.map((item) => (
+        <a class="site-header__link" href={yol(lang, item.href)}>{item.label}</a>
       ))}
-      <a class="site-header__lang" href={tr.langSwitch.otherHref} aria-label="Switch to English">
-        <span aria-current="true">{tr.langSwitch.current}</span> / {tr.langSwitch.other}
+      <a class="site-header__lang" href={karsiHref} hreflang={karsiDil} lang={karsiDil} aria-label={c.ui.switchLabel} data-dil-gecis>
+        {lang === 'tr'
+          ? <Fragment><span aria-current="true">TR</span> / EN</Fragment>
+          : <Fragment>TR / <span aria-current="true">EN</span></Fragment>}
       </a>
     </nav>
 
     <button id="menu-toggle" class="site-header__toggle" type="button"
-      aria-expanded="false" aria-controls="mobile-menu" aria-label="Menüyü aç">
+      aria-expanded="false" aria-controls="mobile-menu" aria-label={c.ui.menuOpen}
+      data-etiket-ac={c.ui.menuOpen} data-etiket-kapat={c.ui.menuClose}>
       <span></span><span></span>
     </button>
   </div>
 
-  <nav id="mobile-menu" class="site-header__mobile" hidden aria-label="Mobil menü">
-    {tr.nav.map((item) => (
-      <a class="site-header__mlink" href={withBase(item.href)}>{item.label}</a>
+  <nav id="mobile-menu" class="site-header__mobile" hidden aria-label={c.ui.mobileMenu}>
+    {c.nav.map((item) => (
+      <a class="site-header__mlink" href={yol(lang, item.href)}>{item.label}</a>
     ))}
-    <a class="site-header__mlink muted" href={tr.langSwitch.otherHref}>
-      {tr.langSwitch.current} / {tr.langSwitch.other}
+    <a class="site-header__mlink muted" href={karsiHref} hreflang={karsiDil} lang={karsiDil} data-dil-gecis>
+      {c.ui.switchLabel}
     </a>
   </nav>
 </header>
@@ -233,16 +242,23 @@ import { withBase } from '../lib/url';
   const closeMenu = () => {
     if (!toggle || !mobile) return;
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Menüyü aç');
+    toggle.setAttribute('aria-label', toggle.dataset.etiketAc ?? '');
     mobile.hidden = true;
   };
 
   toggle?.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!open));
-    toggle.setAttribute('aria-label', open ? 'Menüyü aç' : 'Menüyü kapat');
+    toggle.setAttribute('aria-label', (open ? toggle.dataset.etiketAc : toggle.dataset.etiketKapat) ?? '');
     if (mobile) mobile.hidden = open;
   });
 
   mobile?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+  // Dil geçişinde bulunulan bölüm korunur: bölüm id'leri iki dilde aynı.
+  document.querySelectorAll<HTMLAnchorElement>('[data-dil-gecis]').forEach((a) =>
+    a.addEventListener('click', () => {
+      if (location.hash) a.href = a.href.split('#')[0] + location.hash;
+    })
+  );
 </script>

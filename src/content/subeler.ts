@@ -23,6 +23,8 @@ export interface Sube {
   unvan: string;
   /** Lokasyonun adı — kartın başlığı */
   ad: string;
+  /** Lokasyonun İngilizce adı */
+  adEn: string;
   adres: string;
   /** Ekranda görünen telefon */
   tel: string;
@@ -47,6 +49,7 @@ export const subeler: Sube[] = [
     kategori: 'Genel Merkez',
     unvan: UNVAN,
     ad: 'Merkez',
+    adEn: 'Headquarters',
     adres: 'Temenni Mahallesi Tevfik Fikret Caddesi Turasan No: 39 Ürgüp – Nevşehir',
     tel: '(384) 341 4961',
     telDial: '+903843414961',
@@ -57,6 +60,7 @@ export const subeler: Sube[] = [
     kategori: 'Satış & Şarap Evi',
     unvan: UNVAN,
     ad: 'Satış Mağazası ve Şarap Evi (Ürgüp Şubesi)',
+    adEn: 'Sales Store and Wine House (Ürgüp Branch)',
     adres: 'Temenni Mahallesi Tevfik Fikret Caddesi Turasan No: 44–44/1 Ürgüp – Nevşehir',
     tel: '(384) 341 4961',
     telDial: '+903843414961',
@@ -67,6 +71,7 @@ export const subeler: Sube[] = [
     kategori: 'Bölge Müdürlüğü',
     unvan: UNVAN,
     ad: 'İstanbul Bölge Müdürlüğü',
+    adEn: 'Istanbul Regional Directorate',
     adres: 'Ferhatpaşa Mahallesi 31. Sokak No: 52–54/A Ataşehir – İstanbul',
     tel: '(0216) 545 1860',
     telDial: '+902165451860',
@@ -77,6 +82,7 @@ export const subeler: Sube[] = [
     kategori: 'Şube',
     unvan: UNVAN,
     ad: 'Sakarya Şubesi',
+    adEn: 'Sakarya Branch',
     adres: 'Erenler Mahallesi 1199. Sokak No: 4A Erenler – Sakarya',
     tel: '(264) 282 2234',
     telDial: '+902642822234',
@@ -96,6 +102,14 @@ export const kategoriVurgusu: Record<SubeKategori, 'garnet' | 'ochre'> = {
   'Satış & Şarap Evi': 'ochre',
   'Bölge Müdürlüğü': 'ochre',
   Şube: 'ochre',
+};
+
+/** Rozet metni — kategori anahtarı Türkçe tutulur, iki dildeki karşılığı burada. */
+export const kategoriEtiketi: Record<SubeKategori, { tr: string; en: string }> = {
+  'Genel Merkez': { tr: 'Genel Merkez', en: 'Head Office' },
+  'Satış & Şarap Evi': { tr: 'Satış & Şarap Evi', en: 'Sales & Wine House' },
+  'Bölge Müdürlüğü': { tr: 'Bölge Müdürlüğü', en: 'Regional Directorate' },
+  Şube: { tr: 'Şube', en: 'Branch' },
 };
 
 /** Adresten harita arama bağlantısı — kayıtta haritaHref yoksa kullanılır. */

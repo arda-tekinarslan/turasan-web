@@ -1,9 +1,13 @@
 ---
-import { tr } from '../content/site';
-import { withBase } from '../lib/url';
+import { dilBul, icerik, yol, karsiDilYolu } from '../lib/dil';
 import SocialLinks from './SocialLinks.astro';
 import YasalMetinler from './YasalMetinler.astro';
-const t = tr.footer;
+const lang = dilBul(Astro.url);
+const t = icerik(lang).footer;
+// Her iki dil bağlantısı da bulunulan sayfanın o dildeki karşılığına gider
+const burasi = Astro.url.pathname;
+const trHref = lang === 'tr' ? burasi : karsiDilYolu(Astro.url);
+const enHref = lang === 'en' ? burasi : karsiDilYolu(Astro.url);
 ---
 
 <footer class="site-footer theme-dark">
@@ -30,7 +34,7 @@ const t = tr.footer;
                     {l.label}
                   </button>
                 ) : (
-                  <a href={withBase(l.href)}>{l.label}</a>
+                  <a href={yol(lang, l.href)}>{l.label}</a>
                 )}
               </li>
             ))}
@@ -39,9 +43,11 @@ const t = tr.footer;
       ))}
 
       <div>
-        <p class="overline site-footer__col-title">Dil</p>
+        <p class="overline site-footer__col-title">{t.langTitle}</p>
         <p class="site-footer__lang">
-          <span>TR</span> <span class="muted">/ EN</span>
+          <a href={trHref} hreflang="tr" lang="tr" aria-current={lang === 'tr' ? 'true' : undefined} data-dil-gecis>TR</a>
+          <span class="muted"> / </span>
+          <a href={enHref} hreflang="en" lang="en" aria-current={lang === 'en' ? 'true' : undefined} data-dil-gecis>EN</a>
         </p>
       </div>
     </div>
@@ -133,6 +139,14 @@ const t = tr.footer;
   }
 
   .site-footer__lang { font-size: 14px; }
+
+  .site-footer__lang a {
+    color: var(--color-on-dark-mut);
+    text-decoration: none;
+  }
+
+  .site-footer__lang a[aria-current='true'] { color: var(--color-on-dark); }
+  .site-footer__lang a:hover { color: var(--color-ochre); }
 
   .site-footer__legal {
     margin-top: clamp(40px, 7vh, 64px);

@@ -4,9 +4,10 @@
  * Footer bir kez render eder; açma butonları footer'daki bağlantılardır.
  */
 import Modal from './Modal.astro';
-import { tr } from '../content/site';
-const k = tr.yasal.kvkk;
-const c = tr.yasal.cerez;
+import { dilBul, icerik } from '../lib/dil';
+const yasal = icerik(dilBul(Astro.url)).yasal;
+const k = yasal.kvkk;
+const c = yasal.cerez;
 ---
 
 <Modal id="kvkk" baslik={k.baslik}>
@@ -48,7 +49,13 @@ const c = tr.yasal.cerez;
     ))}
   </ul>
 
-  <p class="cerez__durum" data-cerez-durum role="status"></p>
+  <p
+    class="cerez__durum"
+    data-cerez-durum
+    data-mesaj-ok={c.kaydedildi}
+    data-mesaj-hata={c.hata}
+    role="status"
+  ></p>
 
   <button slot="eylem" class="yasal__btn yasal__btn--dolu" type="button" data-cerez-kaydet>
     {c.kaydet}
@@ -232,14 +239,13 @@ const c = tr.yasal.cerez;
       localStorage.setItem(ANAHTAR, JSON.stringify(t));
       // Tercihe bağlı içerikler (ör. İletişim'deki harita) sayfa yenilenmeden uyar
       document.dispatchEvent(new CustomEvent(CEREZ_OLAY));
-      if (durum) durum.textContent = 'Tercihleriniz kaydedildi.';
+      if (durum) durum.textContent = durum.dataset.mesajOk ?? '';
       window.setTimeout(() => {
         (dialog as HTMLDialogElement | null)?.close();
       }, 700);
     } catch {
       if (durum) {
-        durum.textContent =
-          'Tercih kaydedilemedi — tarayıcınız site verilerini engelliyor olabilir.';
+        durum.textContent = durum.dataset.mesajHata ?? '';
       }
     }
   });

@@ -4,9 +4,11 @@
  * Sol kenarda dikey nokta dizisi; sayfa aşağı indikçe (mahzene inildikçe)
  * noktalar dolar. data-descent-target ile bölümler otomatik bağlanır.
  */
+import { dilBul, icerik } from '../lib/dil';
+const ui = icerik(dilBul(Astro.url)).ui;
 ---
 
-<nav id="descent" class="descent" aria-label="Sayfa bölümleri"></nav>
+<nav id="descent" class="descent" aria-label={ui.descentNav}></nav>
 
 <style>
   .descent {

@@ -8,14 +8,15 @@
  */
 import SubPage from '../layouts/SubPage.astro';
 import SubeCard from '../components/SubeCard.astro';
-import { tr } from '../content/site';
+import { dilBul, icerik } from '../lib/dil';
 import { subeler } from '../content/subeler';
-const t = tr.pages.branches;
+const c = icerik(dilBul(Astro.url));
+const t = c.pages.branches;
 ---
 
 <SubPage
-  title={`${t.title} — Turasan Şarapçılık`}
-  description="Turasan Pazarlama'nın genel merkezi, satış mağazası ve şarap evi, İstanbul bölge müdürlüğü ve Sakarya şubesi — adres ve iletişim bilgileri."
+  title={`${t.title} — ${c.ui.brand}`}
+  description={t.description}
   overline={t.overline}
   heading={t.title}
   lead={t.lead}

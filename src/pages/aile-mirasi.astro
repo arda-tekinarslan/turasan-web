@@ -1,13 +1,14 @@
 ---
 import SubPage from '../layouts/SubPage.astro';
 import Foto from '../components/Foto.astro';
-import { tr } from '../content/site';
-const t = tr.pages.heritage;
+import { dilBul, icerik } from '../lib/dil';
+const c = icerik(dilBul(Astro.url));
+const t = c.pages.heritage;
 ---
 
 <SubPage
-  title={`${t.title} — Turasan Şarapçılık`}
-  description="Turasan Şarapçılık'ın 1943'ten bugüne aile mirası: kuruluş, kuşaklar ve bugünkü yaklaşım."
+  title={`${t.title} — ${c.ui.brand}`}
+  description={t.description}
   overline={t.overline}
   heading={t.title}
   lead={t.lead}

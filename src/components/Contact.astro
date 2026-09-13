@@ -3,13 +3,14 @@
  * İletişim / Konum (açık bölüm) — en üstte çok büyük puntoyla şehir başlığı,
  * altında sade bilgi listesi ve gömülü harita yer tutucusu (lazy-load).
  */
-import { tr } from '../content/site';
-import { withBase } from '../lib/url';
+import { dilBul, icerik, yol } from '../lib/dil';
 import SocialLinks from './SocialLinks.astro';
-const t = tr.contact;
+const lang = dilBul(Astro.url);
+const c = icerik(lang);
+const t = c.contact;
 ---
 
-<section id={t.id} class="section theme-light" data-descent="İletişim">
+<section id={t.id} class="section theme-light" data-descent={t.descent}>
   <div class="container">
     <p class="overline reveal">{t.overline}</p>
     <h2 class="display contact__city reveal" style="transition-delay: 80ms;">
@@ -21,19 +22,19 @@ const t = tr.contact;
       <div class="contact__col reveal">
       <dl class="contact__list">
         <div class="contact__item">
-          <dt class="overline contact__label">Adres</dt>
+          <dt class="overline contact__label">{t.labels.address}</dt>
           <dd>{t.address}</dd>
         </div>
         <div class="contact__item">
-          <dt class="overline contact__label">E-posta</dt>
+          <dt class="overline contact__label">{t.labels.email}</dt>
           <dd><a class="contact__link" href={`mailto:${t.email}`}>{t.email}</a></dd>
         </div>
         <div class="contact__item">
-          <dt class="overline contact__label">Telefon</dt>
+          <dt class="overline contact__label">{t.labels.phone}</dt>
           <dd><a class="contact__link" href={`tel:${t.phoneDial}`}>{t.phone}</a></dd>
         </div>
         <div class="contact__item">
-          <dt class="overline contact__label">Konum</dt>
+          <dt class="overline contact__label">{t.labels.location}</dt>
           <dd>
             <a class="contact__link" href={t.mapCta.href} target="_blank" rel="noopener">
               {t.mapCta.label} <span aria-hidden="true">→</span>
@@ -49,13 +50,13 @@ const t = tr.contact;
           </dd>
         </div>
         <div class="contact__item">
-          <dt class="overline contact__label">{tr.social.title}</dt>
+          <dt class="overline contact__label">{c.social.title}</dt>
           <dd><SocialLinks size={32} /></dd>
         </div>
       </dl>
 
       <p class="contact__branches">
-        <a class="cta" href={withBase(t.branchesCta.href)}>
+        <a class="cta" href={yol(lang, t.branchesCta.href)}>
           {t.branchesCta.label} <span class="arrow" aria-hidden="true">→</span>
         </a>
       </p>

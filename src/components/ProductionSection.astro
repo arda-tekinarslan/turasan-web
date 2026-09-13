@@ -4,13 +4,13 @@
  * ve metin. Sütun sırası, Miras'taki sağa yaslı portrenin tersi olarak
  * portre solda. Altta tam genişlik çelik tank bandı.
  */
-import { tr } from '../content/site';
-import { withBase } from '../lib/url';
+import { dilBul, icerik, yol } from '../lib/dil';
 import Foto from './Foto.astro';
-const t = tr.production;
+const lang = dilBul(Astro.url);
+const t = icerik(lang).production;
 ---
 
-<section id={t.id} class="section theme-dark" data-descent="Üretim">
+<section id={t.id} class="section theme-dark" data-descent={t.overline}>
   <div class="container">
     <div class="split">
       <div class="split__media reveal">
@@ -24,7 +24,7 @@ const t = tr.production;
           {t.body.map((p) => <p>{p}</p>)}
         </div>
         <p style="margin-top: 2em;">
-          <a class="cta" href={withBase(t.cta.href)}>
+          <a class="cta" href={yol(lang, t.cta.href)}>
             {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
           </a>
         </p>

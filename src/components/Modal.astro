@@ -10,6 +10,8 @@
  *   <button data-modal-ac="kimlik">…</button>
  * Kapatma (× , eylem butonu, backdrop tıklaması) burada yönetilir.
  */
+import { dilBul, icerik } from '../lib/dil';
+
 interface Props {
   /** data-modal-ac ile eşleşen kimlik */
   id: string;
@@ -17,13 +19,14 @@ interface Props {
 }
 
 const { id, baslik } = Astro.props;
+const kapatEtiketi = icerik(dilBul(Astro.url)).ui.closeWindow;
 ---
 
 <dialog class="modal" id={`modal-${id}`} aria-labelledby={`modal-${id}-baslik`}>
   <div class="modal__panel">
     <header class="modal__head">
       <h2 class="display modal__baslik" id={`modal-${id}-baslik`}>{baslik}</h2>
-      <button class="modal__kapat" type="button" data-modal-kapat aria-label="Pencereyi kapat">
+      <button class="modal__kapat" type="button" data-modal-kapat aria-label={kapatEtiketi}>
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"
              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
           <path d="M6 6l12 12M18 6L6 18" />

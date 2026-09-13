@@ -1,12 +1,13 @@
 ---
 import SubPage from '../layouts/SubPage.astro';
-import { tr } from '../content/site';
-const t = tr.pages.process;
+import { dilBul, icerik } from '../lib/dil';
+const c = icerik(dilBul(Astro.url));
+const t = c.pages.process;
 ---
 
 <SubPage
-  title={`${t.title} — Turasan Şarapçılık`}
-  description="Turasan'da üretim süreci: hasattan şişelemeye tanımlı aşamalar; kaya mahzen ve çelik tank bir arada."
+  title={`${t.title} — ${c.ui.brand}`}
+  description={t.description}
   overline={t.overline}
   heading={t.title}
   lead={t.lead}

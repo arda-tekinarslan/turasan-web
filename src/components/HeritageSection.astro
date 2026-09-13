@@ -4,13 +4,13 @@
  * Tam genişliğe yakın arşiv fotoğrafı; altında iki sütun: solda kademeli
  * (stagger) açılan metin, sağda Hakan Turasan portresi.
  */
-import { tr } from '../content/site';
-import { withBase } from '../lib/url';
+import { dilBul, icerik, yol } from '../lib/dil';
 import Foto from './Foto.astro';
-const t = tr.heritage;
+const lang = dilBul(Astro.url);
+const t = icerik(lang).heritage;
 ---
 
-<section id={t.id} class="section theme-dark heritage" data-descent="Miras">
+<section id={t.id} class="section theme-dark heritage" data-descent={t.overline}>
   <div class="container">
     <div class="heritage__head">
       <p class="overline reveal">{t.overline}</p>
@@ -32,7 +32,7 @@ const t = tr.heritage;
           ))}
         </div>
         <p class="reveal" style={`transition-delay: ${t.body.length * 80}ms; margin-top: 2em;`}>
-          <a class="cta" href={withBase(t.cta.href)}>
+          <a class="cta" href={yol(lang, t.cta.href)}>
             {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
           </a>
         </p>

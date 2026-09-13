@@ -2,15 +2,21 @@
 import '../styles/global.css';
 import { withBase } from '../lib/url';
 import { YAS_ONAY_KEY } from '../lib/yas-kapisi';
+import { dilBul, karsiDilYolu } from '../lib/dil';
 import YuklemeEkrani from '../components/YuklemeEkrani.astro';
 
 interface Props {
   title: string;
   description: string;
-  lang?: string;
 }
 
-const { title, description, lang = 'tr' } = Astro.props;
+const { title, description } = Astro.props;
+const lang = dilBul(Astro.url);
+
+// hreflang: sayfanın iki dil sürümü birbirini gösterir; varsayılan Türkçe
+const burasi = Astro.url.pathname;
+const trYol = lang === 'tr' ? burasi : karsiDilYolu(Astro.url);
+const enYol = lang === 'en' ? burasi : karsiDilYolu(Astro.url);
 ---
 
 <!doctype html>
@@ -20,6 +26,9 @@ const { title, description, lang = 'tr' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="alternate" hreflang="tr" href={new URL(trYol, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(enYol, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(trYol, Astro.site)} />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

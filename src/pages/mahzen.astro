@@ -8,16 +8,17 @@
  */
 import fs from 'node:fs';
 import SubPage from '../layouts/SubPage.astro';
-import { tr } from '../content/site';
+import { dilBul, icerik } from '../lib/dil';
 import { withBase } from '../lib/url';
-const t = tr.pages.cellar;
+const c = icerik(dilBul(Astro.url));
+const t = c.pages.cellar;
 
 const gorselVar = (yol: string) => fs.existsSync(`public${yol}`);
 ---
 
 <SubPage
-  title={`${t.title} — Turasan Şarapçılık`}
-  description="Turasan'ın tüfe oyulmuş mahzeni: tarihçesi, sıcaklık ve nem koşulları, fıçı ve şişe dinlendirmesi, şaraba katkısı."
+  title={`${t.title} — ${c.ui.brand}`}
+  description={t.description}
   overline={t.overline}
   heading={t.title}
   lead={t.lead}

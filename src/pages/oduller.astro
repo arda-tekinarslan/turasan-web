@@ -6,17 +6,23 @@
  * onayından geçmelidir.
  */
 import SubPage from '../layouts/SubPage.astro';
-import { awardsByYear } from '../content/awards';
+import { awardsByYear, derece } from '../content/awards';
+import { dilBul, icerik } from '../lib/dil';
 
 const total = awardsByYear.reduce((n, g) => n + g.items.length, 0);
+const lang = dilBul(Astro.url);
+const c = icerik(lang);
+const t = c.pages.awards;
+const ilk = awardsByYear[awardsByYear.length - 1].year;
+const son = awardsByYear[0].year;
 ---
 
 <SubPage
-  title="Ödül Arşivi — Turasan Şarapçılık"
-  description="Turasan Şarapçılık'ın uluslararası yarışma sonuçları; yarışma, şarap ve derece düzeyinde, yıla göre arşiv."
-  overline="Ödüller"
-  heading="Ödül arşivi"
-  lead={`${awardsByYear[awardsByYear.length - 1].year}–${awardsByYear[0].year} arasında uluslararası yarışmalarda alınan ${total} sonuç; yarışma, şarap ve derece düzeyinde, yeniden eskiye listelenir.`}
+  title={`${t.docTitle} — ${c.ui.brand}`}
+  description={t.description}
+  overline={t.overline}
+  heading={t.heading}
+  lead={t.lead(ilk, son, total)}
 >
   <div class="archive">
     {awardsByYear.map((group, gi) => (
@@ -27,7 +33,7 @@ const total = awardsByYear.reduce((n, g) => n + g.items.length, 0);
             <li class="archive__item">
               <span class="archive__wine">{a.wine}</span>
               <span class="archive__meta">
-                {a.competition} <span class="archive__sep">·</span> {a.medal}
+                {a.competition} <span class="archive__sep">·</span> {derece(a.medal, lang)}
                 {a.note && <span class="archive__sep"> · {a.note}</span>}
               </span>
             </li>
