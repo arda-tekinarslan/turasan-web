@@ -1,8 +1,8 @@
 ---
 /**
  * Miras — 1943'ten bugüne (koyu bölüm).
- * Tam genişliğe yakın arşiv fotoğrafı, kademeli (stagger) açılan metin,
- * bölüm sonunda sağa yaslı Hakan Turasan portresi.
+ * Tam genişliğe yakın arşiv fotoğrafı; altında iki sütun: solda kademeli
+ * (stagger) açılan metin, sağda Hakan Turasan portresi.
  */
 import { tr } from '../content/site';
 import { withBase } from '../lib/url';
@@ -24,21 +24,25 @@ const t = tr.heritage;
   </div>
 
   <div class="container">
-    <div class="heritage__body prose-block lead muted">
-      {t.body.map((p, i) => (
-        <p class="reveal" style={`transition-delay: ${i * 80}ms;`}>{p}</p>
-      ))}
-    </div>
-    <p class="reveal" style={`transition-delay: ${t.body.length * 80}ms; margin-top: 2em;`}>
-      <a class="cta" href={withBase(t.cta.href)}>
-        {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </p>
+    <div class="heritage__grid">
+      <div class="heritage__text">
+        <div class="heritage__body prose-block lead muted">
+          {t.body.map((p, i) => (
+            <p class="reveal" style={`transition-delay: ${i * 80}ms;`}>{p}</p>
+          ))}
+        </div>
+        <p class="reveal" style={`transition-delay: ${t.body.length * 80}ms; margin-top: 2em;`}>
+          <a class="cta" href={withBase(t.cta.href)}>
+            {t.cta.label} <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </p>
+      </div>
 
-    <figure class="heritage__portrait reveal">
-      <Foto src={t.portraitImage} alt={t.portraitAlt} label={t.portraitLabel} oran="portrait" />
-      <figcaption class="muted heritage__portrait-caption">{t.portraitCaption}</figcaption>
-    </figure>
+      <figure class="heritage__portrait reveal" style="transition-delay: 160ms;">
+        <Foto src={t.portraitImage} alt={t.portraitAlt} label={t.portraitLabel} oran="portrait" />
+        <figcaption class="muted heritage__portrait-caption">{t.portraitCaption}</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -58,14 +62,21 @@ const t = tr.heritage;
       var(--color-ink);
   }
 
+  /* Metin ve portre yan yana. Önceden portre metnin altında, sağa itilmiş
+     ayrı bir bloktu; solda büyük boş alan bırakıp dengesiz duruyordu.
+     Portre sütunu sınırlı, metin kalanı alır; ikisi dikeyde ortalanır. */
+  .heritage__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+    gap: var(--split-gap);
+    align-items: center;
+  }
+
   .heritage__body { max-width: 58ch; }
 
-  /* Portre bölümün içinde kalır — koyu zemini bir sonraki açık bölüme
-     taşmaz. (Önceden sonraki bölüme sarkan bir "köprü"ydü; Bağcılık'ın
-     kâğıt zemininde yamalı durduğu için kaldırıldı.) */
   .heritage__portrait {
-    margin: clamp(56px, 9vh, 96px) 0 0 auto;
-    width: min(360px, 70%);
+    margin: 0;
+    width: 100%;
   }
 
   .heritage__portrait-caption {
@@ -75,9 +86,7 @@ const t = tr.heritage;
   }
 
   @media (max-width: 760px) {
-    .heritage__portrait {
-      width: min(300px, 82%);
-      margin-right: 0;
-    }
+    .heritage__grid { grid-template-columns: 1fr; }
+    .heritage__portrait { width: min(300px, 82%); }
   }
 </style>

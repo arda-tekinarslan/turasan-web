@@ -42,7 +42,12 @@ const t = tr.pages.heritage;
     align-items: start;
   }
 
-  /* Dönüşümlü hiza — editoryal ritim */
+  /* Dönüşümlü hiza — editoryal ritim. Fotoğraf sağa geçerken sütun
+     genişlikleri de yer değiştirmeli; yalnızca order verilirse fotoğraf
+     geniş (1fr) sütuna düşer ve diğer kuşaklardan büyük görünür. */
+  .timeline__item:nth-child(even) {
+    grid-template-columns: 1fr minmax(200px, 320px);
+  }
   .timeline__item:nth-child(even) .timeline__media { order: 2; }
 
   .timeline__title {
@@ -52,7 +57,8 @@ const t = tr.pages.heritage;
   }
 
   @media (max-width: 760px) {
-    .timeline__item { grid-template-columns: 1fr; }
+    .timeline__item,
+    .timeline__item:nth-child(even) { grid-template-columns: 1fr; }
     .timeline__item:nth-child(even) .timeline__media { order: 0; }
   }
 </style>

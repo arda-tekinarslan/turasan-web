@@ -148,7 +148,19 @@ export const tr = {
     phoneDial: '+903843414961',
     email: 'info@turasan.com.tr',
     mapCta: { label: 'Haritada aç', href: 'https://maps.google.com/?q=Turasan+%C5%9Earap%C3%A7%C4%B1l%C4%B1k+%C3%9Crg%C3%BCp' },
-    mapLabel: 'harita · gömülü konum (lazy-load)',
+    /**
+     * Gömülü harita. İşletme adıyla arama yapılır ki Google'daki işletme
+     * kaydının iğnesine düşsün. API anahtarı gerekmez.
+     */
+    mapEmbed:
+      'https://maps.google.com/maps?q=Turasan+%C5%9Earap%C3%A7%C4%B1l%C4%B1k+%C3%9Crg%C3%BCp&z=15&output=embed',
+    mapTitle: 'Turasan Şarapçılık konumu — Google Haritalar',
+    // Çerez tercihinde işlevsel çerezler kapalıyken haritanın yerinde görünür.
+    mapPerde: {
+      baslik: 'Harita',
+      metin: 'Harita Google tarafından sağlanır; yüklendiğinde Google çerezleri kullanılabilir.',
+      buton: 'Haritayı göster',
+    },
     hoursTitle: 'Çalışma saatleri',
     hours: [
       { label: 'Hafta içi', value: '09.00 – 18.00' },

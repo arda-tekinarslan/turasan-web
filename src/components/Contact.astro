@@ -63,11 +63,19 @@ const t = tr.contact;
 
       <div class="reveal" style="transition-delay: 80ms;">
         <!--
-          Canlıda: <iframe loading="lazy" src="https://www.google.com/maps/embed?..."
-          title="Turasan Şarapçılık konumu"> — yer tutucu aynı oranda bekletiyor.
+          Gömülü Google Haritalar. iframe yüklendiği anda Google çerezleri
+          devreye girebildiği için, çerez tercihlerinde "Pazarlama ve İşlevsel
+          Çerezler" açık değilse önce bir perde gösterilir; ziyaretçi
+          "Haritayı göster" derse yüklenir. Tercih açıksa doğrudan yüklenir.
         -->
-        <div class="ph contact__map">
-          <span class="ph__label">{t.mapLabel}</span>
+        <div class="contact__map" data-harita data-src={t.mapEmbed} data-baslik={t.mapTitle}>
+          <div class="harita__perde" data-harita-perde>
+            <p class="overline harita__baslik">{t.mapPerde.baslik}</p>
+            <p class="harita__metin">{t.mapPerde.metin}</p>
+            <button class="harita__buton" type="button" data-harita-yukle>
+              {t.mapPerde.buton}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -93,7 +101,64 @@ const t = tr.contact;
     margin-top: clamp(40px, 7vh, 72px);
   }
 
-  .contact__map { aspect-ratio: 4 / 3; }
+  .contact__map {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 30% 20%, var(--color-tuff2), transparent 70%),
+      var(--color-tuff);
+    border: 1px solid color-mix(in srgb, var(--color-on-light) 14%, transparent);
+  }
+
+  /* iframe script ile eklendiği için scope özniteliği taşımaz; :global şart */
+  .contact__map :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .harita__perde {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .harita__baslik { margin: 0; font-size: 11px; }
+
+  .harita__metin {
+    margin: 0;
+    max-width: 34ch;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-on-light-mut);
+  }
+
+  .harita__buton {
+    margin-top: 6px;
+    padding: 10px 22px;
+    border: 1px solid var(--color-garnet);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-garnet);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.35s ease, color 0.35s ease;
+  }
+
+  .harita__buton:hover {
+    background: var(--color-garnet);
+    color: var(--color-tuff);
+  }
 
   .contact__list {
     margin: 0;
@@ -124,3 +189,36 @@ const t = tr.contact;
     .contact__grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  import { cerezTercihiOku, CEREZ_OLAY } from '../lib/cerez-tercihi';
+
+  const kutu = document.querySelector<HTMLElement>('[data-harita]');
+
+  /** İşlevsel çerezlere izin verilmiş mi? ("Pazarlama ve İşlevsel Çerezler") */
+  const izinVar = () => cerezTercihiOku()?.pazarlama === true;
+
+  function haritayiYukle() {
+    if (!kutu || kutu.dataset.yuklendi) return;
+    kutu.dataset.yuklendi = '1';
+
+    const f = document.createElement('iframe');
+    f.src = kutu.dataset.src ?? '';
+    f.title = kutu.dataset.baslik ?? 'Harita';
+    f.loading = 'lazy';
+    f.referrerPolicy = 'no-referrer-when-downgrade';
+    f.allowFullscreen = true;
+
+    kutu.querySelector('[data-harita-perde]')?.remove();
+    kutu.appendChild(f);
+  }
+
+  if (kutu) {
+    if (izinVar()) haritayiYukle();
+    kutu.querySelector('[data-harita-yukle]')?.addEventListener('click', haritayiYukle);
+    // Tercih aynı sayfada kaydedilirse sayfa yenilemeden uygulanır
+    document.addEventListener(CEREZ_OLAY, () => {
+      if (izinVar()) haritayiYukle();
+    });
+  }
+</script>

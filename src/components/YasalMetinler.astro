@@ -175,6 +175,8 @@ const c = tr.yasal.cerez;
 </style>
 
 <script>
+  import { CEREZ_KEY, CEREZ_OLAY } from '../lib/cerez-tercihi';
+
   /**
    * Çerez tercihleri.
    *
@@ -184,7 +186,7 @@ const c = tr.yasal.cerez;
    * o script'i mutlaka `cerezTercihi()` sonucuna bakarak koşullu yükleyin —
    * aksi halde kullanıcıya sorulup dikkate alınmamış olur.
    */
-  const ANAHTAR = 'turasan-cerez-tercihi';
+  const ANAHTAR = CEREZ_KEY;
 
   type Tercih = Record<string, boolean>;
 
@@ -228,6 +230,8 @@ const c = tr.yasal.cerez;
 
     try {
       localStorage.setItem(ANAHTAR, JSON.stringify(t));
+      // Tercihe bağlı içerikler (ör. İletişim'deki harita) sayfa yenilenmeden uyar
+      document.dispatchEvent(new CustomEvent(CEREZ_OLAY));
       if (durum) durum.textContent = 'Tercihleriniz kaydedildi.';
       window.setTimeout(() => {
         (dialog as HTMLDialogElement | null)?.close();
