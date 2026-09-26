@@ -2,7 +2,7 @@
 /**
  * Üretim (koyu bölüm) — iki sütunlu editoryal düzen: önolog portresi (4/5)
  * ve metin. Sütun sırası, Miras'taki sağa yaslı portrenin tersi olarak
- * portre solda. Altta tam genişlik çelik tank bandı.
+ * portre solda.
  */
 import { dilBul, icerik, yol } from '../lib/dil';
 import Foto from './Foto.astro';
@@ -31,16 +31,4 @@ const t = icerik(lang).production;
       </div>
     </div>
   </div>
-
-  <!-- Fabrika / çelik tank alanı — tam genişlik bant -->
-  <div class="production__band reveal">
-    <Foto src={t.bandImage} alt={t.bandAlt} label={t.bandLabel} oran="band" />
-  </div>
 </section>
-
-<style>
-  .production__band {
-    margin-top: clamp(48px, 8vh, 88px);
-    padding-inline: clamp(0px, 3vw, 48px);
-  }
-</style>

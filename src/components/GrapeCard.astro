@@ -29,7 +29,10 @@ const Tag = href ? 'a' : 'article';
 <style>
   .grape {
     display: block;
-    background: var(--color-tuff2);
+    /* Bağcılık bölümünün zemini sıcak kâğıt kremi; tuff-2 (gri taş) bunun
+       üstünde soğuk kalıyordu. Kart, zeminin kendi tonundan bir ton koyu
+       sıcak kum: aynı ailede durur, yine de zeminden ayrışır. */
+    background: color-mix(in srgb, var(--color-paper) 82%, var(--color-ochre));
     padding: clamp(24px, 3vw, 36px);
     /* Link olarak render edildiğinde de görünüm aynı kalır */
     color: inherit;

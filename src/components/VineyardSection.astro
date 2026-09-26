@@ -107,9 +107,22 @@ const haritaAlt = t.mapAlt;
     width: 100%;
   }
 
+  /* İki paragraf yan yana — tek sütunda sağ taraf boş kalıyordu.
+     Paragraflar farklı uzunlukta olduğu için üstten hizalanır. */
   .vineyard__body {
     margin-top: clamp(36px, 6vh, 64px);
-    max-width: 58ch;
+    /* .lead'in 52ch sınırı iptal — iki sütun kabın tüm genişliğine yayılır */
+    max-width: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 3vw, 56px);
+    align-items: start;
+  }
+
+  .vineyard__body > p { margin: 0; }
+
+  @media (max-width: 760px) {
+    .vineyard__body { grid-template-columns: 1fr; }
   }
 
   .vineyard__grapes {

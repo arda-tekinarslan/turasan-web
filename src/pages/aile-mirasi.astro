@@ -15,15 +15,28 @@ const t = c.pages.heritage;
 >
   <div class="timeline">
     {t.sections.map((s, i) => (
-      <article class="timeline__item reveal" style={`transition-delay: ${i * 80}ms;`}>
-        <div class="timeline__media">
-          <Foto src={s.image} alt={s.alt} label={s.phLabel} oran="portrait" />
-        </div>
+      <article
+        class:list={['timeline__item', 'reveal', { 'timeline__item--tekli': !s.image }]}
+        style={`transition-delay: ${i * 80}ms;`}
+      >
+        {s.image && (
+          <div class="timeline__media">
+            <Foto src={s.image} alt={s.alt ?? ''} label={s.phLabel ?? ''} oran="portrait" />
+          </div>
+        )}
         <div>
+          {s.donem && <p class="overline timeline__donem">{s.donem}</p>}
           <h2 class="display timeline__title">{s.title}</h2>
           <div class="prose-block lead muted">
             {s.body.map((p) => <p>{p}</p>)}
           </div>
+          {s.items && (
+            <ul class="timeline__items">
+              {s.items.map((m) => (
+                <li><strong>{m.title}:</strong> {m.body}</li>
+              ))}
+            </ul>
+          )}
         </div>
       </article>
     ))}
@@ -51,10 +64,52 @@ const t = c.pages.heritage;
   }
   .timeline__item:nth-child(even) .timeline__media { order: 2; }
 
+  /* Fotoğrafsız bölüm (ör. Sevgi ve Miras) tek sütun; dönüşümlü hiza
+     kuralından sonra gelir ki çift sıradaki bölümlerde de geçerli olsun. */
+  .timeline__item--tekli,
+  .timeline__item--tekli:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+
   .timeline__title {
     font-size: clamp(24px, 3vw, 36px);
     line-height: 1.1;
     margin: 0 0 0.6em;
+  }
+
+  /* Kuşağın dönem aralığı (ör. 1943 – 1959), başlığın üstünde */
+  .timeline__donem { margin: 0 0 0.5em; }
+
+  /* Madde listesi — kalın başlık + açıklama, garnet kısa çizgiyle */
+  .timeline__items {
+    list-style: none;
+    margin: 1.4em 0 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+    max-width: 62ch;
+  }
+
+  .timeline__items li {
+    position: relative;
+    padding-left: 22px;
+    line-height: 1.7;
+    color: var(--color-on-light-mut);
+  }
+
+  .timeline__items li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 10px;
+    height: 1px;
+    background: var(--color-garnet);
+  }
+
+  .timeline__items strong {
+    font-weight: 500;
+    color: var(--color-on-light);
   }
 
   @media (max-width: 760px) {

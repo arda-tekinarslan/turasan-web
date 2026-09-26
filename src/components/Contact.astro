@@ -14,7 +14,9 @@ const t = c.contact;
   <div class="container">
     <p class="overline reveal">{t.overline}</p>
     <h2 class="display contact__city reveal" style="transition-delay: 80ms;">
-      {t.city} <span class="contact__city-sep" aria-hidden="true">/</span> {t.region}
+      {t.city}{t.region && (
+        <> <span class="contact__city-sep" aria-hidden="true">/</span> {t.region}</>
+      )}
     </h2>
 
     <div class="contact__grid">

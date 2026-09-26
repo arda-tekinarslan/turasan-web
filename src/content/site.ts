@@ -6,11 +6,24 @@
 
 export type Lang = 'tr' | 'en';
 
+/** Aile mirası sayfasındaki kuşak bölümleri; `donem` ve `items` isteğe bağlı. */
+type KusakBolumu = {
+  title: string;
+  donem?: string;
+  body: string[];
+  /** Madde listesi — kalın başlık + açıklama */
+  items?: { title: string; body: string }[];
+  /** Fotoğraf isteğe bağlı — verilmezse bölüm tek sütun render edilir */
+  phLabel?: string;
+  image?: string;
+  alt?: string;
+};
+
 export const tr = {
   meta: {
     title: 'Turasan Şarapçılık — Ürgüp, Kapadokya · Est. 1943',
     description:
-      'Turasan Şarapçılık hakkında bilgilendirme sitesi: 1943 mirası, Kapadokya terroir’i, tüfe oyulmuş mahzenler ve üretim süreci. Ürgüp, Nevşehir.',
+      'Turasan Şarapçılık hakkında bilgilendirme sitesi: 1943 mirası, Kapadokya teruarı, tüfe oyulmuş mahzenler ve üretim süreci. Ürgüp, Nevşehir.',
   },
   // "/#..." biçimi, alt sayfalardan da ana sayfadaki bölüme götürür.
   nav: [
@@ -30,7 +43,7 @@ export const tr = {
       name: 'Turasan',
       year: '1943',
     },
-    sub: 'Erciyes’in eteklerinde, tüf kayaların içinde olgunlaşan bir toprağın hikâyesi — sabırla, kuşaktan kuşağa.',
+    sub: '1943’ten beri tüf kayaların sessizliğinde olgunlaşan tutku; Kapadokya’nın ruhunu kuşaktan kuşağa yaşatan köklü bir miras.',
     scroll: 'Kaydırın',
     // Slayt görselleri dekoratiftir (alt metin yok). Dosya yoksa slayt
     // etiketli yer tutucu olarak kalır. Önerilen: yatay, 2400×1600.
@@ -49,28 +62,28 @@ export const tr = {
     overline: 'Miras',
     title: '1943’ten bugüne',
     body: [
-      'Turasan, 1943 yılında Hasan Turasan tarafından Ürgüp’te kuruldu. Kuruluşundan bu yana üretim, aynı ailenin sorumluluğunda ve aynı yörede sürüyor.',
-      'Seksen yılı aşkın bu süreklilik; bağ, mahzen ve üretim bilgisinin kuşaktan kuşağa aktarılmasıyla mümkün oldu. Bugün de aynı yaklaşımla, Kapadokya’nın koşullarına uygun üretim yapılıyor.',
+      'Turasan, 1943 yılında büyükdedemiz Hasan Turasan tarafından Ürgüp’te temelleri atılan, Kapadokya bölgesinde kurulan ilk şarap üreticisidir.',
+      'Seksen yılı aşan bu zamansız süreklilik; bağa, mahzene ve şarapçılık zanaatına dair köklü birikimin kuşaktan kuşağa tutku ve incelikle aktarılmasıyla mümkün oldu. Bugün de aynı rafine yaklaşımla, ileri teknolojiyle nitelikli üretimimize yön veriyoruz.',
     ],
     cta: { label: 'Aile mirası', href: '/aile-mirasi' },
     archiveLabel: 'görsel · arşiv, 1943',
     archiveImage: '/images/miras/arsiv-1943.jpeg',
     archiveAlt: 'Turasan’ın kuruluş yıllarından arşiv fotoğrafı.',
-    portraitLabel: 'portre · Hakan Turasan',
-    // Aile mirası sayfasındaki "Bugün" bölümü de aynı dosyayı kullanır.
+    portraitLabel: 'portre · Hasan Turasan',
+    // Aile mirası sayfasındaki üçüncü kuşak bölümü de aynı dosyayı kullanır.
     portraitImage: '/images/miras/hakan-turasan.jpeg',
-    portraitAlt: 'Hakan Turasan portresi.',
-    portraitCaption: 'Hakan Turasan — üçüncü kuşak',
+    portraitAlt: 'Hasan Turasan portresi.',
+    portraitCaption: 'Hasan Turasan — üçüncü kuşak',
   },
   vineyard: {
     id: 'bagcilik',
     overline: 'Bağcılık',
-    title: 'Kapadokya terroir’i',
+    title: 'Kapadokya teruarı',
     // Harita artık interaktif (TerroirHaritasi.astro) ve verisini
     // src/content/regions.ts'ten alıyor; yer tutucu etiketi ile lejant kalktı.
     body: [
-      'Kapadokya’nın toprağı, milyonlarca yıl önceki volkanik faaliyetin bıraktığı tüften oluşur. Süzek yapısı ve mineral içeriğiyle bu toprak, bağcılık için ayırt edici bir zemin sunar.',
-      'Bölgenin yüksek rakımı ve sert kara iklimi, gündüz–gece sıcaklık farkını belirginleştirir; üzüm yavaş ve dengeli olgunlaşır. Üretim, kendi bağlarımızın yanı sıra bölgedeki anlaşmalı bağlardan alınan üzümlerle sürdürülür.',
+      'Milyonlarca yıl boyunca yanardağların püskürttüğü lav ve küller, Kapadokya bağlarına hayat veren tüflü toprak yapısını oluşturmuştur. Gözenekli yapısıyla nemi tutan bu volkanik topraklar, asmaların doğal dengesini korurken şaraplarımıza belirgin bir mineral zenginlik katar.',
+      'Kapadokya, bağcılık ve şarapçılık kültürünün dünyadaki en eski merkezlerinden biridir. 4.000 yılı aşan bu köklü gelenek, Hititlerden günümüze kayalara oyulmuş mahzenlerde ve asırlık bağlarda varlığını sürdürmektedir. Ortalama 1.000 – 1.200 metre rakımdaki bağlar, sert karasal iklimin tüm ayrıcalığını taşır. Yüksek irtifadaki belirgin gece-gündüz sıcaklık farkı; üzümlerin aromatik profilini ve doğal asiditesini koruyarak yavaş, dengeli bir olgunlaşma sağlar.',
     ],
     // Kart tasarımı/metni sabit; href yalnızca detay sayfasındaki anchor'a götürür.
     grapes: [
@@ -92,7 +105,7 @@ export const tr = {
         name: 'Kalecik Karası',
         type: 'Kırmızı',
         region: 'Ankara–Kalecik kökenli',
-        note: 'Orta gövdeli kırmızı; kırmızı meyve ağırlıklı, yumuşak tanenli yapı.',
+        note: 'Hafif gövdeli kırmızı; kırmızı meyve ağırlıklı, yumuşak tanenli yapı.',
         href: '/uzumler-ve-bolgeler#kalecik-karasi',
       },
       {
@@ -113,15 +126,11 @@ export const tr = {
     overline: 'Üretim',
     title: 'Kaya mahzeni ile çelik tank arasında',
     body: [
-      'Üretim, gelenekle tekniğin bir arada işlediği iki mekânda sürer: dinlendirme, tüfe oyulmuş kaya mahzenlerin sabit ve serin ortamında; fermantasyon, sıcaklık kontrollü paslanmaz çelik tanklarda yapılır.',
-      'Süreç, Fransız önologlar ve gıda mühendisleriyle birlikte yürütülür. Hasattan şişelemeye her aşama tanımlı ve kayıtlıdır; üzüm, bağdan işleme alanına kısa sürede ulaştırılır.',
+      'Üretim yolculuğumuz; doğal tüf kaya mahzenlerin serinliğinde dinlenen Fransız meşe fıçıları ile teknolojinin hassasiyetini sunan paslanmaz çelik tanklar arasında şekillenir. Fransız önologlarımızın ve gıda mühendislerimizin kontrolüyle, bağdan özenle seçilmiş üzümlerimizin fermantasyondan olgunlaşmaya kadar her anı titizlikle kayıt altına alınır.',
     ],
     portraitLabel: 'portre · önolog',
     portraitImage: '/images/uretim/onolog.jpeg',
     portraitAlt: 'Turasan önoloğu, üretim alanında.',
-    bandLabel: 'görsel · çelik tanklar ve üretim personeli',
-    bandImage: '/images/uretim/celik-tanklar.jpeg',
-    bandAlt: 'Paslanmaz çelik fermantasyon tankları ve üretim personeli.',
     cta: { label: 'Üretim sürecimiz', href: '/uretim-sureci' },
   },
   // Ana sayfadaki ödüller bölümü; liste src/content/awards.ts'ten gelir.
@@ -139,8 +148,8 @@ export const tr = {
     overline: 'Mahzen',
     title: 'Tüfe oyulmuş mahzen',
     body: [
-      'Dinlendirme, Ürgüp’te tüf kayaya oyulmuş mahzenlerde yapılır. Tüfün gözenekli yapısı, dışarıda mevsim ne olursa olsun içeride sıcaklığı ve nemi dar bir aralıkta tutar.',
-      'Şarap bu ortamda önce meşe fıçılarda, ardından şişede dinlenir. Mekanik soğutmaya ihtiyaç duyulmadan sağlanan bu denge, yörede dinlendirmenin yüzyıllardır aynı yöntemle sürmesinin sebebidir.',
+      'Kapadokya’nın milyonlarca yıllık volkanik geçmişinden süzülen tüf kayalar, mahzenimizin ruhunu oluşturur. Usta ellerin çekiç ve murç darbeleriyle, sabırla oyularak gün ışığına çıkarılan bu özel yeraltı sığınağı; sadece bir saklama alanı değil, şarabın yaşayan habitatıdır.',
+      'Tüf kayanın nefes alan gözenekli dokusu, dış dünyadaki mevsim değişimlerini kapıda bırakır. Taşın kendi bünyesinde sunduğu bu doğal mikroklima; yıl boyunca sabit kalan ideal sıcaklığı ve nem dengesini kendiliğinden sağlar.',
     ],
     cta: { label: 'Mahzen ve dinlendirme', href: '/mahzen' },
     // Dosya yoksa yer tutucu görünür; yolu buradan değiştirin.
@@ -154,7 +163,8 @@ export const tr = {
     descent: 'İletişim',
     labels: { address: 'Adres', email: 'E-posta', phone: 'Telefon', location: 'Konum' },
     city: 'Ürgüp',
-    region: 'Nevşehir',
+    // Konum başlığında şehirden sonra gösterilir; boşsa yalnızca şehir görünür.
+    region: '',
     address: 'Yunak Mah. Tevfik Fikret Cad. No: 6A-B, 50400 Ürgüp / Nevşehir',
     phone: '(0384) 341 49 61',
     // Ekranda yerel biçim görünür; tel: bağlantısı uluslararası biçimde olur ki
@@ -177,8 +187,8 @@ export const tr = {
     },
     hoursTitle: 'Çalışma saatleri',
     hours: [
-      { label: 'Hafta içi', value: '09.00 – 18.00' },
-      { label: 'Hafta sonu', value: '10.00 – 17.00' },
+      { label: 'Hafta içi', value: '09.00 – 19.00' },
+      { label: 'Hafta sonu', value: '09.00 – 19.00' },
     ],
     branchesCta: { label: 'Şubelerimiz ve Tesislerimiz', href: '/subelerimiz' },
   },
@@ -300,70 +310,115 @@ export const tr = {
       description: 'Turasan Şarapçılık’ın 1943’ten bugüne aile mirası: kuruluş, kuşaklar ve bugünkü yaklaşım.',
       overline: 'Miras',
       lead:
-        '1943’ten bugüne üç kuşak; aynı yöre, aynı sorumluluk. Bu sayfa, kuruluşun ve ailenin hikâyesini kronolojik olarak aktarır.',
+        '1943’ten bugüne dört kuşak; aynı yöre, aynı sorumluluk. Bu sayfa, kuruluşun ve ailenin hikâyesini kronolojik olarak aktarır.',
       sections: [
         {
-          title: 'Kuruluş — 1943',
+          title: 'Hasan Turasan',
+          donem: '1943 – 1959',
           body: [
-            'Hasan Turasan, 1943 yılında Ürgüp’te üretime başladı. İlk mahzen, yörede yüzyıllardır kullanılan yöntemle tüf kayaya oyuldu.',
+            'Turasan’ın temelleri, 1943 yılında emekli öğretmen büyükdedemiz Hasan Turasan tarafından Ürgüp’te atıldı. Bölge bağcılarının yetiştirdiği bereketli üzümleri hak ettiği değere kavuşturma arzusuyla yola çıkan Hasan Turasan; dönemin Tekel Bakanı Suat Hayri Ürgüplü’nün teşviki ve yönlendirmesiyle bu tarihi adımı attı. Böylece Turasan, Cumhuriyet döneminde Kapadokya bölgesinde kurulan ilk özel şarap üreticisi unvanıyla Türk bağcılık tarihine adını yazdı.',
           ],
           phLabel: 'görsel · arşiv, kuruluş yılları',
           image: '/images/aile-mirasi/kurulus-yillari.jpeg',
           alt: 'Kuruluş yıllarından arşiv fotoğrafı.',
         },
         {
-          title: 'İkinci kuşak',
+          title: 'Rüştü Turasan',
+          donem: '1959 – 1990',
           body: [
-            'Üretim bilgisi ve bağlar ikinci kuşağa devredildi; bu dönemde bağ alanları genişledi ve üretim kayıt altına alınarak sürdürüldü.',
+            'Kurucumuz büyükdedemiz Hasan Turasan’ın toprağa diktiği ilk tohumları köklü bir yapıya dönüştüren Rüştü Turasan, ailemizin ikinci kuşak lideri olarak Turasan Şarapçılık’ın büyüme serüvenine yön vermiştir.',
+            'Geleneksel imkânlarla başlayan mütevazı üretimi devralan Rüştü Turasan; tesisleşme ve kapasite artırımı hamleleriyle Kapadokya bağcılığının ulusal ölçekte tanınan bir seviyeye gelmesine zemin hazırlamıştır.',
           ],
           phLabel: 'görsel · arşiv, ikinci kuşak',
           image: '/images/aile-mirasi/ikinci-kusak.jpeg',
           alt: 'İkinci kuşak döneminden arşiv fotoğrafı.',
         },
         {
-          title: 'Bugün',
+          title: 'Hasan Turasan',
           body: [
-            'Bugün üretim, Hakan Turasan yönetiminde; geleneksel mahzen ile modern üretim tekniklerini bir arada kullanarak devam ediyor.',
+            '1984 yılında aile şirketinde işbaşı yapan ve 1990 yılından itibaren Yönetim Kurulu Başkanlığını üstlenen Hasan Turasan, dedesi ve babasından devraldığı mirası rafine bir şarapçılık vizyonuyla buluşturan üçüncü kuşak temsilcisidir.',
+            'Hasan Turasan liderliğinde marka, kitlesel üretim anlayışının ötesine geçerek bağdan şişeye kadar kalite ve teruar odaklı “şarap evi” disiplinini merkeze almıştır:',
           ],
-          phLabel: 'portre · Hakan Turasan',
-          // Ana sayfadaki Miras portresiyle aynı dosya.
+          items: [
+            {
+              title: 'Modern Bağcılık Hamlesi',
+              body: '1990’lı yıllardan itibaren Kapadokya bölgesinde modern yüksek sistem bağcılığını uygulayan ilk üretici olmuş, geleneksel bağcılığı çağdaş tekniklerle modernize etmiştir.',
+            },
+            {
+              title: 'Prestijli Uluslararası Ödüller',
+              body: 'Concours Mondial de Bruxelles, Decanter ve International Wine Challenge gibi dünyanın en prestijli yarışmalarından çok sayıda altın ve gümüş madalyayı Kapadokya’ya getirmiştir.',
+            },
+            {
+              title: 'Yerli Üzümlerin Global Temsili',
+              body: 'Kapadokya’nın özgün beyaz üzümü Emir başta olmak üzere Öküzgözü, Boğazkere ve Narince gibi Anadolu’nun yerel çeşitlerini yüksek kalitede işleyerek yerli teruarın dünyadaki görünürlüğünü artırmıştır.',
+            },
+            {
+              title: '“Seneler” Koleksiyonu ve Fransız Danışmanlığı',
+              body: 'Fransız önologların danışmanlığında tesis ve bağ yatırımlarını yenilemiş, markanın ikonik serisi olan Seneler koleksiyonunu hayata geçirmiştir.',
+            },
+            {
+              title: 'Diplomatik Temsil',
+              body: 'Sektörel vizyonunun yanı sıra 2014 yılından bu yana İç Anadolu Bölgesi İspanya Fahri Konsolosluğu görevini de yürüterek bölgesel ve uluslararası ilişkilere katkı sağlamaktadır.',
+            },
+          ],
+          phLabel: 'portre · Hasan Turasan',
           image: '/images/miras/hakan-turasan.jpeg',
-          alt: 'Hakan Turasan portresi.',
+          alt: 'Hasan Turasan portresi.',
         },
-      ],
+        {
+          title: 'Sevgi ve Miras',
+          body: [
+            'Hasan Turasan’ın hayatını Selda Turasan ile birleştirmesiyle, Turasan ailesinin hikâyesinde yeni ve güçlü bir dönem başladı. Birbirlerine duydukları sevgi ve inançla çıktıkları bu yolculukta, aile yaşamını iş hayatıyla aynı değerler etrafında buluşturarak Turasan’ın geleceğine birlikte yön verdiler.',
+            'Turasan mirasının yarınlardaki teminatı olan dördüncü kuşak temsilcileri Zeynep Turasan ve Hakan Turasan, eğitim hayatlarına başarıyla devam ederek aile geleneğini geleceğe hazırlamaktadır.',
+          ],
+        },
+      ] as KusakBolumu[],
     },
     process: {
       title: 'Üretim süreci',
-      description: 'Turasan’da üretim süreci: hasattan şişelemeye tanımlı aşamalar; kaya mahzen ve çelik tank bir arada.',
+      // Sayfanın büyük başlığı; `title` sekme başlığında kullanılır.
+      heading: 'Zanaat ve Bilimin Dengesi: Hasattan Şişeye Üretim Yolculuğumuz',
+      description: 'Turasan’da üretim süreci: hasattan şişelemeye tanımlı aşamalar; Fransız meşe fıçıları ve paslanmaz çelik tanklar.',
       overline: 'Üretim',
       lead:
-        'Hasattan şişelemeye süreç, tanımlı aşamalarla ve kontrollü koşullarda yürütülür.',
+        'Fransız önologlarımız ve gıda mühendislerimiz için fıçı veya tank seçimi basit bir teknik karar değil; her rekoltenin kendi hikâyesini anlatma sanatıdır. Üzümün bu mucizevi yolculuğunda gözettiğimiz temel adımlar ve hassasiyetler şunlardır:',
       steps: [
         {
-          title: 'Hasat',
-          body: 'Hasat zamanı üzümün olgunluğuna göre belirlenir; üzümler elle toplanır ve kısa sürede işleme alanına ulaştırılır.',
+          title: 'Özenli Hasat ve Zamanla Yarış',
+          body: 'Üzümlerimiz en ideal olgunluk anında toplanır ve aromatik zenginliğini kaybetmemesi için vakit kaybetmeden işleme alanına ulaştırılır.',
         },
         {
-          title: 'Ayıklama ve presleme',
-          body: 'Üzümler ayıklanır; beyazlarda presleme, kırmızılarda maserasyon süreci başlar.',
+          title: 'Titiz Ayıklama ve Hassas Presleme',
+          body: 'Hasat edilen üzümler arasından yalnızca kusursuz taneler ayrıştırılır. Bu aşamada süreç şarabın türüne göre farklılaşır; beyaz üzümlerde kabuk ve çekirdeğe zarar vermeyen nazik bir preslemeyle en saf özsu elde edilirken, kırmızı üzümlerde renk, tanen ve aromaların şıraya geçmesi için presleme öncesinde kabukla temas süreci yürütülür.',
         },
         {
-          title: 'Fermantasyon',
-          body: 'Fermantasyon, sıcaklık kontrollü paslanmaz çelik tanklarda, önolog gözetiminde yürütülür.',
+          title: 'Sıcaklık Kontrollü Fermantasyon',
+          body: 'Çelik tanklarda fermantasyon ısısı anlık olarak denetlenir; böylece üzümün en hassas meyvemsi aromaları kaybolmadan korunur.',
         },
         {
-          title: 'Dinlendirme',
-          body: 'Dinlendirme, tüfe oyulmuş kaya mahzenlerin yıl boyu sabit ve serin ortamında gerçekleşir.',
+          title: 'Uyumlu Dinlendirme',
+          body: 'Şarap fıçıya alınacaksa, fıçı tipi üzümün yapısına göre seçilir. Fıçıda veya tanktaki dinlendirme süreci, önolog ve mühendislerimizin düzenli tadımlarıyla tam zirve noktasında tamamlanır.',
         },
         {
-          title: 'Şişeleme',
-          body: 'Şişeleme, kapalı hat üzerinde yapılır; her parti kayıt altına alınır.',
+          title: 'Steril ve Güvenli Şişeleme',
+          body: 'Gıda mühendislerimiz, oksijen temasını minimalde tutarak mikrobiyolojik saflığı güvenceye alır ve şarabın saf karakterini şişeye mühürler.',
+        },
+      ],
+      // Adımların altında yan yana duran iki yöntem bölümü
+      sections: [
+        {
+          title: 'Fransız Meşe Fıçıları: Zamana Atılan Olgun İmza',
+          body: 'Fransız meşe fıçılarımız, şarabın ahşabın mikro gözeneklerinden yavaşça nefes almasını sağlayarak tanenleri yumuşatır ve gövdeye ipeksi bir derinlik kazandırır. Fıçının hafif kavrulmuş dokusundan şaraba süzülen vanilya, baharat ve tatlı odunsu notalar; özellikle olgunlaşmaya yatkın kırmızılarımızın ve özel beyazlarımızın karakterini zenginleştirir.',
+        },
+        {
+          title: 'Paslanmaz Çelik Tanklar: Teruarın En Saf Hali',
+          body: 'Sıcaklığın milimetrik olarak yönetildiği paslanmaz çelik tanklarımız, üzümün dalından koparıldığı andaki o canlı meyve aromalarını ve ferahlatıcı asiditeyi olduğu gibi korur. Oksijenle teması keserek meyvenin kendi öz karakterini öne çıkaran bu yöntem, bölge toprağının mineral yapısını ve üzümün saf kimliğini doğrudan bardağınıza taşır.',
         },
       ],
     },
     branches: {
       title: 'Şubelerimiz ve Tesislerimiz',
-      description: 'Turasan Pazarlama’nın genel merkezi, satış mağazası ve şarap evi, İstanbul bölge müdürlüğü ve Sakarya şubesi — adres ve iletişim bilgileri.',
+      description: 'Turasan Pazarlama’nın Ürgüp, İstanbul ve Sakarya bölge müdürlükleri — adres ve iletişim bilgileri.',
       labels: { address: 'Adres', phone: 'Tel', fax: 'Faks' },
       overline: 'Lokasyonlarımız',
       lead:
@@ -389,18 +444,13 @@ export const tr = {
     },
     cellar: {
       title: 'Mahzen ve dinlendirme',
-      description: 'Turasan’ın tüfe oyulmuş mahzeni: tarihçesi, sıcaklık ve nem koşulları, fıçı ve şişe dinlendirmesi, şaraba katkısı.',
+      description: 'Turasan’ın tüfe oyulmuş mahzeni: tarihçesi, sıcaklık ve nem koşulları, şişede dinlendirme ve şaraba katkısı.',
       overline: 'Mahzen',
       lead:
         'Mahzen, şarabın beklediği bir depo değil; dinlendirme koşullarını belirleyen bir mekândır. Bu sayfa mahzenin tarihçesini, fiziksel koşullarını ve şaraba katkısını aktarır.',
-      /**
-       * DİKKAT — sıcaklık, nem ve süre değerleri yer tutucudur; Kapadokya
-       * tüf mahzenleri için tipik aralıklardır. Yayına almadan önce kendi
-       * ölçümlerinizle doğrulayın ve gerekiyorsa güncelleyin.
-       */
       conditions: [
-        { label: 'Sıcaklık', value: '11 – 14 °C, yıl boyu' },
-        { label: 'Bağıl nem', value: '%70 – 85' },
+        { label: 'Sıcaklık', value: '11 – 16 °C' },
+        { label: 'Nem', value: '%60 – 80' },
         { label: 'Işık', value: 'Doğal ışık almaz; yalnızca çalışma aydınlatması' },
         { label: 'Fıçıda dinlendirme', value: 'Ürüne göre 6 – 18 ay' },
         { label: 'Şişede dinlendirme', value: 'Sevkiyat öncesi en az 3 ay' },
@@ -411,7 +461,7 @@ export const tr = {
           title: 'Kayaya oyulmuş bir yapı',
           body: [
             'Kapadokya’da tüf, milyonlarca yıl önceki volkanik faaliyetin bıraktığı yumuşak ama dayanıklı bir kayaçtır. Elle işlenebilecek kadar yumuşak, oyulduktan sonra kendini taşıyacak kadar sağlamdır; bölgede depolama ve dinlendirme alanları yüzyıllardır bu yöntemle açılmıştır.',
-            'Turasan’ın ilk mahzeni de 1943’te aynı yöntemle açıldı. Sonraki kuşaklarda üretim büyüdükçe mahzen genişletildi; yapının özü, yani kayanın içinde kalma tercihi değişmedi.',
+            '1943 yılında Turasan’ın ilk mahzenini de aynı yöntemle, sabır ve emekle kayaçların bağrına oyduk. Nesiller boyu büyüyen üretimimizle birlikte alanlarımız genişledi; ancak hikâyemizin özü hiç değişmedi. Doğanın ve kayanın kalbinde kalma kararlılığımızı bugün de aynı özenle sürdürüyoruz.',
           ],
           image: '/images/mahzen/tuf-duvar.jpeg',
           alt: 'Mahzenin oyma izleri görünen tüf duvarı, yakın çekim.',
@@ -419,26 +469,17 @@ export const tr = {
         {
           title: 'Sabit sıcaklık ve nem',
           body: [
-            'Tüfün kalınlığı ve gözenekli yapısı, dışarıdaki mevsim salınımını içeriye taşımaz. Yaz ile kış arasındaki fark, mahzen içinde birkaç dereceye iner; sıcaklık yıl boyu dar bir aralıkta kalır.',
-            'Aynı yapı nemi de dengeler. Yüksek bağıl nem, fıçılardaki buharlaşmayı yavaşlatır ve mantarların kurumasını önler. Bu koşullar mekanik iklimlendirme olmadan, kayanın kendi davranışıyla sağlanır.',
+            'Tüf kayacın kalın ve gözenekli dokusu, dış havadaki mevsimsel sıcaklık dalgalanmalarını içeriye yansıtmaz. Yaz ve kış arasındaki sıcaklık farkı mahzen içinde sadece birkaç dereceyle sınırlı kalır; ortam tüm yıl boyunca dengede kalır.',
+            'Bu özel yapı, nem kontrolünü de kendiliğinden sağlar. Yüksek bağıl nem oranı, fıçılardaki buharlaşmayı yavaşlatırken mantarların kurumasını önler. Tüm bu ideal koşullar, hiçbir mekanik iklimlendirme sistemine ihtiyaç duyulmadan, tamamen kayanın kendi doğal karakteriyle sağlanır.',
           ],
           image: '/images/mahzen/mahzen-genel.jpeg',
           alt: 'Mahzenin tonozlu iç mekânı; kaya duvarlar ve zemine vuran çalışma aydınlatması.',
         },
         {
-          title: 'Fıçıda dinlendirme',
-          body: [
-            'Kırmızılar ve bir kısım beyaz, fermantasyon sonrası meşe fıçılara alınır. Fıçı, şaraba yalnızca aroma katmaz; duvarından geçen çok yavaş oksijen alışverişi tanenlerin yumuşamasını ve yapının oturmasını sağlar.',
-            'Süre üzüme, rekolteye ve hedeflenen karaktere göre belirlenir. Her fıçı partisi kayıt altına alınır ve dinlendirme boyunca önolog gözetiminde düzenli olarak tadılır.',
-          ],
-          image: '/images/mahzen/ficilar.jpeg',
-          alt: 'Mahzende üst üste istiflenmiş meşe fıçı sıraları.',
-        },
-        {
           title: 'Şişede dinlendirme ve şaraba katkısı',
           body: [
-            'Şişeleme sonrası şarap, sevkiyattan önce mahzende yatay olarak dinlendirilir. Bu aşamada şişeleme sırasında oluşan sarsıntının etkisi geçer, aromalar bütünleşir.',
-            'Mahzenin toplam katkısı tek bir aşamada değil, sürekliliktedir: sıcaklık dalgalanmasının olmaması yaşlanmayı yavaşlatır ve öngörülebilir kılar; karanlık ortam ışığa duyarlı bileşenleri korur; yüksek nem hacim kaybını sınırlar. Sonuçta şarap, dışarıdaki mevsimden bağımsız bir hızda olgunlaşır.',
+            'Şişeleme sonrasında şarap, sevkiyat öncesinde mahzenimizde yatay konumda dinlendirilir. Bu süreç, şişeleme sırasında oluşan sarsıntının etkisini dindirirken aromaların birbiriyle dengeli bir şekilde bütünleşmesini sağlar.',
+            'Mahzenin şaraba katkısı tek bir aşamayla sınırlı değildir; süreç boyunca kesintisiz devam eder. Sıcaklık dalgalanmalarının olmaması olgunlaşmayı yavaşlatır ve kontrol edilebilir kılar; karanlık ortam ışığa duyarlı hassas bileşenleri korur; yüksek nem ise hacim kaybını en aza indirir. Tüm bu koşullar sayesinde şarap, dış dünyadaki mevsimsel değişimlerden etkilenmeden kendi ideal ritminde olgunlaşır.',
           ],
           image: '/images/mahzen/sise-dinlendirme.jpeg',
           alt: 'Mahzen nişlerinde yatay olarak dinlendirilen şişeler.',
@@ -504,7 +545,7 @@ export const en: typeof tr = {
       name: 'Turasan',
       year: '1943',
     },
-    sub: 'The story of a land that matures within tuff rock at the foot of Mount Erciyes — patiently, from one generation to the next.',
+    sub: 'A passion maturing in the stillness of tuff rock since 1943; a deep-rooted heritage that keeps the spirit of Cappadocia alive from generation to generation.',
     scroll: 'Scroll',
     slides: [
       { label: 'image · vineyards at sunrise', image: '/images/hero/01-baglar-gun-dogumu.jpeg' },
@@ -521,25 +562,25 @@ export const en: typeof tr = {
     overline: 'Heritage',
     title: 'From 1943 to today',
     body: [
-      'Turasan was founded in Ürgüp in 1943 by Hasan Turasan. Since then, production has remained in the hands of the same family and in the same region.',
-      'This continuity of more than eighty years was made possible by passing on knowledge of the vineyard, the cellar and production from one generation to the next. The same approach continues today, with production suited to the conditions of Cappadocia.',
+      'Founded in Ürgüp in 1943 by our great-grandfather Hasan Turasan, Turasan is the first wine producer established in the Cappadocia region.',
+      'This timeless continuity of more than eighty years was made possible by passing on a deep-rooted knowledge of the vineyard, the cellar and the craft of winemaking from one generation to the next, with passion and finesse. Today, with the same refined approach, we guide our quality production with advanced technology.',
     ],
     cta: { label: 'Family heritage', href: '/aile-mirasi' },
     archiveLabel: 'image · archive, 1943',
     archiveImage: '/images/miras/arsiv-1943.jpeg',
     archiveAlt: 'Archive photograph from Turasan’s founding years.',
-    portraitLabel: 'portrait · Hakan Turasan',
+    portraitLabel: 'portrait · Hasan Turasan',
     portraitImage: '/images/miras/hakan-turasan.jpeg',
-    portraitAlt: 'Portrait of Hakan Turasan.',
-    portraitCaption: 'Hakan Turasan — third generation',
+    portraitAlt: 'Portrait of Hasan Turasan.',
+    portraitCaption: 'Hasan Turasan — third generation',
   },
   vineyard: {
     id: 'bagcilik',
     overline: 'Viticulture',
     title: 'The terroir of Cappadocia',
     body: [
-      'The soil of Cappadocia is formed of tuff, left behind by volcanic activity millions of years ago. Its free-draining structure and mineral content make it a distinctive ground for viticulture.',
-      'The region’s high altitude and harsh continental climate accentuate the difference between day and night temperatures, so the grapes ripen slowly and evenly. Production relies on grapes from our own vineyards as well as from contracted vineyards in the region.',
+      'Over millions of years, the lava and ash erupted by volcanoes formed the tuff soil that gives life to the vineyards of Cappadocia. Retaining moisture through their porous structure, these volcanic soils preserve the natural balance of the vines while lending our wines a distinct mineral richness.',
+      'Cappadocia is one of the oldest centres of viticulture and winemaking in the world. This deep-rooted tradition of more than 4,000 years lives on, from the Hittites to the present day, in cellars carved into rock and in centuries-old vineyards. Lying at an average altitude of 1,000 – 1,200 metres, the vineyards carry all the distinction of a harsh continental climate. The marked difference between day and night temperatures at high altitude preserves the aromatic profile and natural acidity of the grapes, allowing slow, balanced ripening.',
     ],
     grapes: [
       {
@@ -560,7 +601,7 @@ export const en: typeof tr = {
         name: 'Kalecik Karası',
         type: 'Red',
         region: 'Originating in Kalecik, Ankara',
-        note: 'A medium-bodied red; red fruit dominant, with soft tannins.',
+        note: 'A light-bodied red; red fruit dominant, with soft tannins.',
         href: '/uzumler-ve-bolgeler#kalecik-karasi',
       },
       {
@@ -580,15 +621,11 @@ export const en: typeof tr = {
     overline: 'Production',
     title: 'Between the rock cellar and the steel tank',
     body: [
-      'Production takes place in two settings where tradition and technique work together: ageing in the stable, cool environment of cellars carved into tuff, and fermentation in temperature-controlled stainless steel tanks.',
-      'The process is carried out together with French oenologists and food engineers. Every stage from harvest to bottling is defined and recorded, and the grapes reach the processing area shortly after leaving the vineyard.',
+      'Our production journey takes shape between French oak barrels resting in the coolness of natural tuff rock cellars and stainless steel tanks that offer the precision of technology. Under the supervision of our French oenologists and food engineers, every moment of our carefully selected grapes, from fermentation to maturation, is meticulously recorded.',
     ],
     portraitLabel: 'portrait · oenologist',
     portraitImage: '/images/uretim/onolog.jpeg',
     portraitAlt: 'Turasan’s oenologist in the production area.',
-    bandLabel: 'image · steel tanks and production staff',
-    bandImage: '/images/uretim/celik-tanklar.jpeg',
-    bandAlt: 'Stainless steel fermentation tanks and production staff.',
     cta: { label: 'Our production process', href: '/uretim-sureci' },
   },
   awards: {
@@ -604,8 +641,8 @@ export const en: typeof tr = {
     overline: 'Cellar',
     title: 'A cellar carved into tuff',
     body: [
-      'Ageing takes place in cellars carved into tuff rock in Ürgüp. The porous structure of the tuff keeps temperature and humidity within a narrow range inside, whatever the season outside.',
-      'In this environment the wine rests first in oak barrels and then in the bottle. This balance, achieved without mechanical cooling, is why ageing in the region has followed the same method for centuries.',
+      'Tuff rock, distilled from Cappadocia’s volcanic past of millions of years, forms the soul of our cellar. Patiently carved out and brought to light by the hammer and chisel of skilled hands, this special underground refuge is not merely a storage space but the living habitat of the wine.',
+      'The breathing, porous texture of the tuff leaves the changing seasons of the outside world at the door. This natural microclimate, offered by the stone itself, maintains an ideal temperature and humidity balance that stays constant throughout the year.',
     ],
     cta: { label: 'Cellar and ageing', href: '/mahzen' },
     image: '/images/mahzen/mahzen-koridor.jpeg',
@@ -618,7 +655,8 @@ export const en: typeof tr = {
     descent: 'Contact',
     labels: { address: 'Address', email: 'Email', phone: 'Phone', location: 'Location' },
     city: 'Ürgüp',
-    region: 'Nevşehir',
+    // Konum başlığında şehirden sonra gösterilir; boşsa yalnızca şehir görünür.
+    region: '',
     address: 'Yunak Mah. Tevfik Fikret Cad. No: 6A-B, 50400 Ürgüp / Nevşehir',
     phone: '(0384) 341 49 61',
     phoneDial: '+903843414961',
@@ -634,8 +672,8 @@ export const en: typeof tr = {
     },
     hoursTitle: 'Opening hours',
     hours: [
-      { label: 'Weekdays', value: '09:00 – 18:00' },
-      { label: 'Weekends', value: '10:00 – 17:00' },
+      { label: 'Weekdays', value: '09:00 – 19:00' },
+      { label: 'Weekends', value: '09:00 – 19:00' },
     ],
     branchesCta: { label: 'Our Branches and Facilities', href: '/subelerimiz' },
   },
@@ -736,68 +774,112 @@ export const en: typeof tr = {
       description: 'The family heritage of Turasan Winery from 1943 to today: the founding, the generations and today’s approach.',
       overline: 'Heritage',
       lead:
-        'Three generations from 1943 to today; the same region, the same responsibility. This page tells the story of the founding and of the family in chronological order.',
+        'Four generations from 1943 to today; the same region, the same responsibility. This page tells the story of the founding and of the family in chronological order.',
       sections: [
         {
-          title: 'Founding — 1943',
+          title: 'Hasan Turasan',
+          donem: '1943 – 1959',
           body: [
-            'Hasan Turasan began production in Ürgüp in 1943. The first cellar was carved into tuff rock using the method practised in the region for centuries.',
+            'The foundations of Turasan were laid in Ürgüp in 1943 by our great-grandfather Hasan Turasan, a retired teacher. Setting out with the wish to give the abundant grapes grown by the region’s vine growers the value they deserved, Hasan Turasan took this historic step with the encouragement and guidance of Suat Hayri Ürgüplü, then Minister of Monopolies. Turasan thus wrote its name into the history of Turkish viticulture as the first private wine producer established in the Cappadocia region in the Republican era.',
           ],
           phLabel: 'image · archive, founding years',
           image: '/images/aile-mirasi/kurulus-yillari.jpeg',
           alt: 'Archive photograph from the founding years.',
         },
         {
-          title: 'Second generation',
+          title: 'Rüştü Turasan',
+          donem: '1959 – 1990',
           body: [
-            'Production knowledge and the vineyards passed to the second generation; during this period the vineyard area grew and production continued on a recorded basis.',
+            'Rüştü Turasan, who turned the first seeds planted by our founder and great-grandfather Hasan Turasan into a deep-rooted enterprise, guided the growth of Turasan Winery as the second-generation leader of our family.',
+            'Taking over a modest production that had begun with traditional means, Rüştü Turasan laid the groundwork, through new facilities and increased capacity, for Cappadocian viticulture to reach a nationally recognised level.',
           ],
           phLabel: 'image · archive, second generation',
           image: '/images/aile-mirasi/ikinci-kusak.jpeg',
           alt: 'Archive photograph from the second generation.',
         },
         {
-          title: 'Today',
+          title: 'Hasan Turasan',
           body: [
-            'Today production continues under the management of Hakan Turasan, combining the traditional cellar with modern production techniques.',
+            'Hasan Turasan, who joined the family company in 1984 and has served as Chairman of the Board since 1990, is the third-generation representative who brought the heritage inherited from grandfather and father together with a refined vision of winemaking.',
+            'Under Hasan Turasan’s leadership, the brand moved beyond a mass-production mindset and placed the discipline of a quality- and terroir-focused “wine house”, from vineyard to bottle, at its centre:',
           ],
-          phLabel: 'portrait · Hakan Turasan',
+          items: [
+            {
+              title: 'Modern Viticulture',
+              body: 'From the 1990s onwards, Turasan became the first producer in the Cappadocia region to apply modern high-trellis viticulture, modernising traditional vine growing with contemporary techniques.',
+            },
+            {
+              title: 'Prestigious International Awards',
+              body: 'Numerous gold and silver medals have been brought to Cappadocia from some of the world’s most prestigious competitions, such as Concours Mondial de Bruxelles, Decanter and the International Wine Challenge.',
+            },
+            {
+              title: 'Global Representation of Native Grapes',
+              body: 'By working Anatolia’s local varieties to a high standard — above all Emir, Cappadocia’s distinctive white grape, along with Öküzgözü, Boğazkere and Narince — the international visibility of native terroir has grown.',
+            },
+            {
+              title: 'The “Seneler” Collection and French Consultancy',
+              body: 'Investments in facilities and vineyards were renewed under the consultancy of French oenologists, and the Seneler collection, the brand’s iconic series, was brought to life.',
+            },
+            {
+              title: 'Diplomatic Representation',
+              body: 'Alongside this vision for the sector, Hasan Turasan has served since 2014 as Honorary Consul of Spain for the Central Anatolia Region, contributing to regional and international relations.',
+            },
+          ],
+          phLabel: 'portrait · Hasan Turasan',
           image: '/images/miras/hakan-turasan.jpeg',
-          alt: 'Portrait of Hakan Turasan.',
+          alt: 'Portrait of Hasan Turasan.',
+        },
+        {
+          title: 'Love and Heritage',
+          body: [
+            'When Hasan Turasan and Selda Turasan joined their lives, a new and strong chapter began in the story of the Turasan family. On this journey, undertaken with love and faith in one another, they brought family life and business together around the same values and shaped Turasan’s future together.',
+            'Zeynep Turasan and Hakan Turasan, the fourth-generation representatives and the future of the Turasan heritage, are successfully continuing their education and preparing the family tradition for the years ahead.',
+          ],
         },
       ],
     },
     process: {
       title: 'Production process',
-      description: 'Turasan’s production process: defined stages from harvest to bottling, with the rock cellar and the steel tank side by side.',
+      heading: 'The Balance of Craft and Science: Our Production Journey from Harvest to Bottle',
+      description: 'Turasan’s production process: defined stages from harvest to bottling; French oak barrels and stainless steel tanks.',
       overline: 'Production',
-      lead: 'From harvest to bottling, the process follows defined stages under controlled conditions.',
+      lead: 'For our French oenologists and food engineers, choosing between barrel and tank is not a simple technical decision; it is the art of letting each vintage tell its own story. These are the key steps and points of care we observe on the grape’s remarkable journey:',
       steps: [
         {
-          title: 'Harvest',
-          body: 'The harvest date is set according to the ripeness of the grapes; they are picked by hand and brought to the processing area without delay.',
+          title: 'Careful Harvest and a Race Against Time',
+          body: 'Our grapes are picked at the ideal moment of ripeness and brought to the processing area without delay so that they keep their aromatic richness.',
         },
         {
-          title: 'Sorting and pressing',
-          body: 'The grapes are sorted; pressing begins for the whites and maceration for the reds.',
+          title: 'Meticulous Sorting and Precise Pressing',
+          body: 'Only flawless berries are selected from the harvested grapes. At this stage the process differs according to the type of wine: for white grapes, gentle pressing that does not damage skins and seeds yields the purest juice, while for red grapes a period of skin contact takes place before pressing so that colour, tannins and aromas pass into the must.',
         },
         {
-          title: 'Fermentation',
-          body: 'Fermentation takes place in temperature-controlled stainless steel tanks under the supervision of the oenologist.',
+          title: 'Temperature-Controlled Fermentation',
+          body: 'Fermentation temperature in the steel tanks is monitored continuously, so the grape’s most delicate fruity aromas are preserved.',
         },
         {
-          title: 'Ageing',
-          body: 'Ageing takes place all year round in the stable, cool environment of cellars carved into tuff.',
+          title: 'Harmonious Ageing',
+          body: 'If the wine is to be aged in barrel, the type of barrel is chosen according to the structure of the grape. Ageing in barrel or tank is completed at its very peak, guided by regular tastings by our oenologists and engineers.',
         },
         {
-          title: 'Bottling',
-          body: 'Bottling is carried out on a closed line; every batch is recorded.',
+          title: 'Sterile and Safe Bottling',
+          body: 'Our food engineers keep oxygen contact to a minimum, safeguarding microbiological purity and sealing the wine’s pure character into the bottle.',
+        },
+      ],
+      sections: [
+        {
+          title: 'French Oak Barrels: A Mature Signature Over Time',
+          body: 'Our French oak barrels let the wine breathe slowly through the micro-pores of the wood, softening the tannins and giving the body a silky depth. The notes of vanilla, spice and sweet wood that pass into the wine from the barrel’s lightly toasted interior enrich the character of our reds suited to ageing and of our special whites.',
+        },
+        {
+          title: 'Stainless Steel Tanks: Terroir in Its Purest Form',
+          body: 'In our stainless steel tanks, where temperature is managed with millimetric precision, the lively fruit aromas and refreshing acidity of the grape at the moment it is picked are preserved just as they are. By cutting off contact with oxygen, this method brings out the fruit’s own character and carries the mineral structure of the region’s soil and the pure identity of the grape straight to your glass.',
         },
       ],
     },
     branches: {
       title: 'Our Branches and Facilities',
-      description: 'Turasan Pazarlama’s head office, sales store and wine house, Istanbul regional directorate and Sakarya branch — addresses and contact details.',
+      description: 'Turasan Pazarlama’s regional directorates in Ürgüp, Istanbul and Sakarya — addresses and contact details.',
       labels: { address: 'Address', phone: 'Tel', fax: 'Fax' },
       overline: 'Our Locations',
       lead: 'With our network of facilities and branches, we offer you closer and faster service.',
@@ -822,13 +904,13 @@ export const en: typeof tr = {
     },
     cellar: {
       title: 'Cellar and ageing',
-      description: 'Turasan’s cellar carved into tuff: its history, temperature and humidity conditions, barrel and bottle ageing, and its contribution to the wine.',
+      description: 'Turasan’s cellar carved into tuff: its history, temperature and humidity conditions, bottle ageing and its contribution to the wine.',
       overline: 'Cellar',
       lead:
         'The cellar is not a store where wine simply waits; it is the space that sets the conditions for ageing. This page describes the cellar’s history, its physical conditions and its contribution to the wine.',
       conditions: [
-        { label: 'Temperature', value: '11 – 14 °C, all year' },
-        { label: 'Relative humidity', value: '70 – 85%' },
+        { label: 'Temperature', value: '11 – 16 °C' },
+        { label: 'Humidity', value: '60 – 80%' },
         { label: 'Light', value: 'No natural light; working lights only' },
         { label: 'Barrel ageing', value: '6 – 18 months, depending on the wine' },
         { label: 'Bottle ageing', value: 'At least 3 months before shipment' },
@@ -839,7 +921,7 @@ export const en: typeof tr = {
           title: 'A structure carved into rock',
           body: [
             'In Cappadocia, tuff is a soft yet durable rock left behind by volcanic activity millions of years ago. It is soft enough to be worked by hand and strong enough to support itself once carved; storage and ageing spaces in the region have been opened this way for centuries.',
-            'Turasan’s first cellar was opened the same way in 1943. As production grew over the following generations the cellar was enlarged; its essence, the choice to remain within the rock, has not changed.',
+            'In 1943 we carved Turasan’s first cellar into the heart of the rock in the same way, with patience and effort. As our production grew over the generations our spaces expanded, yet the essence of our story has never changed. Today we continue, with the same care, our commitment to remaining at the heart of nature and the rock.',
           ],
           image: '/images/mahzen/tuf-duvar.jpeg',
           alt: 'Close-up of the tuff wall of the cellar, showing carving marks.',
@@ -847,26 +929,17 @@ export const en: typeof tr = {
         {
           title: 'Stable temperature and humidity',
           body: [
-            'The thickness and porous structure of the tuff keep the seasonal swings outside from reaching the interior. The difference between summer and winter shrinks to a few degrees inside the cellar, and the temperature stays within a narrow range all year.',
-            'The same structure also balances humidity. High relative humidity slows evaporation from the barrels and keeps corks from drying out. These conditions are achieved without mechanical climate control, through the behaviour of the rock itself.',
+            'The thick, porous texture of the tuff keeps seasonal temperature swings in the outside air from reaching the interior. The difference between summer and winter is limited to just a few degrees inside the cellar, and the environment stays in balance all year round.',
+            'This special structure also regulates humidity on its own. High relative humidity slows evaporation from the barrels and keeps corks from drying out. All these ideal conditions are provided entirely by the rock’s own natural character, without the need for any mechanical climate control system.',
           ],
           image: '/images/mahzen/mahzen-genel.jpeg',
           alt: 'Vaulted interior of the cellar, with rock walls and working lights falling on the floor.',
         },
         {
-          title: 'Barrel ageing',
-          body: [
-            'After fermentation, the reds and some of the whites are transferred to oak barrels. The barrel does not only add aroma; the very slow exchange of oxygen through its staves softens the tannins and allows the structure to settle.',
-            'The duration is set according to the grape, the vintage and the intended character. Every barrel batch is recorded and tasted regularly under the oenologist’s supervision throughout ageing.',
-          ],
-          image: '/images/mahzen/ficilar.jpeg',
-          alt: 'Rows of oak barrels stacked in the cellar.',
-        },
-        {
           title: 'Bottle ageing and contribution to the wine',
           body: [
-            'After bottling, the wine rests horizontally in the cellar before shipment. At this stage the effect of the disturbance caused by bottling fades and the aromas come together.',
-            'The cellar’s overall contribution lies not in a single stage but in continuity: the absence of temperature fluctuation slows ageing and makes it predictable; the dark environment protects light-sensitive compounds; high humidity limits loss of volume. As a result, the wine matures at a pace independent of the season outside.',
+            'After bottling, the wine rests horizontally in our cellar before shipment. This process eases the effect of the disturbance caused during bottling and allows the aromas to come together in balance.',
+            'The cellar’s contribution to the wine is not limited to a single stage; it continues uninterrupted throughout the process. The absence of temperature fluctuations slows maturation and keeps it controllable; the dark environment protects delicate light-sensitive compounds; and high humidity keeps loss of volume to a minimum. Thanks to all these conditions, the wine matures at its own ideal rhythm, unaffected by the seasonal changes of the outside world.',
           ],
           image: '/images/mahzen/sise-dinlendirme.jpeg',
           alt: 'Bottles resting horizontally in cellar niches.',

@@ -174,11 +174,11 @@ export const grapes: Record<string, Grape> = {
     primary: 'denizli-guney',
     body: [
       'Ankara’nın Kalecik ilçesine özgü bu kırmızı üzüm, Anadolu’nun köklü çeşitlerindendir.',
-      'Orta gövde, kırmızı meyve ağırlıklı aroma ve yumuşak tanen yapısı tipiktir.',
+      'Hafif gövde, kırmızı meyve ağırlıklı aroma ve yumuşak tanen yapısı tipiktir.',
     ],
     bodyEn: [
       'Native to the Kalecik district of Ankara, this red grape is one of Anatolia’s long-established varieties.',
-      'Medium body, red fruit-led aromas and soft tannins are typical.',
+      'Light body, red fruit-led aromas and soft tannins are typical.',
     ],
   },
   okuzgozu: {

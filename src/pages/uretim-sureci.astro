@@ -9,7 +9,7 @@ const t = c.pages.process;
   title={`${t.title} — ${c.ui.brand}`}
   description={t.description}
   overline={t.overline}
-  heading={t.title}
+  heading={t.heading}
   lead={t.lead}
 >
   <ol class="steps">
@@ -23,6 +23,16 @@ const t = c.pages.process;
       </li>
     ))}
   </ol>
+
+  <!-- Fıçı ve tank — adımların altında iki yöntem bölümü -->
+  <div class="methods">
+    {t.sections.map((s, i) => (
+      <article class="methods__item reveal" style={`transition-delay: ${i * 80}ms;`}>
+        <h2 class="display methods__title">{s.title}</h2>
+        <p class="muted methods__body">{s.body}</p>
+      </article>
+    ))}
+  </div>
 </SubPage>
 
 <style>
@@ -55,4 +65,31 @@ const t = c.pages.process;
   }
 
   .steps__body { margin: 0; }
+
+  .methods {
+    margin-top: clamp(56px, 9vh, 96px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--split-gap);
+  }
+
+  .methods__item {
+    padding-top: clamp(24px, 3.5vh, 36px);
+    border-top: 1px solid var(--color-garnet);
+  }
+
+  .methods__title {
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.2;
+    margin: 0 0 0.6em;
+  }
+
+  .methods__body {
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 760px) {
+    .methods { grid-template-columns: 1fr; }
+  }
 </style>
