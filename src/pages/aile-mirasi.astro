@@ -16,12 +16,16 @@ const t = c.pages.heritage;
   <div class="timeline">
     {t.sections.map((s, i) => (
       <article
-        class:list={['timeline__item', 'reveal', { 'timeline__item--tekli': !s.image }]}
+        class:list={[
+          'timeline__item',
+          'reveal',
+          { 'timeline__item--tekli': !s.image, 'timeline__item--genis': s.fotoOran === 'yatay' },
+        ]}
         style={`transition-delay: ${i * 80}ms;`}
       >
         {s.image && (
           <div class="timeline__media">
-            <Foto src={s.image} alt={s.alt ?? ''} label={s.phLabel ?? ''} oran="portrait" />
+            <Foto src={s.image} alt={s.alt ?? ''} label={s.phLabel ?? ''} oran={s.fotoOran ?? 'portrait'} />
           </div>
         )}
         <div>
@@ -69,6 +73,20 @@ const t = c.pages.heritage;
   .timeline__item--tekli,
   .timeline__item--tekli:nth-child(even) {
     grid-template-columns: 1fr;
+  }
+
+  /* Yatay fotoğraflı bölüm: fotoğraf metnin sağında, dikey portrelerin
+     sütunundan geniş bir alanda durur — metin zaten 52ch'de bittiği için
+     sağ taraf boş kalıyordu. */
+  .timeline__item--genis,
+  .timeline__item--genis:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 44%);
+    align-items: center;
+  }
+
+  .timeline__item--genis .timeline__media,
+  .timeline__item--genis:nth-child(even) .timeline__media {
+    order: 2;
   }
 
   .timeline__title {

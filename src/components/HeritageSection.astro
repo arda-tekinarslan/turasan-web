@@ -39,8 +39,7 @@ const t = icerik(lang).heritage;
       </div>
 
       <figure class="heritage__portrait reveal" style="transition-delay: 160ms;">
-        <Foto src={t.portraitImage} alt={t.portraitAlt} label={t.portraitLabel} oran="portrait" />
-        <figcaption class="muted heritage__portrait-caption">{t.portraitCaption}</figcaption>
+        <Foto src={t.portraitImage} alt={t.portraitAlt} label={t.portraitLabel} oran="yatay" />
       </figure>
     </div>
   </div>
@@ -75,9 +74,11 @@ const t = icerik(lang).heritage;
   /* Metin ve portre yan yana. Önceden portre metnin altında, sağa itilmiş
      ayrı bir bloktu; solda büyük boş alan bırakıp dengesiz duruyordu.
      Portre sütunu sınırlı, metin kalanı alır; ikisi dikeyde ortalanır. */
+  /* Sağdaki görsel yatay (4:3) olduğu için sütun dikey portredekinden
+     geniştir; daha dar bir sütunda fotoğraf küçücük kalıyordu. */
   .heritage__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 42%);
     gap: var(--split-gap);
     align-items: center;
   }
@@ -89,14 +90,8 @@ const t = icerik(lang).heritage;
     width: 100%;
   }
 
-  .heritage__portrait-caption {
-    margin-top: 10px;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-  }
-
   @media (max-width: 760px) {
     .heritage__grid { grid-template-columns: 1fr; }
-    .heritage__portrait { width: min(300px, 82%); }
+    .heritage__portrait { width: 100%; }
   }
 </style>

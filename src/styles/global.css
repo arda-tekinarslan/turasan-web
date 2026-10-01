@@ -193,6 +193,7 @@ h2.display {
 .theme-dark .ph__label { color: var(--color-on-dark-mut); }
 
 .ph--portrait { aspect-ratio: 4 / 5; }
+.ph--yatay { aspect-ratio: 4 / 3; }
 .ph--band { aspect-ratio: 16 / 7; width: 100%; }
 
 .ph::after {

@@ -15,15 +15,16 @@ interface Props {
   alt: string;
   /** Yer tutucu etiketi */
   label: string;
-  /** portrait = 4:5 (1600×2000), band = 16:7 (2400×1050) */
-  oran: 'portrait' | 'band';
+  /** portrait = 4:5 (1600×2000), yatay = 4:3 (2000×1500), band = 16:7 (2400×1050) */
+  oran: 'portrait' | 'yatay' | 'band';
   /** Yer tutucuya eklenecek ek sınıf (bölüme özel zemin vb.) */
   phClass?: string;
 }
 
 const { src, alt, label, oran, phClass } = Astro.props;
 const var_ = fs.existsSync(`public${src}`);
-const boyut = oran === 'portrait' ? { w: 1600, h: 2000 } : { w: 2400, h: 1050 };
+const boyut =
+  oran === 'portrait' ? { w: 1600, h: 2000 } : oran === 'yatay' ? { w: 2000, h: 1500 } : { w: 2400, h: 1050 };
 ---
 
 {var_ ? (
@@ -51,5 +52,6 @@ const boyut = oran === 'portrait' ? { w: 1600, h: 2000 } : { w: 2400, h: 1050 };
   }
 
   .foto--portrait { aspect-ratio: 4 / 5; }
+  .foto--yatay { aspect-ratio: 4 / 3; }
   .foto--band { aspect-ratio: 16 / 7; }
 </style>

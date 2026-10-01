@@ -17,6 +17,8 @@ type KusakBolumu = {
   phLabel?: string;
   image?: string;
   alt?: string;
+  /** Fotoğraf oranı; yatay fotoğraflar metnin altında tam genişlikte durur */
+  fotoOran?: 'portrait' | 'yatay';
 };
 
 export const tr = {
@@ -69,11 +71,9 @@ export const tr = {
     archiveLabel: 'görsel · arşiv, 1943',
     archiveImage: '/images/miras/arsiv-1943.jpeg',
     archiveAlt: 'Turasan’ın kuruluş yıllarından arşiv fotoğrafı.',
-    portraitLabel: 'portre · Hasan Turasan',
-    // Aile mirası sayfasındaki üçüncü kuşak bölümü de aynı dosyayı kullanır.
-    portraitImage: '/images/miras/hakan-turasan.jpeg',
-    portraitAlt: 'Hasan Turasan portresi.',
-    portraitCaption: 'Hasan Turasan — üçüncü kuşak',
+    portraitLabel: 'görsel · aile, bağda',
+    portraitImage: '/images/miras/hasan-turasan-portre.jpeg',
+    portraitAlt: 'Turasan ailesi bağda, hasat döneminde.',
   },
   vineyard: {
     id: 'bagcilik',
@@ -371,6 +371,10 @@ export const tr = {
             'Hasan Turasan’ın hayatını Selda Turasan ile birleştirmesiyle, Turasan ailesinin hikâyesinde yeni ve güçlü bir dönem başladı. Birbirlerine duydukları sevgi ve inançla çıktıkları bu yolculukta, aile yaşamını iş hayatıyla aynı değerler etrafında buluşturarak Turasan’ın geleceğine birlikte yön verdiler.',
             'Turasan mirasının yarınlardaki teminatı olan dördüncü kuşak temsilcileri Zeynep Turasan ve Hakan Turasan, eğitim hayatlarına başarıyla devam ederek aile geleneğini geleceğe hazırlamaktadır.',
           ],
+          phLabel: 'görsel · aile, bağda',
+          image: '/images/aile-mirasi/sevgi-ve-miras.jpeg',
+          alt: 'Turasan ailesi bağda, hasat döneminde.',
+          fotoOran: 'yatay' as const,
         },
       ] as KusakBolumu[],
     },
@@ -569,10 +573,9 @@ export const en: typeof tr = {
     archiveLabel: 'image · archive, 1943',
     archiveImage: '/images/miras/arsiv-1943.jpeg',
     archiveAlt: 'Archive photograph from Turasan’s founding years.',
-    portraitLabel: 'portrait · Hasan Turasan',
-    portraitImage: '/images/miras/hakan-turasan.jpeg',
-    portraitAlt: 'Portrait of Hasan Turasan.',
-    portraitCaption: 'Hasan Turasan — third generation',
+    portraitLabel: 'image · family in the vineyard',
+    portraitImage: '/images/miras/hasan-turasan-portre.jpeg',
+    portraitAlt: 'The Turasan family in the vineyard during harvest.',
   },
   vineyard: {
     id: 'bagcilik',
@@ -835,6 +838,10 @@ export const en: typeof tr = {
             'When Hasan Turasan and Selda Turasan joined their lives, a new and strong chapter began in the story of the Turasan family. On this journey, undertaken with love and faith in one another, they brought family life and business together around the same values and shaped Turasan’s future together.',
             'Zeynep Turasan and Hakan Turasan, the fourth-generation representatives and the future of the Turasan heritage, are successfully continuing their education and preparing the family tradition for the years ahead.',
           ],
+          phLabel: 'image · family in the vineyard',
+          image: '/images/aile-mirasi/sevgi-ve-miras.jpeg',
+          alt: 'The Turasan family in the vineyard during harvest.',
+          fotoOran: 'yatay' as const,
         },
       ],
     },
