@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.turasan.example/sitemap-index.xml
+Sitemap: https://arda-tekinarslan.github.io/turasan-web/sitemap-index.xml

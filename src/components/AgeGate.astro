@@ -38,7 +38,8 @@ const zeminVar = fs.existsSync(`public${t.background}`);
       {t.body.map((p) => <p>{p}</p>)}
     </div>
 
-    <h1 id="age-gate-title" class="age-gate__prompt">{t.prompt}</h1>
+    <!-- h2: sayfanın kendi h1'iyle yarışmasın; pencere başlığı aria-labelledby ile buraya bağlı -->
+    <h2 id="age-gate-title" class="age-gate__prompt">{t.prompt}</h2>
 
     <div class="age-gate__actions">
       <a class="age-gate__btn age-gate__btn--ghost" href={t.noHref}>{t.no}</a>
