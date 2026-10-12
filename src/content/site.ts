@@ -165,7 +165,7 @@ export const tr = {
     city: 'Ürgüp',
     // Konum başlığında şehirden sonra gösterilir; boşsa yalnızca şehir görünür.
     region: '',
-    address: 'Yunak Mah. Tevfik Fikret Cad. No: 6A-B, 50400 Ürgüp / Nevşehir',
+    address: 'Temenni, Tevfik Fikret Cd. No:44, 50400 Ürgüp/Nevşehir',
     phone: '(0384) 341 49 61',
     // Ekranda yerel biçim görünür; tel: bağlantısı uluslararası biçimde olur ki
     // mobilden ve yurt dışından da doğru çevrilsin.
@@ -187,8 +187,8 @@ export const tr = {
     },
     hoursTitle: 'Çalışma saatleri',
     hours: [
-      { label: 'Hafta içi', value: '09.00 – 19.00' },
-      { label: 'Hafta sonu', value: '09.00 – 19.00' },
+      { label: 'Hafta içi', value: '09.00 – 18.00' },
+      { label: 'Hafta sonu', value: '09.00 – 18.00' },
     ],
     branchesCta: { label: 'Şubelerimiz ve Tesislerimiz', href: '/subelerimiz' },
   },
@@ -359,6 +359,10 @@ export const tr = {
             {
               title: 'Diplomatik Temsil',
               body: 'Sektörel vizyonunun yanı sıra 2014 yılından bu yana İç Anadolu Bölgesi İspanya Fahri Konsolosluğu görevini de yürüterek bölgesel ve uluslararası ilişkilere katkı sağlamaktadır.',
+            },
+            {
+              title: 'Keeper of the Quaich Unvanı',
+              body: 'Pernod Ricard temsilciliği kapsamında İskoç viski kültürüne sunduğu katkılardan dolayı, viski dünyasının en prestijli cemiyetlerinden biri olan Keepers of the Quaich unvanına layık görülmüştür.',
             },
           ],
           phLabel: 'portre · Hasan Turasan',
@@ -660,7 +664,7 @@ export const en: typeof tr = {
     city: 'Ürgüp',
     // Konum başlığında şehirden sonra gösterilir; boşsa yalnızca şehir görünür.
     region: '',
-    address: 'Yunak Mah. Tevfik Fikret Cad. No: 6A-B, 50400 Ürgüp / Nevşehir',
+    address: 'Temenni, Tevfik Fikret Cd. No:44, 50400 Ürgüp/Nevşehir',
     phone: '(0384) 341 49 61',
     phoneDial: '+903843414961',
     email: 'info@turasan.com.tr',
@@ -675,8 +679,8 @@ export const en: typeof tr = {
     },
     hoursTitle: 'Opening hours',
     hours: [
-      { label: 'Weekdays', value: '09:00 – 19:00' },
-      { label: 'Weekends', value: '09:00 – 19:00' },
+      { label: 'Weekdays', value: '09:00 – 18:00' },
+      { label: 'Weekends', value: '09:00 – 18:00' },
     ],
     branchesCta: { label: 'Our Branches and Facilities', href: '/subelerimiz' },
   },
@@ -826,6 +830,10 @@ export const en: typeof tr = {
             {
               title: 'Diplomatic Representation',
               body: 'Alongside this vision for the sector, Hasan Turasan has served since 2014 as Honorary Consul of Spain for the Central Anatolia Region, contributing to regional and international relations.',
+            },
+            {
+              title: 'Keeper of the Quaich',
+              body: 'In recognition of his contribution to Scotch whisky culture through the Pernod Ricard representation, Hasan Turasan was named a Keeper of the Quaich, one of the most prestigious societies in the world of whisky.',
             },
           ],
           phLabel: 'portrait · Hasan Turasan',
