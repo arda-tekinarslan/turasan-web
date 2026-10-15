@@ -1,11 +1,12 @@
 ---
-import { dilBul, icerik, yol, karsiDilYolu } from '../lib/dil';
+import { dilBul, icerik, yol, karsiDilYolu, sayfaYokMu } from '../lib/dil';
 import SocialLinks from './SocialLinks.astro';
 import YasalMetinler from './YasalMetinler.astro';
 const lang = dilBul(Astro.url);
 const t = icerik(lang).footer;
-// Her iki dil bağlantısı da bulunulan sayfanın o dildeki karşılığına gider
-const burasi = Astro.url.pathname;
+// Her iki dil bağlantısı da bulunulan sayfanın o dildeki karşılığına gider;
+// 404 sayfasında kendine değil, o dilin ana sayfasına
+const burasi = sayfaYokMu(Astro.url) ? yol(lang, '/') : Astro.url.pathname;
 const trHref = lang === 'tr' ? burasi : karsiDilYolu(Astro.url);
 const enHref = lang === 'en' ? burasi : karsiDilYolu(Astro.url);
 ---

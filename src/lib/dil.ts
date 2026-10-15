@@ -35,10 +35,17 @@ export function yol(lang: Lang, path: string): string {
   return withBase(path);
 }
 
+/** Bulunamayan sayfa mı (/404, /404/, /404.html)? Tek dosyadır, dil karşılığı yoktur. */
+export function sayfaYokMu(url: URL): boolean {
+  return /^(\/en)?\/404(\.html|\/)?$/.test(tabansizYol(url));
+}
+
 /** Bulunulan sayfanın diğer dildeki karşılığı (taban dahil). */
 export function karsiDilYolu(url: URL): string {
   const lang = dilBul(url);
   const yolu = tabansizYol(url);
+  // 404 sayfasından dil geçişi diğer dilin ana sayfasına gider
+  if (sayfaYokMu(url)) return withBase(lang === 'en' ? '/' : '/en/');
   const hedef = lang === 'en' ? yolu.replace(/^\/en(?=\/|$)/, '') || '/' : `/en${yolu}`;
   return withBase(hedef);
 }

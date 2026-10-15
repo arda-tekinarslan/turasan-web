@@ -1,0 +1,18 @@
+---
+/**
+ * Bulunamayan sayfa. Sunucu (Ankara Hosting .htaccess'i ve GitHub Pages)
+ * her iki dil için de kökteki bu tek dosyayı gösterir; bu yüzden metin
+ * site.ts yerine burada, iki dilde birlikte durur.
+ */
+import SubPage from '../layouts/SubPage.astro';
+---
+
+<SubPage
+  title="Sayfa bulunamadı — Turasan Şarapçılık"
+  description="Aradığınız sayfa bulunamadı."
+  overline="404"
+  heading="Sayfa bulunamadı"
+  lead="Aradığınız sayfa taşınmış ya da kaldırılmış olabilir. Ana sayfadan devam edebilirsiniz."
+>
+  <p class="muted" lang="en">Page not found. The page you are looking for may have been moved or removed.</p>
+</SubPage>

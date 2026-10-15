@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://arda-tekinarslan.github.io/turasan-web/sitemap-index.xml
